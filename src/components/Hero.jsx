@@ -3,7 +3,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
 import styles from './Hero.module.css';
-import heroImage from '../assets/images/prajwal.png';
+import heroImage from '../assets/images/prajwal.jpg';
 
 function Hero() {
   return (
