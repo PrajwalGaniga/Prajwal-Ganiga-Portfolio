@@ -1,41 +1,220 @@
 /* src/components/CustomCursor.module.css */
-.cursor, .dot {
+.cursor, .dot, .aura, .borderGlow, .trailParticle {
   position: fixed;
   top: 0;
   left: 0;
-  pointer-events: none; /* Allows clicks to pass through */
+  pointer-events: none;
   z-index: 9999;
   transform: translate(-50%, -50%);
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transition: opacity 0.3s ease, transform 0.15s cubic-bezier(0.18, 0.89, 0.32, 1.28);
 }
 
+/* Main Cursor Ring */
 .cursor {
-  width: 40px;
-  height: 40px;
-  border: 2px solid var(--color-secondary);
+  width: 50px;
+  height: 50px;
+  border: 2px solid rgba(59, 130, 246, 0.8);
   border-radius: 50%;
-  transition-property: transform, width, height;
-  transition-duration: 0.2s;
-  transition-timing-function: ease-out;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
+  backdrop-filter: blur(2px);
+  box-shadow: 
+    0 0 20px rgba(59, 130, 246, 0.4),
+    inset 0 0 15px rgba(59, 130, 246, 0.1);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
+.cursorInner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  border-radius: 50%;
+  animation: rotate 4s linear infinite;
+}
+
+.cursorSparkle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  background: linear-gradient(45deg, #3b82f6, #8b5cf6);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) rotate(0deg) translateX(20px);
+  animation: sparkleOrbit 2s linear infinite;
+}
+
+/* Center Dot */
 .dot {
+  width: 6px;
+  height: 6px;
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(139, 92, 246, 0.6);
+  z-index: 10000;
+  transition: all 0.3s ease;
+}
+
+/* Outer Aura */
+.aura {
+  width: 80px;
+  height: 80px;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.05) 0%, transparent 70%);
+  animation: pulseAura 3s ease-in-out infinite;
+  z-index: 9998;
+}
+
+/* Border Glow Effect */
+.borderGlow {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, #3b82f6, #8b5cf6, #ec4899, #3b82f6);
+  opacity: 0.1;
+  filter: blur(8px);
+  z-index: 9997;
+  animation: rotate 3s linear infinite;
+}
+
+/* Trail Particles */
+.trailParticle {
   width: 8px;
   height: 8px;
-  background-color: var(--color-secondary);
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
   border-radius: 50%;
+  opacity: 0;
+  z-index: 9996;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  animation: fadeParticle 0.5s ease-out forwards;
 }
 
 /* Hide when off-screen */
 .hidden {
   opacity: 0;
+  transform: translate(-50%, -50%) scale(0.5);
 }
 
-/* Grow effect on hover */
+/* Pointer State (hovering clickable elements) - GREEN THEME */
 .pointer {
-  transform: translate(-50%, -50%) scale(1.5);
-  width: 50px;
-  height: 50px;
-  background-color: rgba(3, 218, 198, 0.1);
-  border-color: var(--color-primary);
+  border-color: rgba(34, 197, 94, 0.9);
+  background: radial-gradient(circle, rgba(34, 197, 94, 0.15) 0%, transparent 70%);
+  box-shadow: 
+    0 0 25px rgba(34, 197, 94, 0.5),
+    inset 0 0 20px rgba(34, 197, 94, 0.1);
+}
+
+.pointerAura {
+  border-color: rgba(34, 197, 94, 0.4);
+  background: radial-gradient(circle, rgba(34, 197, 94, 0.08) 0%, transparent 70%);
+}
+
+.pointer .cursorSparkle {
+  background: linear-gradient(45deg, #22c55e, #16a34a);
+  animation: sparkleOrbit 1s linear infinite;
+}
+
+.pointer .dot {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  box-shadow: 0 0 15px rgba(34, 197, 94, 0.8);
+}
+
+.pointer .trailParticle {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+}
+
+/* Clicking State */
+.clicking {
+  transform: translate(-50%, -50%) scale(0.9);
+  border-color: #ec4899;
+  background: radial-gradient(circle, rgba(236, 72, 153, 0.3) 0%, transparent 70%);
+}
+
+.clicking .cursorSparkle {
+  background: #ec4899;
+  animation: sparkleOrbit 0.5s linear infinite;
+}
+
+/* Animations */
+@keyframes rotate {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes sparkleOrbit {
+  from { transform: translate(-50%, -50%) rotate(0deg) translateX(20px) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg) translateX(20px) rotate(-360deg); }
+}
+
+@keyframes pulseAura {
+  0%, 100% { 
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.4;
+  }
+  50% { 
+    transform: translate(-50%, -50%) scale(1.1);
+    opacity: 0.2;
+  }
+}
+
+@keyframes fadeParticle {
+  0% {
+    opacity: 0.8;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.3);
+  }
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+  .cursor, .aura, .borderGlow {
+    display: none;
+  }
+  
+  .dot {
+    width: 8px;
+    height: 8px;
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+    box-shadow: 0 0 15px rgba(139, 92, 246, 0.8);
+  }
+  
+  .pointer .dot {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    box-shadow: 0 0 15px rgba(34, 197, 94, 0.8);
+  }
+  
+  .trailParticle {
+    display: none;
+  }
+}
+
+/* Touch device detection */
+@media (hover: none) and (pointer: coarse) {
+  .cursor, .aura, .borderGlow, .trailParticle {
+    display: none;
+  }
+  
+  .dot {
+    display: block;
+  }
+}
+
+/* Reduced motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .cursor, .aura, .borderGlow, .trailParticle {
+    animation: none;
+    transition: opacity 0.3s ease;
+  }
+  
+  .cursorInner {
+    animation: none;
+  }
+  
+  .cursorSparkle {
+    animation: none;
+    transform: translate(-50%, -50%) translateX(20px);
+  }
 }

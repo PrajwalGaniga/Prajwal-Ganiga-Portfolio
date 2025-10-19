@@ -1,4 +1,4 @@
-/* src/components/Projects.module.css - FIXED FOR MOBILE */
+/* src/components/Projects.module.css - UPDATED FEATURED GRID */
 .projectsSection {
   position: relative;
   padding: 80px 0;
@@ -302,6 +302,7 @@
     max-width: 600px;
   }
 
+  /* UPDATED: Featured grid for tablet - 2 columns */
   .featuredGrid {
     grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
@@ -344,8 +345,10 @@
     font-size: 3.5rem;
   }
 
+  /* UPDATED: Featured grid for desktop - 3 columns in one line */
   .featuredGrid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
   }
 
   .projectsGrid {
@@ -369,8 +372,10 @@
     grid-template-columns: repeat(3, 1fr);
   }
   
+  /* UPDATED: Featured grid for large desktop - 3 columns */
   .featuredGrid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
   }
 }
 

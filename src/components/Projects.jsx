@@ -25,7 +25,7 @@ const projectsData = [
     title: 'Natural Language to SQL',
     description: 'Advanced AI tool that translates natural English queries into optimized SQL commands using transformer models. Features query validation and database schema understanding.',
     tech: 'Deep Learning, Transformers, Python, FastAPI, React',
-    githubLink: 'https://github.com/PrajwalGaniga',
+    githubLink: 'https://github.com/PrajwalGaniga/NL2SQL',
     liveLink: null,
     images: ['project-sql.png'],
     category: 'ai-ml',
