@@ -1,0 +1,702 @@
+/* src/components/Achievements.module.css - MODIFIED VERSION */
+
+.achievementsSection {
+  position: relative;
+  padding: 120px 0;
+  background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+  overflow: hidden;
+  min-height: 100vh;
+}
+
+/* Background Elements */
+.backgroundElements {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.floatingOrb1 {
+  position: absolute;
+  top: 10%;
+  left: 8%;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.1) 0%, transparent 70%);
+  border-radius: 50%;
+  filter: blur(40px);
+  animation: float 8s ease-in-out infinite;
+}
+
+.floatingOrb2 {
+  position: absolute;
+  bottom: 10%;
+  right: 8%;
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 70%);
+  border-radius: 50%;
+  filter: blur(40px);
+  animation: float 10s ease-in-out infinite reverse;
+}
+
+.particlesContainer {
+  position: absolute;
+  inset: 0;
+}
+
+.particle {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) scale(1); }
+  50% { transform: translateY(-20px) scale(1.05); }
+}
+
+/* Container */
+.container {
+  width: 90%;
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+/* Section Header */
+.sectionHeader {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.sectionBadge {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50px;
+  padding: 12px 24px;
+  margin-bottom: 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.sectionTitle {
+  font-size: 4rem;
+  font-weight: 800;
+  color: white;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.02em;
+}
+
+.gradientText {
+  background: linear-gradient(135deg, #f59e0b, #10b981, #3b82f6);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 200%;
+  animation: gradientShift 3s ease infinite;
+}
+
+.sectionSubtitle {
+  font-size: 1.3rem;
+  color: rgba(255, 255, 255, 0.7);
+  max-width: 600px;
+  margin: 0 auto 2rem;
+  line-height: 1.6;
+}
+
+.titleDivider {
+  width: 120px;
+  height: 4px;
+  background: linear-gradient(90deg, #f59e0b, #10b981);
+  margin: 0 auto;
+  border-radius: 2px;
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Gallery Section */
+.gallerySection {
+  margin-bottom: 80px;
+  text-align: center;
+}
+
+.galleryTitle {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.gallerySubtitle {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 3rem;
+}
+
+.galleryContainer {
+  width: 100%;
+}
+
+.galleryGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+.galleryItem {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.galleryItem:hover {
+  transform: translateY(-8px);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.galleryItem.academic:hover {
+  box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2);
+}
+
+.galleryItem.technical:hover {
+  box-shadow: 0 20px 40px rgba(16, 185, 129, 0.2);
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+}
+
+.galleryImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.galleryItem:hover .galleryImage {
+  transform: scale(1.05);
+}
+
+.imageOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.galleryItem:hover .imageOverlay {
+  opacity: 1;
+}
+
+.overlayContent {
+  text-align: center;
+  color: white;
+}
+
+.overlayContent i {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.overlayContent span {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.imageInfo {
+  padding: 1.5rem;
+  text-align: left;
+}
+
+.imageInfo h4 {
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+.imageCategory {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.imageCategory i {
+  color: #f59e0b;
+}
+
+/* Modal Styles */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 2rem;
+}
+
+.modalContent {
+  position: relative;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  max-width: 90%;
+  max-height: 90%;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.closeButton {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.2rem;
+  z-index: 10;
+  transition: background 0.3s ease;
+}
+
+.closeButton:hover {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.modalImage {
+  width: 100%;
+  height: auto;
+  max-height: 70vh;
+  object-fit: contain;
+}
+
+.modalInfo {
+  padding: 2rem;
+  text-align: center;
+}
+
+.modalInfo h3 {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.modalCategory {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1rem;
+}
+
+.modalCategory i {
+  color: #f59e0b;
+}
+
+/* Achievements Grid */
+.achievementsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+/* Achievement Card */
+.achievementCard {
+  position: relative;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 2px;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.achievementCard::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 24px;
+  padding: 2px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), transparent);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: xor;
+  -webkit-mask-composite: xor;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.achievementCard:hover::before {
+  opacity: 1;
+}
+
+.achievementCard.academic {
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+.achievementCard.technical {
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.achievementCard.sports {
+  border-color: rgba(245, 158, 11, 0.3);
+}
+
+.cardGradient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  border-radius: 24px 24px 0 0;
+  opacity: 0.8;
+}
+
+.achievementCard.academic .cardGradient {
+  background: linear-gradient(90deg, #3b82f6, #06b6d4);
+}
+
+.achievementCard.technical .cardGradient {
+  background: linear-gradient(90deg, #10b981, #059669);
+}
+
+.achievementCard.sports .cardGradient {
+  background: linear-gradient(90deg, #f59e0b, #d97706);
+}
+
+.cardGlow {
+  position: absolute;
+  inset: 0;
+  border-radius: 24px;
+  background: inherit;
+  filter: blur(20px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.achievementCard:hover .cardGlow {
+  opacity: 0.3;
+}
+
+.cardContent {
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(20px);
+  border-radius: 22px;
+  padding: 2.5rem;
+  height: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+/* Card Header */
+.cardHeader {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.iconContainer {
+  width: 60px;
+  height: 60px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  flex-shrink: 0;
+}
+
+.iconContainer i {
+  font-size: 1.8rem;
+  color: #f59e0b;
+}
+
+.titleSection {
+  flex: 1;
+}
+
+.titleSection h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 0.75rem;
+  line-height: 1.2;
+}
+
+.highlights {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.highlightTag {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 4px 10px;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Achievement Stats */
+.achievementStats {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.statItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.statNumber {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 0.25rem;
+}
+
+.statLabel {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Points Container */
+.pointsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.pointItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 0.75rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+  border-left: 3px solid #10b981;
+}
+
+.pointIcon {
+  width: 20px;
+  height: 20px;
+  background: rgba(16, 185, 129, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.pointIcon i {
+  font-size: 0.7rem;
+  color: #10b981;
+}
+
+.pointItem span {
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.5;
+  font-size: 0.95rem;
+}
+
+/* Expand Button */
+.expandBtn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 10px 20px;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: auto;
+  width: 100%;
+  justify-content: center;
+}
+
+.expandBtn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Achievements Summary */
+.achievementsSummary {
+  display: flex;
+  justify-content: center;
+  gap: 4rem;
+  flex-wrap: wrap;
+}
+
+.summaryItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.summaryNumber {
+  font-size: 3rem;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, #f59e0b, #10b981);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.summaryLabel {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .achievementsSection {
+    padding: 80px 0;
+  }
+  
+  .sectionTitle {
+    font-size: 2.8rem;
+  }
+  
+  .galleryGrid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .imageWrapper {
+    height: 200px;
+  }
+  
+  .achievementsGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .cardContent {
+    padding: 2rem 1.5rem;
+  }
+  
+  .cardHeader {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+  
+  .achievementStats {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .achievementsSummary {
+    gap: 2rem;
+  }
+  
+  .summaryNumber {
+    font-size: 2.5rem;
+  }
+  
+  .galleryTitle {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .sectionTitle {
+    font-size: 2.2rem;
+  }
+  
+  .galleryGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .imageWrapper {
+    height: 180px;
+  }
+  
+  .cardContent {
+    padding: 1.5rem;
+  }
+  
+  .achievementsSummary {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .modalContent {
+    max-width: 95%;
+    max-height: 95%;
+  }
+}
+
+/* Large Desktop */
+@media (min-width: 1400px) {
+  .achievementsGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .galleryGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

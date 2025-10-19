@@ -1,0 +1,66 @@
+/* src/index.css */
+
+/* 1. CSS Resets & Box Sizing
+*/
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* 2. Modern Dark Theme Variables
+*/
+:root {
+  /* Colors */
+  --color-bg: #121212;          /* Very dark grey, almost black */
+  --color-bg-light: #1D1D1D;    /* Lighter grey for cards/sections */
+  --color-primary: #BB86FC;     /* A vibrant purple for accents */
+  --color-primary-variant: #3700B3; /* A deeper purple */
+  --color-secondary: #03DAC6;   /* A bright teal for other accents */
+  --color-text: #E1E1E1;        /* Light grey for body text */
+  --color-text-secondary: #B3B3B3; /* Muted grey for subtitles */
+  --color-border: #2c2c2c;      /* Subtle border color */
+
+  /* Fonts */
+  --font-primary: 'Poppins', sans-serif;
+
+  /* Spacing */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-xxl: 64px;
+
+  /* Other */
+  --border-radius: 8px;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* 3. Global Styles
+*/
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-primary);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+  cursor: none;
+}
+
+/* 4. Utility Classes (we can add more later)
+*/
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: var(--spacing-lg) 0;
+}

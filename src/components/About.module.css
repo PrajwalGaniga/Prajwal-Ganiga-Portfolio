@@ -1,0 +1,443 @@
+/* src/components/About.module.css - UPDATED WITH LEADERSHIP SECTION */
+.aboutSection {
+  position: relative;
+  padding: 120px 0;
+  background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+  overflow: hidden;
+  color: white;
+}
+
+/* Background Elements */
+.backgroundElements {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.orb1 {
+  position: absolute;
+  top: 10%;
+  left: 5%;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 70%);
+  border-radius: 50%;
+  filter: blur(40px);
+}
+
+.orb2 {
+  position: absolute;
+  bottom: 10%;
+  right: 5%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 70%);
+  border-radius: 50%;
+  filter: blur(40px);
+}
+
+/* Container */
+.container {
+  width: 90%;
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+/* Section Header */
+.sectionHeader {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.sectionBadge {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50px;
+  padding: 8px 24px;
+  margin-bottom: 2rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.sectionTitle {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: white;
+  line-height: 1.1;
+  margin-bottom: 2rem;
+  letter-spacing: -0.02em;
+}
+
+.gradientText {
+  background: linear-gradient(135deg, #10b981, #06b6d4, #3b82f6);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.titleDivider {
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(90deg, #10b981, #06b6d4);
+  margin: 0 auto;
+  border-radius: 2px;
+}
+
+/* Leadership Section */
+.leadershipSection {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 4rem;
+  flex-wrap: wrap;
+}
+
+.leadershipBadge {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 1.5rem 2rem;
+  min-width: 300px;
+  max-width: 400px;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.leadershipBadge:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(59, 130, 246, 0.3);
+  transform: translateY(-2px);
+}
+
+.roleLogo {
+  width: 60px;
+  height: 60px;
+  flex-shrink: 0;
+}
+
+.roleLogo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 12px;
+}
+
+.roleContent {
+  flex: 1;
+}
+
+.roleTitle {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #10b981;
+  margin-bottom: 0.25rem;
+}
+
+.roleOrganization {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 0.5rem;
+}
+
+.roleDescription {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.4;
+}
+
+/* Content Grid */
+.contentGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  margin-bottom: 4rem;
+}
+
+/* Left Column */
+.leftColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.introCard {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 3rem;
+  position: relative;
+  text-align: center;
+}
+
+.quoteIcon {
+  font-size: 3rem;
+  color: rgba(255, 255, 255, 0.3);
+  line-height: 1;
+  margin-bottom: 1rem;
+}
+
+.quoteIcon:last-child {
+  margin-top: 1rem;
+  margin-bottom: 0;
+  text-align: right;
+}
+
+.introText {
+  font-size: 1.2rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0;
+}
+
+.introText strong {
+  color: white;
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Stats Grid */
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.statCard {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+}
+
+.statNumber {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.statLabel {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 500;
+}
+
+/* Right Column */
+.rightColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.detailsCard, .interestsCard {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 2.5rem;
+}
+
+.cardTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+/* Details List */
+.detailsList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.detailItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 16px;
+  border-left: 4px solid #10b981;
+}
+
+.detailIcon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.detailContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.detailContent strong {
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.detailContent span {
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.5;
+}
+
+/* Interests Grid */
+.interestsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.interestItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.5rem 1rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.interestIcon {
+  font-size: 2rem;
+}
+
+.interestName {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+/* Mission Card */
+.missionCard {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 3rem;
+  text-align: center;
+  position: relative;
+}
+
+.missionIcon {
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
+}
+
+.missionText {
+  font-size: 1.3rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
+  font-style: italic;
+  margin: 0;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+  .contentGrid {
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+  }
+  
+  .statsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .interestsGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .sectionTitle {
+    font-size: 4rem;
+  }
+  
+  .leadershipSection {
+    gap: 3rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .sectionTitle {
+    font-size: 4.5rem;
+  }
+  
+  .statsGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  
+  .leadershipBadge {
+    min-width: 350px;
+  }
+}
+
+/* Mobile Optimizations */
+@media (max-width: 480px) {
+  .aboutSection {
+    padding: 80px 0;
+  }
+  
+  .sectionTitle {
+    font-size: 2.5rem;
+  }
+  
+  .introCard, .detailsCard, .interestsCard, .missionCard {
+    padding: 2rem 1.5rem;
+  }
+  
+  .statsGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .interestsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .detailItem {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .missionText {
+    font-size: 1.1rem;
+  }
+  
+  .leadershipSection {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .leadershipBadge {
+    min-width: 100%;
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+  
+  .roleLogo {
+    width: 50px;
+    height: 50px;
+  }
+}
