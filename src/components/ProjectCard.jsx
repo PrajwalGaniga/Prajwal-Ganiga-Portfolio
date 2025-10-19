@@ -26,12 +26,17 @@ import imgJob43 from '../assets/images/project_4/project43.png';
 
 import imgDoc5 from '../assets/images/project_5/project5.jpg';
 import imgDoc51 from '../assets/images/project_5/project51.png';
+import imgDoc52 from '../assets/images/project_5/project52.png';
+import imgDoc53 from '../assets/images/project_5/project53.png';
 
 import imgDoIt61 from '../assets/images/project_6/project61.png';
 import imgDoIt62 from '../assets/images/project_6/project62.png';
 import imgDoIt63 from '../assets/images/project_6/project63.png';
 
 import imgSql from '../assets/images/project_sql/project-sql.png';
+import imgSql1 from '../assets/images/project_sql/project-sql1.png'
+import imgSql2 from '../assets/images/project_sql/project-sql2.png';
+import imgSql3 from '../assets/images/project_sql/project-sql3.png';
 
 const imageMap = {
   'project1.jpg': imgSmart1,
@@ -52,10 +57,15 @@ const imageMap = {
   'project43.png': imgJob43,
   'project5.jpg': imgDoc5,
   'project51.png': imgDoc51,
+  'project52.png': imgDoc52,
+  'project53.png': imgDoc53,
   'project61.png': imgDoIt61,
   'project62.png': imgDoIt62,
   'project63.png': imgDoIt63,
   'project-sql.png': imgSql,
+  'project-sql1.png': imgSql1,
+  'project-sql2.png': imgSql2,
+  'project-sql3.png': imgSql3,
 };
 
 // Animation variants
