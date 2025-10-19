@@ -1,7 +1,7 @@
-/* src/components/Projects.module.css - UPDATED FEATURED GRID */
+/* src/components/Projects.module.css - COMPLETELY REDESIGNED */
 .projectsSection {
   position: relative;
-  padding: 80px 0;
+  padding: 60px 0;
   background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
   overflow: hidden;
   min-height: 100vh;
@@ -16,45 +16,63 @@
   z-index: 1;
 }
 
-.floatingOrb1 {
+.gradientOrb1 {
   position: absolute;
   top: 10%;
   left: 5%;
-  width: 200px;
-  height: 200px;
-  background: radial-gradient(circle, rgba(96, 218, 251, 0.1) 0%, transparent 70%);
+  width: 150px;
+  height: 150px;
+  background: radial-gradient(circle, rgba(96, 218, 251, 0.15) 0%, transparent 70%);
   border-radius: 50%;
-  filter: blur(40px);
+  filter: blur(30px);
   animation: float 8s ease-in-out infinite;
 }
 
-.floatingOrb2 {
+.gradientOrb2 {
   position: absolute;
   bottom: 10%;
   right: 5%;
-  width: 150px;
-  height: 150px;
-  background: radial-gradient(circle, rgba(156, 39, 176, 0.1) 0%, transparent 70%);
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle, rgba(156, 39, 176, 0.15) 0%, transparent 70%);
   border-radius: 50%;
-  filter: blur(40px);
+  filter: blur(30px);
   animation: float 10s ease-in-out infinite reverse;
 }
 
-.particlesContainer {
+.floatingShapes {
   position: absolute;
   inset: 0;
 }
 
-.particle {
+.shape {
   position: absolute;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 50%;
+  opacity: 0.1;
   pointer-events: none;
 }
 
+.shape.circle {
+  border-radius: 50%;
+  background: linear-gradient(135deg, #61DAFB, #9C27B0);
+}
+
+.shape.square {
+  background: linear-gradient(135deg, #E91E63, #61DAFB);
+  transform: rotate(45deg);
+}
+
+.shape.triangle {
+  width: 0;
+  height: 0;
+  background: transparent !important;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-bottom: 26px solid #61DAFB;
+}
+
 @keyframes float {
-  0%, 100% { transform: translateY(0px) scale(1); }
-  50% { transform: translateY(-20px) scale(1.05); }
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(10deg); }
 }
 
 /* Container */
@@ -90,13 +108,12 @@
 }
 
 .sectionTitle {
-  font-size: 2.5rem;
+  font-size: 2.2rem;
   font-weight: 800;
   color: white;
   line-height: 1.2;
   margin-bottom: 1rem;
   letter-spacing: -0.02em;
-  width: 100%;
 }
 
 .gradientText {
@@ -110,19 +127,30 @@
 
 .sectionSubtitle {
   font-size: 1.1rem;
-  color: rgba(255, 255, 255, 0.7);
-  max-width: 100%;
+  color: rgba(255, 255, 255, 0.8);
+  max-width: 500px;
   margin: 0 auto 1.5rem;
   line-height: 1.5;
-  padding: 0 10px;
 }
 
-.titleDivider {
-  width: 80px;
-  height: 3px;
-  background: linear-gradient(90deg, #61DAFB, #9C27B0);
-  margin: 0 auto;
-  border-radius: 2px;
+.projectsCounter {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 8px 16px;
+  font-weight: 600;
+}
+
+.counterCurrent {
+  color: #61DAFB;
+  font-size: 1.2rem;
+}
+
+.counterTotal {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.9rem;
+  margin-left: 4px;
 }
 
 @keyframes gradientShift {
@@ -130,163 +158,138 @@
   50% { background-position: 100% 50%; }
 }
 
-/* Featured Section */
-.featuredSection {
+/* Mobile Carousel */
+.mobileCarousel {
+  display: block;
+  width: 100%;
   margin-bottom: 3rem;
-  width: 100%;
 }
 
-.featuredTitle {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: white;
-  text-align: center;
-  margin-bottom: 1.5rem;
+.carouselContainer {
   position: relative;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
 }
 
-.featuredTitle::after {
-  content: '';
-  position: absolute;
-  bottom: -8px;
-  left: 50%;
-  transform: translateX(-50%);
+.carouselSlide {
+  width: 100%;
+}
+
+.carouselControls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+  padding: 0 10px;
+}
+
+.carouselBtn {
   width: 50px;
-  height: 2px;
-  background: linear-gradient(90deg, #61DAFB, #9C27B0);
-  border-radius: 2px;
-}
-
-.featuredGrid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
-  margin-bottom: 2rem;
-  width: 100%;
-}
-
-/* Controls */
-.controls {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 2rem;
-  width: 100%;
-  gap: 1rem;
-}
-
-.filterGroup {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  width: 100%;
-}
-
-.filterLabel {
-  color: rgba(255, 255, 255, 0.7);
-  font-weight: 500;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  color: white;
   font-size: 1rem;
-}
-
-.filterButtons {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-  justify-content: center;
-  width: 100%;
-}
-
-.filterBtn {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  padding: 8px 16px;
-  color: rgba(255, 255, 255, 0.8);
-  font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  text-transform: capitalize;
-  font-size: 0.9rem;
-  min-width: auto;
+  justify-content: center;
+  backdrop-filter: blur(10px);
 }
 
-.filterBtn:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.2);
+.carouselBtn:hover {
+  background: rgba(96, 218, 251, 0.2);
+  border-color: #61DAFB;
+  transform: scale(1.1);
 }
 
-.filterBtn.active {
-  background: linear-gradient(135deg, #61DAFB, #9C27B0);
-  color: white;
-  border-color: transparent;
-  box-shadow: 0 4px 15px rgba(96, 218, 251, 0.3);
+.carouselDots {
+  display: flex;
+  gap: 8px;
 }
 
-.projectCount {
-  background: rgba(255, 255, 255, 0.2);
-  padding: 2px 6px;
-  border-radius: 10px;
-  font-size: 0.7rem;
-  font-weight: 600;
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-/* Projects Grid */
-.projectsGrid {
-  display: grid;
+.dot.active {
+  background: #61DAFB;
+  transform: scale(1.2);
+}
+
+/* Desktop Grid */
+.desktopGrid {
+  display: none;
   grid-template-columns: 1fr;
-  gap: 1.5rem;
+  gap: 2rem;
   margin-bottom: 3rem;
-  width: 100%;
 }
 
-/* Projects Summary */
-.projectsSummary {
+/* Projects Stats */
+.projectsStats {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
   width: 100%;
-  max-width: 400px;
+  max-width: 500px;
   margin: 0 auto;
 }
 
-.summaryItem {
+.statItem {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.2rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.statIcon {
+  font-size: 1.5rem;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(96, 218, 251, 0.1);
+  border-radius: 12px;
+}
+
+.statContent {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: 1rem;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.summaryNumber {
-  font-size: 2rem;
+.statNumber {
+  font-size: 1.5rem;
   font-weight: 800;
   color: white;
-  margin-bottom: 0.5rem;
-  background: linear-gradient(135deg, #61DAFB, #9C27B0);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  line-height: 1;
 }
 
-.summaryLabel {
-  font-size: 0.9rem;
+.statLabel {
+  font-size: 0.8rem;
   color: rgba(255, 255, 255, 0.7);
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  margin-top: 0.25rem;
 }
 
 /* Tablet */
 @media (min-width: 768px) {
   .projectsSection {
-    padding: 100px 0;
+    padding: 80px 0;
   }
 
   .container {
@@ -294,127 +297,83 @@
   }
 
   .sectionTitle {
-    font-size: 3rem;
+    font-size: 2.8rem;
   }
 
-  .sectionSubtitle {
-    font-size: 1.2rem;
+  .projectsStats {
+    grid-template-columns: repeat(3, 1fr);
     max-width: 600px;
+    gap: 1.5rem;
   }
 
-  /* UPDATED: Featured grid for tablet - 2 columns */
-  .featuredGrid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
+  .statItem {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.8rem;
+    padding: 1.5rem;
   }
 
-  .projectsGrid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
+  .statNumber {
+    font-size: 1.8rem;
   }
 
-  .controls {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .filterGroup {
-    flex-direction: row;
-    align-items: center;
-  }
-
-  .projectsSummary {
-    grid-template-columns: repeat(4, 1fr);
-    max-width: none;
-    gap: 2rem;
-  }
-
-  .summaryNumber {
-    font-size: 2.5rem;
+  .statLabel {
+    font-size: 0.85rem;
   }
 }
 
 /* Desktop */
 @media (min-width: 1024px) {
   .projectsSection {
-    padding: 120px 0;
+    padding: 100px 0;
   }
 
   .sectionTitle {
-    font-size: 3.5rem;
+    font-size: 3.2rem;
   }
 
-  /* UPDATED: Featured grid for desktop - 3 columns in one line */
-  .featuredGrid {
-    grid-template-columns: repeat(3, 1fr);
+  .mobileCarousel {
+    display: none;
+  }
+
+  .desktopGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 2rem;
   }
 
-  .projectsGrid {
-    grid-template-columns: repeat(3, 1fr);
+  .projectsStats {
+    max-width: 800px;
   }
 
-  .floatingOrb1 {
-    width: 300px;
-    height: 300px;
+  .statItem {
+    flex-direction: row;
+    text-align: left;
   }
 
-  .floatingOrb2 {
+  .gradientOrb1 {
     width: 250px;
     height: 250px;
+  }
+
+  .gradientOrb2 {
+    width: 200px;
+    height: 200px;
   }
 }
 
 /* Large Desktop */
-@media (min-width: 1400px) {
-  .projectsGrid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  
-  /* UPDATED: Featured grid for large desktop - 3 columns */
-  .featuredGrid {
+@media (min-width: 1200px) {
+  .desktopGrid {
     grid-template-columns: repeat(3, 1fr);
     gap: 2.5rem;
   }
 }
 
-/* Ensure content is visible on very small screens */
-@media (max-width: 360px) {
-  .container {
-    padding: 0 15px;
-  }
-
-  .sectionTitle {
-    font-size: 2rem;
-  }
-
-  .sectionSubtitle {
-    font-size: 1rem;
-  }
-
-  .filterBtn {
-    padding: 6px 12px;
-    font-size: 0.8rem;
-  }
-
-  .projectsSummary {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-
-  .summaryItem {
-    padding: 0.75rem;
-  }
-}
-
-/* Add these mobile fixes to your existing Projects.module.css */
-
-/* Mobile Projects Grid */
+/* Mobile Optimizations */
 @media (max-width: 767px) {
   .projectsSection {
-    padding: 60px 0 !important;
-    background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%) !important;
+    padding: 50px 0 !important;
   }
 
   .container {
@@ -422,84 +381,75 @@
   }
 
   .sectionTitle {
-    font-size: 2rem !important;
-    color: #ffffff !important;
+    font-size: 1.8rem !important;
   }
 
   .sectionSubtitle {
-    color: rgba(255, 255, 255, 0.9) !important;
     font-size: 1rem !important;
+    padding: 0 10px;
   }
 
-  .featuredGrid {
-    grid-template-columns: 1fr !important;
-    gap: 1.5rem !important;
+  .carouselControls {
+    padding: 0 5px;
   }
 
-  .projectsGrid {
-    grid-template-columns: 1fr !important;
-    gap: 1.5rem !important;
+  .carouselBtn {
+    width: 45px;
+    height: 45px;
+    font-size: 0.9rem;
   }
 
-  /* Ensure filter buttons are visible */
-  .filterButtons {
-    gap: 0.5rem !important;
-    justify-content: center !important;
+  .projectsStats {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    max-width: 100%;
   }
 
-  .filterBtn {
-    background: rgba(255, 255, 255, 0.1) !important;
-    border: 1px solid rgba(255, 255, 255, 0.2) !important;
-    color: rgba(255, 255, 255, 0.9) !important;
-    padding: 10px 16px !important;
-    font-size: 0.85rem !important;
+  .statItem {
+    padding: 1rem;
   }
 
-  .filterBtn.active {
-    background: linear-gradient(135deg, #61DAFB, #9C27B0) !important;
-    color: white !important;
+  .statNumber {
+    font-size: 1.3rem;
   }
 
-  /* Improve summary visibility */
-  .projectsSummary {
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 1rem !important;
-    max-width: 100% !important;
-  }
-
-  .summaryItem {
-    background: rgba(255, 255, 255, 0.08) !important;
-    border: 1px solid rgba(255, 255, 255, 0.15) !important;
-    padding: 1rem !important;
-  }
-
-  .summaryNumber {
-    font-size: 1.8rem !important;
-    color: #61DAFB !important;
-    -webkit-text-fill-color: #61DAFB !important;
-  }
-
-  .summaryLabel {
-    color: rgba(255, 255, 255, 0.8) !important;
+  .statIcon {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
   }
 }
 
-/* Fix for very small screens */
-@media (max-width: 320px) {
-  .projectsSection {
-    padding: 50px 0 !important;
-  }
-
+/* Very small screens */
+@media (max-width: 360px) {
   .sectionTitle {
-    font-size: 1.8rem !important;
+    font-size: 1.6rem !important;
   }
 
-  .filterBtn {
-    padding: 8px 12px !important;
-    font-size: 0.8rem !important;
+  .sectionBadge {
+    font-size: 0.8rem;
+    padding: 8px 16px;
   }
 
-  .projectsSummary {
-    grid-template-columns: 1fr !important;
+  .carouselBtn {
+    width: 40px;
+    height: 40px;
+  }
+
+  .statItem {
+    padding: 0.8rem;
+  }
+
+  .statNumber {
+    font-size: 1.2rem;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) {
+  .carouselBtn:hover {
+    transform: none;
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
   }
 }

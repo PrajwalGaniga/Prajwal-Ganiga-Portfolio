@@ -1,11 +1,11 @@
-// src/components/Projects.jsx - FIXED FOR MOBILE
+// src/components/Projects.jsx - COMPLETELY REDESIGNED FOR MOBILE
 import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import styles from './Projects.module.css';
 import ProjectCard from './ProjectCard.jsx';
 
-// Enhanced project data with categories, status, and features
+// Enhanced project data
 const projectsData = [
   {
     id: 1,
@@ -100,37 +100,40 @@ const projectsData = [
   }
 ];
 
-// Particle Background Component
-const ParticleBackground = () => {
-  const particles = Array.from({ length: 15 }, (_, i) => ({
+// Floating Shapes Background Component
+const FloatingShapes = () => {
+  const shapes = Array.from({ length: 8 }, (_, i) => ({
     id: i,
-    size: Math.random() * 4 + 2,
+    type: i % 3 === 0 ? 'circle' : i % 3 === 1 ? 'square' : 'triangle',
+    size: Math.random() * 30 + 10,
     x: Math.random() * 100,
     y: Math.random() * 100,
-    duration: Math.random() * 20 + 10
+    duration: Math.random() * 15 + 10,
+    delay: Math.random() * 5
   }));
 
   return (
-    <div className={styles.particlesContainer}>
-      {particles.map(particle => (
+    <div className={styles.floatingShapes}>
+      {shapes.map(shape => (
         <motion.div
-          key={particle.id}
-          className={styles.particle}
+          key={shape.id}
+          className={`${styles.shape} ${styles[shape.type]}`}
           style={{
-            width: particle.size,
-            height: particle.size,
-            left: `${particle.x}%`,
-            top: `${particle.y}%`,
+            width: shape.size,
+            height: shape.size,
+            left: `${shape.x}%`,
+            top: `${shape.y}%`,
           }}
           animate={{
-            y: [0, -30, 0],
-            opacity: [0, 1, 0],
+            y: [0, -40, 0],
+            rotate: shape.type === 'circle' ? [0, 180] : [0, 360],
+            scale: [1, 1.1, 1],
           }}
           transition={{
-            duration: particle.duration,
+            duration: shape.duration,
             repeat: Infinity,
             ease: "easeInOut",
-            delay: Math.random() * 5
+            delay: shape.delay
           }}
         />
       ))}
@@ -144,27 +147,24 @@ function Projects() {
     threshold: 0.1,
   });
 
-  const [activeFilter, setActiveFilter] = useState('all');
-
-  // Unique categories
-  const categories = ['all', ...new Set(projectsData.map(project => project.category))];
-
-  // Filter projects
-  const filteredProjects = projectsData.filter(project => 
-    activeFilter === 'all' || project.category === activeFilter
-  );
-
-  // Featured projects
-  const featuredProjects = projectsData.filter(project => project.featured);
+  const [activeProject, setActiveProject] = useState(0);
 
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.15
+        staggerChildren: 0.2
       }
     }
+  };
+
+  const nextProject = () => {
+    setActiveProject((prev) => (prev + 1) % projectsData.length);
+  };
+
+  const prevProject = () => {
+    setActiveProject((prev) => (prev - 1 + projectsData.length) % projectsData.length);
   };
 
   return (
@@ -178,9 +178,9 @@ function Projects() {
     >
       {/* Animated Background */}
       <div className={styles.backgroundElements}>
-        <div className={styles.floatingOrb1}></div>
-        <div className={styles.floatingOrb2}></div>
-        <ParticleBackground />
+        <div className={styles.gradientOrb1}></div>
+        <div className={styles.gradientOrb2}></div>
+        <FloatingShapes />
       </div>
 
       <div className={styles.container}>
@@ -192,117 +192,114 @@ function Projects() {
           transition={{ duration: 0.8 }}
         >
           <div className={styles.sectionBadge}>
-            <span>🚀 Portfolio Showcase</span>
+            <span>🚀 My Creations</span>
           </div>
           <h2 className={styles.sectionTitle}>
-            Innovative <span className={styles.gradientText}>Projects</span>
+            Featured <span className={styles.gradientText}>Projects</span>
           </h2>
           <p className={styles.sectionSubtitle}>
-            A collection of my technical creations, from AI-powered solutions to full-stack applications
+            Explore my portfolio of innovative solutions and creative applications
           </p>
-          <div className={styles.titleDivider}></div>
-        </motion.div>
-
-        {/* Featured Projects */}
-        {activeFilter === 'all' && (
-          <motion.div 
-            className={styles.featuredSection}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-          >
-            <h3 className={styles.featuredTitle}>Featured Projects</h3>
-            <div className={styles.featuredGrid}>
-              {featuredProjects.map((project, index) => (
-                <ProjectCard 
-                  key={project.id} 
-                  project={project} 
-                  featured={true}
-                  index={index}
-                />
-              ))}
-            </div>
-          </motion.div>
-        )}
-
-        {/* Controls */}
-        <motion.div 
-          className={styles.controls}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-        >
-          {/* Category Filter */}
-          <div className={styles.filterGroup}>
-            <span className={styles.filterLabel}>Filter by:</span>
-            <div className={styles.filterButtons}>
-              {categories.map(category => (
-                <motion.button
-                  key={category}
-                  className={`${styles.filterBtn} ${
-                    activeFilter === category ? styles.active : ''
-                  }`}
-                  onClick={() => setActiveFilter(category)}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  {category === 'all' ? 'All Projects' : category}
-                  {category !== 'all' && (
-                    <span className={styles.projectCount}>
-                      {projectsData.filter(p => p.category === category).length}
-                    </span>
-                  )}
-                </motion.button>
-              ))}
-            </div>
+          <div className={styles.projectsCounter}>
+            <span className={styles.counterCurrent}>{activeProject + 1}</span>
+            <span className={styles.counterTotal}>/{projectsData.length}</span>
           </div>
         </motion.div>
 
-        {/* Projects Grid */}
-        <motion.div 
-          className={styles.projectsGrid}
-          layout
-        >
-          <AnimatePresence>
-            {filteredProjects.map((project, index) => (
-              <ProjectCard
-                key={project.id}
-                project={project}
-                featured={project.featured}
-                index={index}
-              />
-            ))}
-          </AnimatePresence>
-        </motion.div>
+        {/* Mobile Carousel */}
+        <div className={styles.mobileCarousel}>
+          <div className={styles.carouselContainer}>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeProject}
+                className={styles.carouselSlide}
+                initial={{ opacity: 0, x: 300 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -300 }}
+                transition={{ duration: 0.5 }}
+              >
+                <ProjectCard 
+                  project={projectsData[activeProject]} 
+                  featured={projectsData[activeProject].featured}
+                />
+              </motion.div>
+            </AnimatePresence>
 
-        {/* Projects Summary */}
+            {/* Carousel Controls */}
+            <div className={styles.carouselControls}>
+              <button 
+                className={styles.carouselBtn} 
+                onClick={prevProject}
+                aria-label="Previous project"
+              >
+                <i className="fas fa-chevron-left"></i>
+              </button>
+              
+              <div className={styles.carouselDots}>
+                {projectsData.map((_, index) => (
+                  <button
+                    key={index}
+                    className={`${styles.dot} ${activeProject === index ? styles.active : ''}`}
+                    onClick={() => setActiveProject(index)}
+                    aria-label={`Go to project ${index + 1}`}
+                  />
+                ))}
+              </div>
+              
+              <button 
+                className={styles.carouselBtn} 
+                onClick={nextProject}
+                aria-label="Next project"
+              >
+                <i className="fas fa-chevron-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Desktop Grid */}
+        <div className={styles.desktopGrid}>
+          {projectsData.map((project, index) => (
+            <ProjectCard
+              key={project.id}
+              project={project}
+              featured={project.featured}
+              index={index}
+            />
+          ))}
+        </div>
+
+        {/* Projects Stats */}
         <motion.div 
-          className={styles.projectsSummary}
+          className={styles.projectsStats}
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
         >
-          <div className={styles.summaryItem}>
-            <span className={styles.summaryNumber}>{projectsData.length}</span>
-            <span className={styles.summaryLabel}>Total Projects</span>
+          <div className={styles.statItem}>
+            <div className={styles.statIcon}>💼</div>
+            <div className={styles.statContent}>
+              <span className={styles.statNumber}>{projectsData.length}+</span>
+              <span className={styles.statLabel}>Projects Completed</span>
+            </div>
           </div>
-          <div className={styles.summaryItem}>
-            <span className={styles.summaryNumber}>
-              {projectsData.filter(p => p.status === 'completed').length}
-            </span>
-            <span className={styles.summaryLabel}>Completed</span>
+          <div className={styles.statItem}>
+            <div className={styles.statIcon}>⚡</div>
+            <div className={styles.statContent}>
+              <span className={styles.statNumber}>
+                {projectsData.filter(p => p.status === 'completed').length}
+              </span>
+              <span className={styles.statLabel}>Live Projects</span>
+            </div>
           </div>
-          <div className={styles.summaryItem}>
-            <span className={styles.summaryNumber}>
-              {categories.length - 1}
-            </span>
-            <span className={styles.summaryLabel}>Categories</span>
-          </div>
-          <div className={styles.summaryItem}>
-            <span className={styles.summaryNumber}>
-              {featuredProjects.length}
-            </span>
-            <span className={styles.summaryLabel}>Featured</span>
+          <div className={styles.statItem}>
+            <div className={styles.statIcon}>🌟</div>
+            <div className={styles.statContent}>
+              <span className={styles.statNumber}>
+                {projectsData.filter(p => p.featured).length}
+              </span>
+              <span className={styles.statLabel}>Featured Works</span>
+            </div>
           </div>
         </motion.div>
       </div>

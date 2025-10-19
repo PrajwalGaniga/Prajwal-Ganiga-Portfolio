@@ -1,9 +1,8 @@
-// src/components/ProjectCard.jsx - FIXED FOR MOBILE
+// src/components/ProjectCard.jsx - OPTIMIZED FOR NEW DESIGN
 import React, { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import styles from './ProjectCard.module.css';
 
-// Import all project images
 import imgSmart1 from '../assets/images/project_1/project1.jpg';
 import imgSmart11 from '../assets/images/project_1/project11.png';
 import imgSmart12 from '../assets/images/project_1/project12.png';
@@ -68,7 +67,8 @@ const imageMap = {
   'project-sql3.png': imgSql3,
 };
 
-// Simple error boundary for individual cards
+
+// Simple error boundary
 class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
@@ -98,26 +98,19 @@ class ErrorBoundary extends React.Component {
 
 // Animation variants
 const cardVariants = {
-  hidden: { opacity: 0, y: 30, scale: 0.95 },
+  hidden: { opacity: 0, y: 30 },
   visible: { 
     opacity: 1, 
-    y: 0, 
-    scale: 1,
+    y: 0,
     transition: { 
       type: 'spring', 
       stiffness: 100,
-      duration: 0.6,
-      delay: 0.1
+      duration: 0.6
     }
-  },
-  hover: {
-    y: -8,
-    scale: 1.01,
-    transition: { duration: 0.3 }
   }
 };
 
-function ProjectCard({ project, featured, index }) {
+function ProjectCard({ project, featured }) {
   const [currentImage, setCurrentImage] = useState(0);
   const [isExpanded, setIsExpanded] = useState(false);
   const [imageError, setImageError] = useState({});
@@ -126,7 +119,7 @@ function ProjectCard({ project, featured, index }) {
 
   const images = project.images || [];
 
-  // Detect mobile on mount and resize
+  // Detect mobile
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
@@ -139,24 +132,34 @@ function ProjectCard({ project, featured, index }) {
   }, []);
 
   const nextImage = (e) => {
-    e.stopPropagation();
+    e?.stopPropagation();
     setCurrentImage((prev) => (prev + 1) % images.length);
   };
 
   const prevImage = (e) => {
-    e.stopPropagation();
+    e?.stopPropagation();
     setCurrentImage((prev) => (prev - 1 + images.length) % images.length);
   };
 
   const toggleExpand = (e) => {
-    e.stopPropagation();
+    e?.stopPropagation();
     setIsExpanded(!isExpanded);
   };
 
   const handleImageError = (imgName) => {
-    console.log(`Image failed to load: ${imgName}`);
     setImageError(prev => ({ ...prev, [imgName]: true }));
   };
+
+  // Auto-rotate images for mobile
+  useEffect(() => {
+    if (isMobile && images.length > 1) {
+      const interval = setInterval(() => {
+        nextImage();
+      }, 4000);
+      
+      return () => clearInterval(interval);
+    }
+  }, [isMobile, images.length]);
 
   // Get truncated description
   const getTruncatedDescription = () => {
@@ -171,24 +174,19 @@ function ProjectCard({ project, featured, index }) {
     <div className={styles.imageFallback}>
       <i className="fas fa-image"></i>
       <span>Project Preview</span>
-      <small>{project.title}</small>
     </div>
   );
 
   return (
     <ErrorBoundary>
       <motion.div 
-        className={`${styles.projectCard} ${featured ? styles.featured : ''} ${isExpanded ? styles.expanded : ''}`}
+        className={`${styles.projectCard} ${featured ? styles.featured : ''}`}
         ref={cardRef}
         variants={cardVariants}
         initial="hidden"
         animate="visible"
-        whileHover={!isMobile ? "hover" : {}}
         layout
       >
-        {/* Card Gradient Border */}
-        <div className={styles.cardGradient} />
-        
         {/* Status Badge */}
         <div className={`${styles.statusBadge} ${styles[project.status]}`}>
           {project.status}
@@ -221,7 +219,6 @@ function ProjectCard({ project, featured, index }) {
                           className={styles.carouselImg}
                           onError={() => handleImageError(imgName)}
                           loading="lazy"
-                          onLoad={() => console.log(`Image loaded: ${imgName}`)}
                         />
                       ) : (
                         renderImageFallback()
@@ -230,43 +227,24 @@ function ProjectCard({ project, featured, index }) {
                   ))}
                 </motion.div>
 
-                {/* Carousel Controls */}
+                {/* Carousel Indicators */}
                 {images.length > 1 && (
-                  <>
-                    <button 
-                      className={`${styles.carouselArrow} ${styles.leftArrow}`} 
-                      onClick={prevImage}
-                      aria-label="Previous image"
-                    >
-                      <i className="fas fa-chevron-left"></i>
-                    </button>
-                    <button 
-                      className={`${styles.carouselArrow} ${styles.rightArrow}`} 
-                      onClick={nextImage}
-                      aria-label="Next image"
-                    >
-                      <i className="fas fa-chevron-right"></i>
-                    </button>
-                    
-                    {/* Carousel Indicators */}
-                    <div className={styles.carouselIndicators}>
-                      {images.map((_, index) => (
-                        <button
-                          key={index}
-                          className={`${styles.indicator} ${currentImage === index ? styles.active : ''}`}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setCurrentImage(index);
-                          }}
-                          aria-label={`Go to slide ${index + 1}`}
-                        />
-                      ))}
-                    </div>
-                  </>
+                  <div className={styles.carouselIndicators}>
+                    {images.map((_, index) => (
+                      <button
+                        key={index}
+                        className={`${styles.indicator} ${currentImage === index ? styles.active : ''}`}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setCurrentImage(index);
+                        }}
+                        aria-label={`Go to slide ${index + 1}`}
+                      />
+                    ))}
+                  </div>
                 )}
               </>
             ) : (
-              // Fallback when no images
               renderImageFallback()
             )}
           </div>
@@ -289,19 +267,9 @@ function ProjectCard({ project, featured, index }) {
               )}
             </p>
 
-            {/* Highlights */}
-            {project.highlights && project.highlights.length > 0 && (
-              <div className={styles.highlights}>
-                {project.highlights.map((highlight, idx) => (
-                  <span key={idx} className={styles.highlightTag}>
-                    {highlight}
-                  </span>
-                ))}
-              </div>
-            )}
-
+            {/* Tech Stack */}
             <p className={styles.projectTech}>
-              <strong>Tech Stack:</strong> {project.tech}
+              <strong>Tech:</strong> {project.tech}
             </p>
 
             {/* Project Links */}
@@ -312,8 +280,7 @@ function ProjectCard({ project, featured, index }) {
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className={`${styles.btn} ${styles.btnSecondary}`}
-                  whileHover={{ scale: isMobile ? 1 : 1.02 }}
-                  whileTap={{ scale: 0.98 }}
+                  whileTap={{ scale: 0.95 }}
                   onClick={(e) => e.stopPropagation()}
                 >
                   <i className="fab fa-github"></i>
@@ -326,43 +293,16 @@ function ProjectCard({ project, featured, index }) {
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className={`${styles.btn} ${styles.btnPrimary}`}
-                  whileHover={{ scale: isMobile ? 1 : 1.02 }}
-                  whileTap={{ scale: 0.98 }}
+                  whileTap={{ scale: 0.95 }}
                   onClick={(e) => e.stopPropagation()}
                 >
                   <i className="fas fa-external-link-alt"></i>
                   <span>Live Demo</span>
                 </motion.a>
               )}
-              {!project.liveLink && project.githubLink && (
-                <motion.a 
-                  href={project.githubLink} 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className={`${styles.btn} ${styles.btnTertiary}`}
-                  whileHover={{ scale: isMobile ? 1 : 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  <i className="fas fa-eye"></i>
-                  <span>View Details</span>
-                </motion.a>
-              )}
-              {!project.githubLink && !project.liveLink && (
-                <motion.div 
-                  className={`${styles.btn} ${styles.btnSecondary}`}
-                  style={{ opacity: 0.6, cursor: 'not-allowed' }}
-                >
-                  <i className="fas fa-lock"></i>
-                  <span>Private</span>
-                </motion.div>
-              )}
             </div>
           </div>
         </div>
-
-        {/* Hover Glow Effect - Only on desktop */}
-        {!isMobile && <div className={styles.cardGlow} />}
       </motion.div>
     </ErrorBoundary>
   );
