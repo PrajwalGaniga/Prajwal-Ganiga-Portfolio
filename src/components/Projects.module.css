@@ -407,3 +407,99 @@
     padding: 0.75rem;
   }
 }
+
+/* Add these mobile fixes to your existing Projects.module.css */
+
+/* Mobile Projects Grid */
+@media (max-width: 767px) {
+  .projectsSection {
+    padding: 60px 0 !important;
+    background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%) !important;
+  }
+
+  .container {
+    padding: 0 15px !important;
+  }
+
+  .sectionTitle {
+    font-size: 2rem !important;
+    color: #ffffff !important;
+  }
+
+  .sectionSubtitle {
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-size: 1rem !important;
+  }
+
+  .featuredGrid {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+
+  .projectsGrid {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+
+  /* Ensure filter buttons are visible */
+  .filterButtons {
+    gap: 0.5rem !important;
+    justify-content: center !important;
+  }
+
+  .filterBtn {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+    padding: 10px 16px !important;
+    font-size: 0.85rem !important;
+  }
+
+  .filterBtn.active {
+    background: linear-gradient(135deg, #61DAFB, #9C27B0) !important;
+    color: white !important;
+  }
+
+  /* Improve summary visibility */
+  .projectsSummary {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1rem !important;
+    max-width: 100% !important;
+  }
+
+  .summaryItem {
+    background: rgba(255, 255, 255, 0.08) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    padding: 1rem !important;
+  }
+
+  .summaryNumber {
+    font-size: 1.8rem !important;
+    color: #61DAFB !important;
+    -webkit-text-fill-color: #61DAFB !important;
+  }
+
+  .summaryLabel {
+    color: rgba(255, 255, 255, 0.8) !important;
+  }
+}
+
+/* Fix for very small screens */
+@media (max-width: 320px) {
+  .projectsSection {
+    padding: 50px 0 !important;
+  }
+
+  .sectionTitle {
+    font-size: 1.8rem !important;
+  }
+
+  .filterBtn {
+    padding: 8px 12px !important;
+    font-size: 0.8rem !important;
+  }
+
+  .projectsSummary {
+    grid-template-columns: 1fr !important;
+  }
+}

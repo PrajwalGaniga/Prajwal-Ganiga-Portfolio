@@ -68,9 +68,45 @@ const imageMap = {
   'project-sql3.png': imgSql3,
 };
 
+// Simple error boundary for individual cards
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    console.error('ProjectCard error:', error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div style={{
+          background: 'rgba(255,0,0,0.1)',
+          border: '1px solid red',
+          borderRadius: '16px',
+          padding: '20px',
+          color: 'white',
+          textAlign: 'center',
+          margin: '10px'
+        }}>
+          Error loading project card
+        </div>
+      );
+    }
+
+    return this.props.children;
+  }
+}
+
 // Animation variants
 const cardVariants = {
-  hidden: { opacity: 0, y: 50, scale: 0.9 },
+  hidden: { opacity: 0, y: 30, scale: 0.95 },
   visible: { 
     opacity: 1, 
     y: 0, 
@@ -78,12 +114,13 @@ const cardVariants = {
     transition: { 
       type: 'spring', 
       stiffness: 100,
-      duration: 0.6
+      duration: 0.6,
+      delay: 0.1
     }
   },
   hover: {
-    y: -15,
-    scale: 1.02,
+    y: -8,
+    scale: 1.01,
     transition: { duration: 0.3 }
   }
 };
@@ -91,175 +128,227 @@ const cardVariants = {
 function ProjectCard({ project, featured, index }) {
   const [currentImage, setCurrentImage] = useState(0);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [imageError, setImageError] = useState({});
   const cardRef = useRef(null);
 
   const images = project.images || [];
 
-  const nextImage = () => {
+  const nextImage = (e) => {
+    e.stopPropagation();
     setCurrentImage((prev) => (prev + 1) % images.length);
   };
 
-  const prevImage = () => {
+  const prevImage = (e) => {
+    e.stopPropagation();
     setCurrentImage((prev) => (prev - 1 + images.length) % images.length);
   };
 
-  const toggleExpand = () => {
+  const toggleExpand = (e) => {
+    e.stopPropagation();
     setIsExpanded(!isExpanded);
   };
 
+  const handleImageError = (imgName) => {
+    setImageError(prev => ({ ...prev, [imgName]: true }));
+  };
+
+  // Get truncated description for mobile
+  const getTruncatedDescription = () => {
+    const isMobile = window.innerWidth < 768;
+    const truncateLength = isMobile ? 80 : 120;
+    return project.description.length > truncateLength && !isExpanded 
+      ? `${project.description.substring(0, truncateLength)}...`
+      : project.description;
+  };
+
   return (
-    <motion.div 
-      className={`${styles.projectCard} ${featured ? styles.featured : ''} ${isExpanded ? styles.expanded : ''}`}
-      ref={cardRef}
-      variants={cardVariants}
-      initial="hidden"
-      animate="visible"
-      whileHover="hover"
-      layout
-    >
-      {/* Card Gradient Border */}
-      <div className={styles.cardGradient} />
-      
-      {/* Status Badge */}
-      <div className={`${styles.statusBadge} ${styles[project.status]}`}>
-        {project.status}
-      </div>
-
-      {/* Featured Badge */}
-      {featured && (
-        <div className={styles.featuredBadge}>
-          <i className="fas fa-star"></i>
-          Featured
+    <ErrorBoundary>
+      <motion.div 
+        className={`${styles.projectCard} ${featured ? styles.featured : ''} ${isExpanded ? styles.expanded : ''}`}
+        ref={cardRef}
+        variants={cardVariants}
+        initial="hidden"
+        animate="visible"
+        whileHover="hover"
+        layout
+        style={{
+          // Temporary debug - remove after confirming it works
+          border: '1px solid rgba(255, 255, 255, 0.3)'
+        }}
+      >
+        {/* Card Gradient Border */}
+        <div className={styles.cardGradient} />
+        
+        {/* Status Badge */}
+        <div className={`${styles.statusBadge} ${styles[project.status]}`}>
+          {project.status}
         </div>
-      )}
 
-      <div className={styles.cardContent}>
-        {/* Image Carousel */}
-        <div className={styles.carouselWrapper}>
-          <motion.div 
-            className={styles.carouselImages}
-            animate={{ x: `-${currentImage * 100}%` }}
-            transition={{ type: "spring", stiffness: 300 }}
-          >
-            {images.map((imgName, index) => (
-              <img 
-                key={index}
-                src={imageMap[imgName]} 
-                alt={`${project.title} screenshot ${index + 1}`} 
-                className={styles.carouselImg}
-              />
-            ))}
-          </motion.div>
+        {/* Featured Badge */}
+        {featured && (
+          <div className={styles.featuredBadge}>
+            <i className="fas fa-star"></i>
+            Featured
+          </div>
+        )}
 
-          {/* Carousel Controls */}
-          {images.length > 1 && (
-            <>
-              <button 
-                className={`${styles.carouselArrow} ${styles.leftArrow}`} 
-                onClick={prevImage}
-                aria-label="Previous image"
-              >
-                <i className="fas fa-chevron-left"></i>
-              </button>
-              <button 
-                className={`${styles.carouselArrow} ${styles.rightArrow}`} 
-                onClick={nextImage}
-                aria-label="Next image"
-              >
-                <i className="fas fa-chevron-right"></i>
-              </button>
-              
-              {/* Carousel Indicators */}
-              <div className={styles.carouselIndicators}>
-                {images.map((_, index) => (
-                  <button
-                    key={index}
-                    className={`${styles.indicator} ${currentImage === index ? styles.active : ''}`}
-                    onClick={() => setCurrentImage(index)}
+        <div className={styles.cardContent}>
+          {/* Image Carousel */}
+          <div className={styles.carouselWrapper}>
+            <motion.div 
+              className={styles.carouselImages}
+              animate={{ x: `-${currentImage * 100}%` }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            >
+              {images.map((imgName, index) => (
+                <div key={index} className={styles.carouselSlide}>
+                  <img 
+                    src={imageMap[imgName]} 
+                    alt={`${project.title} screenshot ${index + 1}`} 
+                    className={styles.carouselImg}
+                    onError={() => handleImageError(imgName)}
+                    loading="lazy"
                   />
+                  {imageError[imgName] && (
+                    <div className={styles.imageFallback}>
+                      <i className="fas fa-image"></i>
+                      <span>Image not available</span>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </motion.div>
+
+            {/* Carousel Controls */}
+            {images.length > 1 && (
+              <>
+                <button 
+                  className={`${styles.carouselArrow} ${styles.leftArrow}`} 
+                  onClick={prevImage}
+                  aria-label="Previous image"
+                >
+                  <i className="fas fa-chevron-left"></i>
+                </button>
+                <button 
+                  className={`${styles.carouselArrow} ${styles.rightArrow}`} 
+                  onClick={nextImage}
+                  aria-label="Next image"
+                >
+                  <i className="fas fa-chevron-right"></i>
+                </button>
+                
+                {/* Carousel Indicators */}
+                <div className={styles.carouselIndicators}>
+                  {images.map((_, index) => (
+                    <button
+                      key={index}
+                      className={`${styles.indicator} ${currentImage === index ? styles.active : ''}`}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setCurrentImage(index);
+                      }}
+                      aria-label={`Go to slide ${index + 1}`}
+                    />
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
+
+          {/* Project Content */}
+          <div className={styles.projectContent}>
+            <div className={styles.projectHeader}>
+              <h3 className={styles.projectTitle}>{project.title}</h3>
+              <div className={styles.categoryTag}>
+                {project.category.replace('-', ' ')}
+              </div>
+            </div>
+
+            <p className={styles.projectDescription}>
+              {getTruncatedDescription()}
+              {project.description.length > 80 && (
+                <button className={styles.readMoreBtn} onClick={toggleExpand}>
+                  {isExpanded ? 'Read Less' : 'Read More'}
+                </button>
+              )}
+            </p>
+
+            {/* Highlights */}
+            {project.highlights && project.highlights.length > 0 && (
+              <div className={styles.highlights}>
+                {project.highlights.map((highlight, idx) => (
+                  <span key={idx} className={styles.highlightTag}>
+                    {highlight}
+                  </span>
                 ))}
               </div>
-            </>
-          )}
-        </div>
+            )}
 
-        {/* Project Content */}
-        <div className={styles.projectContent}>
-          <div className={styles.projectHeader}>
-            <h3 className={styles.projectTitle}>{project.title}</h3>
-            <div className={styles.categoryTag}>
-              {project.category}
+            <p className={styles.projectTech}>
+              <strong>Tech Stack:</strong> {project.tech}
+            </p>
+
+            {/* Project Links */}
+            <div className={styles.projectLinks}>
+              {project.githubLink && (
+                <motion.a 
+                  href={project.githubLink} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className={`${styles.btn} ${styles.btnSecondary}`}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <i className="fab fa-github"></i>
+                  <span>Code</span>
+                </motion.a>
+              )}
+              {project.liveLink && (
+                <motion.a 
+                  href={project.liveLink} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className={`${styles.btn} ${styles.btnPrimary}`}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <i className="fas fa-external-link-alt"></i>
+                  <span>Live Demo</span>
+                </motion.a>
+              )}
+              {!project.liveLink && project.githubLink && (
+                <motion.a 
+                  href={project.githubLink} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className={`${styles.btn} ${styles.btnTertiary}`}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <i className="fas fa-eye"></i>
+                  <span>View Details</span>
+                </motion.a>
+              )}
+              {!project.githubLink && !project.liveLink && (
+                <motion.div 
+                  className={`${styles.btn} ${styles.btnSecondary}`}
+                  style={{ opacity: 0.6, cursor: 'not-allowed' }}
+                >
+                  <i className="fas fa-lock"></i>
+                  <span>Private</span>
+                </motion.div>
+              )}
             </div>
           </div>
-
-          <p className={styles.projectDescription}>
-            {isExpanded ? project.description : `${project.description.substring(0, 120)}...`}
-            <button className={styles.readMoreBtn} onClick={toggleExpand}>
-              {isExpanded ? 'Read Less' : 'Read More'}
-            </button>
-          </p>
-
-          {/* Highlights */}
-          <div className={styles.highlights}>
-            {project.highlights.map((highlight, idx) => (
-              <span key={idx} className={styles.highlightTag}>
-                {highlight}
-              </span>
-            ))}
-          </div>
-
-          <p className={styles.projectTech}>
-            <strong>Tech Stack:</strong> {project.tech}
-          </p>
-
-          {/* Project Links */}
-          <div className={styles.projectLinks}>
-            {project.githubLink && (
-              <motion.a 
-                href={project.githubLink} 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className={`${styles.btn} ${styles.btnSecondary}`}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <i className="fab fa-github"></i>
-                <span>Code</span>
-              </motion.a>
-            )}
-            {project.liveLink && (
-              <motion.a 
-                href={project.liveLink} 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className={`${styles.btn} ${styles.btnPrimary}`}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <i className="fas fa-external-link-alt"></i>
-                <span>Live Demo</span>
-              </motion.a>
-            )}
-            {!project.liveLink && project.githubLink && (
-              <motion.a 
-                href={project.githubLink} 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className={`${styles.btn} ${styles.btnTertiary}`}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <i className="fas fa-eye"></i>
-                <span>View Details</span>
-              </motion.a>
-            )}
-          </div>
         </div>
-      </div>
 
-      {/* Hover Glow Effect */}
-      <div className={styles.cardGlow} />
-    </motion.div>
+        {/* Hover Glow Effect */}
+        <div className={styles.cardGlow} />
+      </motion.div>
+    </ErrorBoundary>
   );
 }
 
