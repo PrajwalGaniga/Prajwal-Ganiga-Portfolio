@@ -1,4 +1,4 @@
-// src/components/Projects.jsx
+// src/components/Projects.jsx - FIXED FOR MOBILE
 import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
@@ -102,12 +102,12 @@ const projectsData = [
 
 // Particle Background Component
 const ParticleBackground = () => {
-  const particles = Array.from({ length: 20 }, (_, i) => ({
+  const particles = Array.from({ length: 15 }, (_, i) => ({
     id: i,
-    size: Math.random() * 6 + 2,
+    size: Math.random() * 4 + 2,
     x: Math.random() * 100,
     y: Math.random() * 100,
-    duration: Math.random() * 25 + 15
+    duration: Math.random() * 20 + 10
   }));
 
   return (
@@ -123,15 +123,14 @@ const ParticleBackground = () => {
             top: `${particle.y}%`,
           }}
           animate={{
-            y: [0, -40, 0],
+            y: [0, -30, 0],
             opacity: [0, 1, 0],
-            scale: [1, 1.2, 1],
           }}
           transition={{
             duration: particle.duration,
             repeat: Infinity,
             ease: "easeInOut",
-            delay: Math.random() * 10
+            delay: Math.random() * 5
           }}
         />
       ))}
@@ -146,7 +145,6 @@ function Projects() {
   });
 
   const [activeFilter, setActiveFilter] = useState('all');
-  const [viewMode, setViewMode] = useState('grid'); // 'grid' or 'masonry'
 
   // Unique categories
   const categories = ['all', ...new Set(projectsData.map(project => project.category))];
@@ -258,29 +256,11 @@ function Projects() {
               ))}
             </div>
           </div>
-
-          {/* View Toggle */}
-          <div className={styles.viewToggle}>
-            <button
-              className={`${styles.viewBtn} ${viewMode === 'grid' ? styles.active : ''}`}
-              onClick={() => setViewMode('grid')}
-            >
-              <i className="fas fa-th"></i>
-              Grid
-            </button>
-            <button
-              className={`${styles.viewBtn} ${viewMode === 'masonry' ? styles.active : ''}`}
-              onClick={() => setViewMode('masonry')}
-            >
-              <i className="fas fa-th-large"></i>
-              Masonry
-            </button>
-          </div>
         </motion.div>
 
         {/* Projects Grid */}
         <motion.div 
-          className={`${styles.projectsGrid} ${styles[viewMode]}`}
+          className={styles.projectsGrid}
           layout
         >
           <AnimatePresence>
