@@ -1,4 +1,4 @@
-// src/components/About.jsx - UPDATED WITH LEADERSHIP ROLES
+// src/components/About.jsx - UPDATED & OPTIMIZED
 import React from 'react';
 import { motion } from 'framer-motion';
 import styles from './About.module.css';
@@ -6,22 +6,6 @@ import echoLogo from '../assets/logos/echo.png';
 import acodeLogo from '../assets/logos/acode.png';
 
 function About() {
-  const stats = [
-    { number: "3rd", label: "Year Student" },
-    { number: "5th", label: "Semester" },
-    { number: "CS&D", label: "Computer Science & Design" },
-    { number: "SIT", label: "Srinivas Institute" }
-  ];
-
-  const interests = [
-    { icon: "💻", name: "HTML & Canvas" },
-    { icon: "🏐", name: "Volleyball" },
-    { icon: "🎵", name: "Music" },
-    { icon: "🎬", name: "Anime" },
-    { icon: "📈", name: "Stock Analysis" },
-    { icon: "🚀", name: "Tech Innovation" }
-  ];
-
   const leadershipRoles = [
     {
       logo: echoLogo,
@@ -37,12 +21,28 @@ function About() {
     }
   ];
 
+  const interests = [
+    { icon: "💻", name: "Web Development" },
+    { icon: "🎨", name: "UI/UX Design" },
+    { icon: "🚀", name: "Tech Innovation" },
+    { icon: "📈", name: "Stock Analysis" },
+    { icon: "🏐", name: "Volleyball" },
+    { icon: "🎵", name: "Music Production" }
+  ];
+
+  const skills = [
+    { category: "Frontend", items: ["HTML5", "CSS3", "JavaScript", "React"] },
+    { category: "Design", items: ["Figma", "UI/UX", "Prototyping"] },
+    { category: "Tools", items: ["Git", "VS Code", "Chrome DevTools"] }
+  ];
+
   return (
     <section id="about" className={styles.aboutSection}>
       {/* Background Elements */}
       <div className={styles.backgroundElements}>
         <div className={styles.orb1}></div>
         <div className={styles.orb2}></div>
+        <div className={styles.gridPattern}></div>
       </div>
 
       <div className={styles.container}>
@@ -52,94 +52,131 @@ function About() {
             <span>About Me</span>
           </div>
           <h2 className={styles.sectionTitle}>
-            Crafting <span className={styles.gradientText}>Digital Experiences</span> with Purpose
+            Crafting <span className={styles.gradientText}>Digital Experiences</span>
           </h2>
-          <div className={styles.titleDivider}></div>
+          <p className={styles.sectionSubtitle}>
+            Computer Science & Design student passionate about creating meaningful technology solutions
+          </p>
         </div>
 
-        {/* Leadership Badges */}
-        <div className={styles.leadershipSection}>
-          {leadershipRoles.map((role, index) => (
-            <motion.div 
-              key={index}
-              className={styles.leadershipBadge}
-              whileHover={{ scale: 1.05 }}
-              transition={{ type: "spring", stiffness: 300 }}
-            >
-              <div className={styles.roleLogo}>
-                <img src={role.logo} alt={`${role.organization} logo`} />
-              </div>
-              <div className={styles.roleContent}>
-                <div className={styles.roleTitle}>{role.title}</div>
-                <div className={styles.roleOrganization}>{role.organization}</div>
-                <div className={styles.roleDescription}>{role.description}</div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Main Content Grid */}
+        {/* Main Content Grid - Updated Layout */}
         <div className={styles.contentGrid}>
-          {/* Left Column - Intro & Stats */}
-          <div className={styles.leftColumn}>
-            <div className={styles.introCard}>
-              <div className={styles.quoteIcon}>❝</div>
-              <p className={styles.introText}>
-                Hello! I'm <strong>Prajwal Ganiga</strong>, a passionate Computer Science and Design student driven by curiosity for intelligent solutions and commitment to creating inclusive experiences. I thrive on learning new technologies, solving complex problems, and bringing innovative ideas to life.
-              </p>
-              <div className={styles.quoteIcon}>❞</div>
-            </div>
-
-            {/* Stats Grid */}
-            <div className={styles.statsGrid}>
-              {stats.map((stat, index) => (
-                <div key={index} className={styles.statCard}>
-                  <div className={styles.statNumber}>{stat.number}</div>
-                  <div className={styles.statLabel}>{stat.label}</div>
+          {/* Column 1: Intro & Leadership */}
+          <div className={styles.column}>
+            {/* Intro Card */}
+            <motion.div 
+              className={styles.introCard}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <div className={styles.profileHeader}>
+                <div className={styles.avatar}>PG</div>
+                <div className={styles.profileInfo}>
+                  <h3>Prajwal Ganiga</h3>
+                  <p>3rd Year CS&D Student</p>
                 </div>
-              ))}
+              </div>
+              <p className={styles.introText}>
+                Passionate about building intelligent solutions and creating inclusive digital experiences. 
+                I thrive on learning new technologies and bringing innovative ideas to life through code and design.
+              </p>
+            </motion.div>
+
+            {/* Leadership Section */}
+            <div className={styles.leadershipSection}>
+              <h3 className={styles.sectionSubtitle}>Leadership Roles</h3>
+              <div className={styles.leadershipGrid}>
+                {leadershipRoles.map((role, index) => (
+                  <motion.div 
+                    key={index}
+                    className={styles.leadershipCard}
+                    whileHover={{ scale: 1.02 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    <div className={styles.roleHeader}>
+                      <img src={role.logo} alt={role.organization} className={styles.roleLogo} />
+                      <div className={styles.roleTitles}>
+                        <h4>{role.title}</h4>
+                        <p>{role.organization}</p>
+                      </div>
+                    </div>
+                    <p className={styles.roleDescription}>{role.description}</p>
+                  </motion.div>
+                ))}
+              </div>
             </div>
           </div>
 
-          {/* Right Column - Details & Interests */}
-          <div className={styles.rightColumn}>
-            {/* Details Card */}
-            <div className={styles.detailsCard}>
-              <h3 className={styles.cardTitle}>My Journey</h3>
+          {/* Column 2: Details & Skills */}
+          <div className={styles.column}>
+            {/* Education & Details */}
+            <motion.div 
+              className={styles.detailsCard}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <h3 className={styles.cardTitle}>Education & Journey</h3>
               <div className={styles.detailsList}>
                 <div className={styles.detailItem}>
                   <div className={styles.detailIcon}>🎓</div>
                   <div className={styles.detailContent}>
-                    <strong>Current Education</strong>
-                    <span>3rd Year BE in Computer Science & Design</span>
+                    <strong>Bachelor of Engineering</strong>
+                    <span>Computer Science & Design • 3rd Year</span>
                   </div>
                 </div>
                 <div className={styles.detailItem}>
                   <div className={styles.detailIcon}>🏫</div>
                   <div className={styles.detailContent}>
-                    <strong>Institution</strong>
-                    <span>Srinivas Institute of Technology</span>
-                  </div>
-                </div>
-                <div className={styles.detailItem}>
-                  <div className={styles.detailIcon}>👨‍💼</div>
-                  <div className={styles.detailContent}>
-                    <strong>Leadership Roles</strong>
-                    <span>President of ECHO Tech Club & Vice President of ACODE Association</span>
+                    <strong>Srinivas Institute of Technology</strong>
+                    <span>Currently in 5th Semester</span>
                   </div>
                 </div>
                 <div className={styles.detailItem}>
                   <div className={styles.detailIcon}>🎯</div>
                   <div className={styles.detailContent}>
                     <strong>Future Vision</strong>
-                    <span>Living purposefully by building tech solutions that create meaningful impact</span>
+                    <span>Building tech that creates meaningful impact</span>
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
+            {/* Skills Card */}
+            <motion.div 
+              className={styles.skillsCard}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+            >
+              <h3 className={styles.cardTitle}>Skills & Technologies</h3>
+              <div className={styles.skillsGrid}>
+                {skills.map((skill, index) => (
+                  <div key={index} className={styles.skillCategory}>
+                    <h4>{skill.category}</h4>
+                    <div className={styles.skillItems}>
+                      {skill.items.map((item, itemIndex) => (
+                        <span key={itemIndex} className={styles.skillItem}>
+                          {item}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Column 3: Interests & Mission */}
+          <div className={styles.column}>
             {/* Interests Card */}
-            <div className={styles.interestsCard}>
+            <motion.div 
+              className={styles.interestsCard}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+            >
               <h3 className={styles.cardTitle}>Passions & Interests</h3>
               <div className={styles.interestsGrid}>
                 {interests.map((interest, index) => (
@@ -149,16 +186,25 @@ function About() {
                   </div>
                 ))}
               </div>
-            </div>
-          </div>
-        </div>
+            </motion.div>
 
-        {/* Mission Statement */}
-        <div className={styles.missionCard}>
-          <div className={styles.missionIcon}>✨</div>
-          <p className={styles.missionText}>
-            "Building thoughtful tech that empowers every mind through innovative solutions and user-centered design."
-          </p>
+            {/* Mission Statement */}
+            <motion.div 
+              className={styles.missionCard}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+            >
+              <div className={styles.missionHeader}>
+                <div className={styles.missionIcon}>✨</div>
+                <h3>My Mission</h3>
+              </div>
+              <p className={styles.missionText}>
+                "Building thoughtful technology that empowers every mind through innovative solutions 
+                and user-centered design principles."
+              </p>
+            </motion.div>
+          </div>
         </div>
       </div>
     </section>
