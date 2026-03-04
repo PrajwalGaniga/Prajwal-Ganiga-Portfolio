@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import styles from './Contact.module.css';
 
-const EMAIL = 'prajwalganiga8@gmail.com';
+const EMAIL = 'prajwalganiga06@gmail.com';
 
 const socials = [
   { href: 'https://www.linkedin.com/in/prajwalganiga', icon: 'fab fa-linkedin', label: 'LinkedIn', sub: 'Connect professionally' },

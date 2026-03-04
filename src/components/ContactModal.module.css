@@ -1,238 +1,407 @@
-/* src/components/ContactModal.module.css */
+/* src/components/ContactModal.module.css — Terminal / IDE style */
 
-/* Backdrop */
+/* ── Backdrop ────────────────────────────────────────────── */
 .backdrop {
     position: fixed;
     inset: 0;
     z-index: 9990;
-    background: rgba(0, 0, 0, 0.75);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    background: rgba(0, 0, 0, 0.82);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
-/* Modal */
+/* ── Modal — bulletproof centering ──────────────────────── */
 .modal {
+    /* Modern centering: works even when mobile keyboard opens */
     position: fixed;
+    inset: 0;
+    margin: auto;
     z-index: 9991;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: min(540px, 94vw);
-    max-height: 92vh;
-    overflow-y: auto;
-    background: var(--color-bg);
-    border: 1px solid var(--color-border);
-    border-radius: 14px;
-    box-shadow: var(--shadow-xl);
-    scrollbar-width: none;
-}
 
-.modal::-webkit-scrollbar {
-    display: none;
-}
+    width: 90vw;
+    max-width: 580px;
+    height: fit-content;
+    max-height: 88dvh;
+    /* dynamic viewport — adjusts for soft keyboard */
 
-/* Header */
-.header {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.7rem 1rem;
-    background: var(--color-surface-1);
-    border-bottom: 1px solid var(--color-border);
-    position: sticky;
-    top: 0;
-    z-index: 1;
+    flex-direction: column;
+
+    background: #0d0d0d;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.05),
+        0 32px 80px rgba(0, 0, 0, 0.8),
+        0 0 120px rgba(255, 255, 255, 0.04);
+
+    /* Framer Motion will override transform — that's fine */
+    overflow: hidden;
 }
 
-.headerLeft {
+/* ── Title bar (macOS-style) ─────────────────────────────── */
+.titleBar {
     display: flex;
     align-items: center;
     gap: 0.75rem;
+    padding: 0.6rem 0.9rem;
+    background: #161616;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    flex-shrink: 0;
 }
 
-.termDots {
-    display: flex;
-    gap: 0.4rem;
-}
-
-.dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-}
-
-.headerTitle {
-    font-size: 0.72rem;
-    color: var(--color-text-tertiary);
-    letter-spacing: 0.05em;
-}
-
-.mono {
-    font-family: 'Space Mono', monospace;
-}
-
-.closeBtn {
-    background: none;
-    border: none;
-    color: var(--color-text-secondary);
-    font-size: 0.9rem;
-    cursor: pointer;
-    padding: 0.25rem;
-    border-radius: 4px;
+.trafficLights {
     display: flex;
     align-items: center;
-    justify-content: center;
-    transition: color 150ms ease, background 150ms ease;
+    gap: 0.38rem;
 }
 
-.closeBtn:hover {
-    color: var(--color-text);
-    background: var(--glass-bg);
+.light {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    border: none;
+    cursor: default;
+    display: block;
+    flex-shrink: 0;
+    transition: filter 150ms ease;
 }
 
-/* Body */
-.body {
-    padding: 1.75rem 1.75rem 2rem;
+.lightRed {
+    background: #FF5F57;
+    cursor: pointer;
 }
 
-/* Form header */
-.formHeader {
-    margin-bottom: 1.5rem;
+.lightYellow {
+    background: #FEBC2E;
 }
 
-.formTitle {
-    font-family: 'Space Grotesk', sans-serif;
-    font-weight: 800;
-    font-size: clamp(1.5rem, 4vw, 2rem);
-    color: var(--color-text);
-    letter-spacing: -0.02em;
-    line-height: 1.1;
+.lightGreen {
+    background: #28C840;
 }
 
-.white {
-    color: var(--color-text);
+.lightRed:hover {
+    filter: brightness(1.2);
 }
 
-.formSub {
-    margin-top: 0.4rem;
-    font-size: 0.82rem;
-    color: var(--color-text-secondary);
-    line-height: 1.6;
-}
-
-/* Fields */
-.fields {
-    display: flex;
-    flex-direction: column;
-    gap: 1.1rem;
-    margin-bottom: 1.4rem;
-}
-
-.fieldGroup {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-}
-
-.label {
+.titlePath {
+    flex: 1;
+    text-align: center;
     font-family: 'Space Mono', monospace;
-    font-size: 0.7rem;
-    color: var(--color-text-secondary);
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
+    font-size: 0.68rem;
+    color: rgba(255, 255, 255, 0.35);
+    letter-spacing: 0.04em;
+    user-select: none;
 }
 
-.label .mono {
-    color: var(--color-text-tertiary);
-    margin-right: 0.35em;
+.titleHighlight {
+    color: rgba(255, 255, 255, 0.7);
 }
 
-.input,
-.textarea {
+.closeBtnAlt {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 0.8rem;
+    cursor: pointer;
+    padding: 0.2rem 0.3rem;
+    border-radius: 4px;
+    line-height: 1;
+    transition: color 150ms ease;
+}
+
+.closeBtnAlt:hover {
+    color: rgba(255, 255, 255, 0.85);
+}
+
+/* ── Editor tab bar ──────────────────────────────────────── */
+.editorChrome {
+    display: flex;
+    align-items: stretch;
+    background: #111111;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    flex-shrink: 0;
+}
+
+.editorTab,
+.editorTabInactive {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem;
+    padding: 0.45rem 1rem;
+    letter-spacing: 0.03em;
+    border-right: 1px solid rgba(255, 255, 255, 0.07);
+    white-space: nowrap;
+}
+
+.editorTab {
+    color: rgba(255, 255, 255, 0.85);
+    background: #0d0d0d;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.6);
+}
+
+.editorTabInactive {
+    color: rgba(255, 255, 255, 0.25);
+    background: #111111;
+}
+
+/* ── Scrollable body ─────────────────────────────────────── */
+.body {
+    overflow-y: auto;
+    scrollbar-width: none;
+    /* Firefox */
+    flex: 1 1 auto;
+    padding: 1.4rem 1.5rem 1.6rem;
+    min-height: 0;
+    /* allows flex child to shrink & scroll */
+}
+
+.body::-webkit-scrollbar {
+    display: none;
+}
+
+/* ── JSDoc comment block ─────────────────────────────────── */
+.codeComment {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    line-height: 1.9;
+}
+
+.commentSlash {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.commentText {
+    color: rgba(255, 255, 255, 0.28);
+    padding-left: 0.2em;
+}
+
+/* ── JSON block ──────────────────────────────────────────── */
+.jsonBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.jsonLine {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.82rem;
+    line-height: 1.85;
+    flex-wrap: wrap;
+}
+
+.jsonField {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.1rem;
+}
+
+.jsonRow {
+    display: flex;
+    align-items: center;
+    gap: 0.38rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.82rem;
+    line-height: 1.85;
+    flex-wrap: nowrap;
+}
+
+/* Syntax colours */
+.lineNum {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    color: rgba(255, 255, 255, 0.15);
+    min-width: 1.4rem;
+    text-align: right;
+    user-select: none;
+    flex-shrink: 0;
+}
+
+.keyword {
+    color: #cc99cd;
+}
+
+/* purple — const / await */
+.varName {
+    color: #b5d0f7;
+}
+
+/* blue   — payload */
+.op {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.brace {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1rem;
+}
+
+.semi {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.jsonKey {
+    color: #9ecbff;
+    flex-shrink: 0;
+}
+
+/* cyan key name */
+.colon {
+    color: rgba(255, 255, 255, 0.4);
+    flex-shrink: 0;
+}
+
+.quoteLeft,
+.quoteRight {
+    color: #98c379;
+    flex-shrink: 0;
+}
+
+/* green quotes */
+.quoteTop {
+    align-self: flex-start;
+    margin-top: 0.45rem;
+}
+
+.fnName {
+    color: #b5d0f7;
+}
+
+.fnCall {
+    color: #e0af68;
+}
+
+/* yellow — send */
+.paren {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* ── Input wrapper ───────────────────────────────────────── */
+.inputWrapper {
+    flex: 1;
+    min-width: 0;
+    position: relative;
+}
+
+.textareaWrapper {
+    align-self: flex-start;
     width: 100%;
-    padding: 0.75rem 1rem;
-    background: var(--color-surface-2);
-    border: 1px solid var(--color-border);
-    border-radius: 8px;
-    color: var(--color-text);
-    font-family: 'Inter', sans-serif;
-    font-size: 0.875rem;
+}
+
+.jsonInput {
+    width: 100%;
+    background: transparent;
+    border: none;
     outline: none;
-    transition: border-color 200ms ease, background 200ms ease, box-shadow 200ms ease;
+    color: #98c379;
+    /* green string value */
+    font-family: 'Space Mono', monospace;
+    font-size: 0.82rem;
+    caret-color: #98c379;
+    transition: color 200ms ease, text-shadow 200ms ease;
     resize: none;
+    line-height: 1.7;
 }
 
-.input::placeholder,
-.textarea::placeholder {
-    color: var(--color-text-tertiary);
+.jsonInput::placeholder {
+    color: rgba(255, 255, 255, 0.18);
+    font-style: italic;
 }
 
-.input:focus,
-.textarea:focus {
-    border-color: var(--color-border-active);
-    background: var(--color-surface-3);
-    box-shadow: 0 0 0 3px rgba(128, 128, 128, 0.1);
+/* Focused glow on the text */
+.inputFocused {
+    color: #b8e09a;
+    text-shadow: 0 0 12px rgba(152, 195, 121, 0.5);
 }
 
+/* Error state — text turns red */
 .inputError {
-    border-color: rgba(255, 80, 80, 0.5) !important;
+    color: rgba(255, 100, 100, 0.9) !important;
+}
+
+.jsonTextarea {
+    display: block;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+}
+
+/* ── Error line (inline comment style) ───────────────────── */
+.errorLine {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding-left: 1.8rem;
+    /* align under the jsonRow */
+    margin-top: -0.1rem;
+    margin-bottom: 0.2rem;
 }
 
 .errMsg {
-    font-size: 0.72rem;
-    color: rgba(255, 100, 100, 0.9);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem;
+    color: rgba(255, 100, 100, 0.85);
     display: flex;
     align-items: center;
     gap: 0.3rem;
-    font-family: 'Space Mono', monospace;
 }
 
-/* Submit */
+.errSlash {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.errType {
+    color: rgba(255, 100, 100, 0.6);
+}
+
+/* ── Submit button (Run ▶) ───────────────────────────────── */
 .submitBtn {
-    margin: 0 auto;
-    width: auto;
-    min-width: 220px;
-    padding: 0.875rem 2rem;
-    background: var(--color-text);
-    color: var(--color-bg);
-    border: none;
-    border-radius: var(--radius-full, 9999px);
-    font-family: 'Space Grotesk', sans-serif;
-    font-weight: 700;
-    font-size: 0.9rem;
-    cursor: pointer;
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    justify-content: center;
-    gap: 0.6rem;
-    letter-spacing: 0.02em;
-    transition: box-shadow 200ms ease, opacity 200ms ease;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    gap: 0.4rem;
+    margin-left: 0.75rem;
+    padding: 0.3rem 0.85rem;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 6px;
+    color: rgba(255, 255, 255, 0.85);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    cursor: pointer;
+    transition: background 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+    white-space: nowrap;
+}
+
+.submitBtn:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.35);
+    box-shadow: 0 0 14px rgba(255, 255, 255, 0.08);
 }
 
 .submitBtn:disabled {
-    opacity: 0.7;
+    opacity: 0.5;
     cursor: wait;
 }
 
-.submitBtn:not(:disabled):hover {
-    box-shadow: 0 8px 40px rgba(255, 255, 255, 0.28);
-}
-
-/* Loading */
 .loadingRow {
     display: flex;
     align-items: center;
-    gap: 0.6rem;
+    gap: 0.45rem;
 }
 
 .spinner {
-    width: 16px;
-    height: 16px;
-    border: 2px solid rgba(0, 0, 0, 0.2);
-    border-top-color: #000;
+    width: 10px;
+    height: 10px;
+    border: 1.5px solid rgba(255, 255, 255, 0.2);
+    border-top-color: rgba(255, 255, 255, 0.75);
     border-radius: 50%;
-    animation: spin 0.7s linear infinite;
+    animation: spin 0.65s linear infinite;
+    flex-shrink: 0;
 }
 
 @keyframes spin {
@@ -241,83 +410,151 @@
     }
 }
 
-/* Error message */
-.errorMsg {
-    margin-top: 0.75rem;
-    font-size: 0.78rem;
-    color: rgba(255, 100, 100, 0.85);
-    font-family: 'Space Mono', monospace;
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    text-align: center;
-    justify-content: center;
-}
-
-/* Success state */
+/* ── Success state ───────────────────────────────────────── */
 .successState {
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: center;
-    gap: 1rem;
-    padding: 1rem 0;
+    gap: 1.2rem;
+    padding: 0.4rem 0 0.6rem;
 }
 
-.successIcon {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    border: 1px solid var(--color-border);
-    background: var(--glass-bg);
+.successNote {
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.4);
+    text-align: center;
+    font-family: 'Space Mono', monospace;
+}
+
+.successTerminalWindow {
+    width: 100%;
+    background: #080808;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+.successTerminalBar {
     display: flex;
     align-items: center;
-    justify-content: center;
-    font-size: 1.4rem;
-    color: var(--color-text);
+    gap: 0.4rem;
+    padding: 0.5rem 0.75rem;
+    background: #111111;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-.successTitle {
-    font-family: 'Space Grotesk', sans-serif;
-    font-weight: 700;
-    font-size: 1.35rem;
-    color: var(--color-text);
+.termDot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    flex-shrink: 0;
 }
 
-.successSub {
-    font-size: 0.85rem;
-    color: var(--color-text-secondary);
-    line-height: 1.65;
-    max-width: 30ch;
-}
-
-.successTerminal {
-    background: #0a0a0a;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 8px;
-    padding: 0.6rem 1.2rem;
+.successTerminalTitle {
     font-family: 'Space Mono', monospace;
-    font-size: 0.78rem;
-    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.65rem;
+    color: rgba(255, 255, 255, 0.25);
+    margin-left: auto;
 }
 
-.okGreen {
+.successTerminalBody {
+    padding: 0.85rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.termLine {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+}
+
+.termPrompt {
+    color: #98c379;
+    flex-shrink: 0;
+}
+
+.termCmd {
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.termOutput {
+    color: rgba(255, 255, 255, 0.35);
+}
+
+.termSuccess {
     color: #4ade80;
 }
 
+.termEmail {
+    color: #9ecbff;
+    text-decoration: underline;
+}
+
+.termCursor {
+    color: rgba(255, 255, 255, 0.7);
+    animation: blink 1.1s step-end infinite;
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+/* ── Reset button ────────────────────────────────────────── */
 .resetBtn {
-    background: var(--glass-bg);
-    border: 1px solid var(--color-border);
-    color: var(--color-text);
-    padding: 0.55rem 1.4rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: rgba(255, 255, 255, 0.6);
+    padding: 0.5rem 1.2rem;
     border-radius: 999px;
-    font-size: 0.8rem;
-    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.75rem;
+    font-family: 'Space Mono', monospace;
     cursor: pointer;
-    transition: background 150ms ease, border-color 150ms ease;
+    transition: background 150ms ease, border-color 150ms ease, color 150ms ease;
 }
 
 .resetBtn:hover {
-    background: var(--color-bg);
-    border-color: var(--color-border-active);
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.28);
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
+@media (max-width: 480px) {
+    .modal {
+        width: 95vw;
+        max-height: 90dvh;
+        border-radius: 10px;
+    }
+
+    .body {
+        padding: 1rem 1rem 1.25rem;
+    }
+
+    .jsonRow {
+        font-size: 0.73rem;
+    }
+
+    .jsonInput {
+        font-size: 0.73rem;
+    }
+
+    .codeComment {
+        font-size: 0.65rem;
+    }
 }
