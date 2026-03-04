@@ -31,9 +31,9 @@ function About() {
   ];
 
   const skills = [
-    { category: "Frontend", items: ["HTML5", "CSS3", "JavaScript", "React"] },
-    { category: "Design", items: ["Figma", "UI/UX", "Prototyping"] },
-    { category: "Tools", items: ["Git", "VS Code", "Chrome DevTools"] }
+    { category: "AI & Research", items: ["Transformers/BERT", "YOLOv8", "NMT", "TensorFlow"] },
+    { category: "Full-Stack", items: ["React", "FastAPI", "Flutter", "MongoDB"] },
+    { category: "Health-Tech", items: ["Prakriti Modeling", "CDSS", "Ojas Indexing"] }
   ];
 
   return (
@@ -64,7 +64,7 @@ function About() {
           {/* Column 1: Intro & Leadership */}
           <div className={styles.column}>
             {/* Intro Card */}
-            <motion.div 
+            <motion.div
               className={styles.introCard}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -74,12 +74,13 @@ function About() {
                 <div className={styles.avatar}>PG</div>
                 <div className={styles.profileInfo}>
                   <h3>Prajwal Ganiga</h3>
-                  <p>3rd Year CS&D Student</p>
+                  <p>CS&D Student · IEEE Published Author</p>
                 </div>
               </div>
               <p className={styles.introText}>
-                Passionate about building intelligent solutions and creating inclusive digital experiences. 
-                I thrive on learning new technologies and bringing innovative ideas to life through code and design.
+                Full-Stack AI Developer and Researcher specializing in the integration of Ayurvedic principles
+                with Deep Learning. Main author of IEEE research on Medical NMT and 2nd Place winner at AYUSH HABBA 2026.
+                Proven track record in building predictive health models and leading high-stakes technical projects.
               </p>
             </motion.div>
 
@@ -88,7 +89,7 @@ function About() {
               <h3 className={styles.sectionSubtitle}>Leadership Roles</h3>
               <div className={styles.leadershipGrid}>
                 {leadershipRoles.map((role, index) => (
-                  <motion.div 
+                  <motion.div
                     key={index}
                     className={styles.leadershipCard}
                     whileHover={{ scale: 1.02 }}
@@ -111,7 +112,7 @@ function About() {
           {/* Column 2: Details & Skills */}
           <div className={styles.column}>
             {/* Education & Details */}
-            <motion.div 
+            <motion.div
               className={styles.detailsCard}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -122,29 +123,29 @@ function About() {
                 <div className={styles.detailItem}>
                   <div className={styles.detailIcon}>🎓</div>
                   <div className={styles.detailContent}>
-                    <strong>Bachelor of Engineering</strong>
-                    <span>Computer Science & Design • 3rd Year</span>
+                    <strong>Bachelor of Engineering (CS&D)</strong>
+                    <span>CGPA: 9.25 · Academic Rank #1</span>
                   </div>
                 </div>
                 <div className={styles.detailItem}>
                   <div className={styles.detailIcon}>🏫</div>
                   <div className={styles.detailContent}>
                     <strong>Srinivas Institute of Technology</strong>
-                    <span>Currently in 5th Semester</span>
+                    <span>2023 – 2027</span>
                   </div>
                 </div>
                 <div className={styles.detailItem}>
-                  <div className={styles.detailIcon}>🎯</div>
+                  <div className={styles.detailIcon}>📜</div>
                   <div className={styles.detailContent}>
-                    <strong>Future Vision</strong>
-                    <span>Building tech that creates meaningful impact</span>
+                    <strong>IEEE Xplore Publication (2025)</strong>
+                    <span>Medical NMT · BLEU Score: 0.7747</span>
                   </div>
                 </div>
               </div>
             </motion.div>
 
             {/* Skills Card */}
-            <motion.div 
+            <motion.div
               className={styles.skillsCard}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -171,7 +172,7 @@ function About() {
           {/* Column 3: Interests & Mission */}
           <div className={styles.column}>
             {/* Interests Card */}
-            <motion.div 
+            <motion.div
               className={styles.interestsCard}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -189,7 +190,7 @@ function About() {
             </motion.div>
 
             {/* Mission Statement */}
-            <motion.div 
+            <motion.div
               className={styles.missionCard}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -200,8 +201,8 @@ function About() {
                 <h3>My Mission</h3>
               </div>
               <p className={styles.missionText}>
-                "Building thoughtful technology that empowers every mind through innovative solutions 
-                and user-centered design principles."
+                "Bridging Ayurvedic wisdom and Deep Learning to build intelligent, human-centered health technology
+                — from IEEE-published research to award-winning products."
               </p>
             </motion.div>
           </div>

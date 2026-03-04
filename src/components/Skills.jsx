@@ -4,111 +4,140 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import styles from './Skills.module.css';
 
-// Enhanced skills data with categories, levels, and colors
+// Enhanced skills data with specialist categories
 const skillsData = [
-  // Technical Skills
-  { 
-    name: 'React & Next.js', 
+  // AI & Deep Learning
+  {
+    name: 'Transformers & BERT',
+    icon: 'fas fa-brain',
+    category: 'ai-research',
+    level: 88,
+    color: '#A855F7',
+    gradient: 'linear-gradient(135deg, #A855F7, #7C3AED)',
+    description: 'Neural Machine Translation, BERT-based architectures, achieving 0.7747 BLEU score in Medical NMT'
+  },
+  {
+    name: 'YOLOv8 & Computer Vision',
+    icon: 'fas fa-eye',
+    category: 'ai-research',
+    level: 82,
+    color: '#EC4899',
+    gradient: 'linear-gradient(135deg, #EC4899, #BE185D)',
+    description: 'Real-time object detection for Vaidya Lens food analysis in the AYU-EAT platform'
+  },
+  {
+    name: 'TensorFlow & Keras',
+    icon: 'fas fa-network-wired',
+    category: 'ai-research',
+    level: 85,
+    color: '#FF6B6B',
+    gradient: 'linear-gradient(135deg, #FF6B6B, #EE5A52)',
+    description: 'Deep learning model training, CNNs, RNNs, and predictive health models'
+  },
+  {
+    name: 'Neural Machine Translation',
+    icon: 'fas fa-language',
+    category: 'ai-research',
+    level: 80,
+    color: '#6366F1',
+    gradient: 'linear-gradient(135deg, #6366F1, #4338CA)',
+    description: 'English-to-Kannada Medical NMT, published in IEEE Xplore 2025'
+  },
+
+  // Health-Tech & Ayurvedic Computing
+  {
+    name: 'Computable Health Modeling',
+    icon: 'fas fa-heartbeat',
+    category: 'health-tech',
+    level: 85,
+    color: '#10B981',
+    gradient: 'linear-gradient(135deg, #10B981, #047857)',
+    description: 'Prakriti, Agni, Dosha modeling, and Ojas Vitality Indexing for Ayurvedic platforms'
+  },
+  {
+    name: 'Clinical Decision Support',
+    icon: 'fas fa-stethoscope',
+    category: 'health-tech',
+    level: 78,
+    color: '#34D399',
+    gradient: 'linear-gradient(135deg, #34D399, #059669)',
+    description: 'CDSS design, Viruddha Ahara (toxic combination) detection heuristics'
+  },
+  {
+    name: 'Ayurvedic Data Architecture',
+    icon: 'fas fa-leaf',
+    category: 'health-tech',
+    level: 80,
+    color: '#6EE7B7',
+    gradient: 'linear-gradient(135deg, #6EE7B7, #10B981)',
+    description: 'Structuring ancient Ayurvedic principles into computable, queryable data models'
+  },
+
+  // Full-Stack Engineering
+  {
+    name: 'React & Next.js',
     icon: 'fab fa-react',
-    category: 'frontend',
+    category: 'full-stack',
     level: 90,
     color: '#61DAFB',
     gradient: 'linear-gradient(135deg, #61DAFB, #21A4C9)',
-    description: 'Modern React development with hooks, context, and Next.js for SSR'
+    description: 'Modern React 19 development with hooks, Framer Motion, and Next.js for SSR'
   },
-  { 
-    name: 'Python & FastAPI', 
+  {
+    name: 'FastAPI & Python',
     icon: 'fab fa-python',
-    category: 'backend',
-    level: 85,
+    category: 'full-stack',
+    level: 88,
     color: '#3776AB',
     gradient: 'linear-gradient(135deg, #3776AB, #2D5D7C)',
-    description: 'Backend development with Python, Flask, FastAPI, and RESTful APIs'
+    description: 'Asynchronous backend APIs, REST design, and ML model deployment'
   },
-  { 
-    name: 'SQL & NoSQL', 
+  {
+    name: 'Flutter (Mobile UI/UX)',
+    icon: 'fas fa-mobile-alt',
+    category: 'full-stack',
+    level: 82,
+    color: '#54C5F8',
+    gradient: 'linear-gradient(135deg, #54C5F8, #0175C2)',
+    description: 'Advanced Flutter UI for health-tech mobile apps like AYU-EAT'
+  },
+  {
+    name: 'MongoDB & NoSQL',
     icon: 'fas fa-database',
-    category: 'database',
-    level: 80,
-    color: '#336791',
-    gradient: 'linear-gradient(135deg, #336791, #274D6B)',
-    description: 'Database design with PostgreSQL, MongoDB, and data modeling'
-  },
-  { 
-    name: 'Deep Learning', 
-    icon: 'fas fa-brain',
-    category: 'ai-ml',
-    level: 75,
-    color: '#FF6B6B',
-    gradient: 'linear-gradient(135deg, #FF6B6B, #EE5A52)',
-    description: 'Neural networks, TensorFlow, and machine learning applications'
-  },
-  
-  // Design Skills
-  { 
-    name: 'UI/UX Design', 
-    icon: 'fas fa-paint-brush',
-    category: 'design',
+    category: 'full-stack',
     level: 85,
-    color: '#9C27B0',
-    gradient: 'linear-gradient(135deg, #9C27B0, #7B1FA2)',
-    description: 'User interface design, prototyping, and user experience research'
+    color: '#47A248',
+    gradient: 'linear-gradient(135deg, #47A248, #2D6A2D)',
+    description: 'Scalable NoSQL database design, aggregation pipelines, and schema modeling'
   },
-  { 
-    name: 'Canvas & Graphics', 
-    icon: 'fas fa-palette',
-    category: 'design',
-    level: 80,
-    color: '#E91E63',
-    gradient: 'linear-gradient(135deg, #E91E63, #C2185B)',
-    description: 'HTML5 Canvas, creative coding, and interactive graphics'
-  },
-  { 
-    name: 'Web Animation', 
-    icon: 'fas fa-magic',
-    category: 'frontend',
-    level: 75,
-    color: '#00BCD4',
-    gradient: 'linear-gradient(135deg, #00BCD4, #0097A7)',
-    description: 'CSS animations, Framer Motion, and interactive web experiences'
-  },
-  
-  // Professional Skills
-  { 
-    name: 'Technical Communication', 
-    icon: 'fas fa-comments',
-    category: 'professional',
+
+  // DevOps & Professional Tools
+  {
+    name: 'Git & Version Control',
+    icon: 'fab fa-git-alt',
+    category: 'devops',
     level: 90,
-    color: '#4CAF50',
-    gradient: 'linear-gradient(135deg, #4CAF50, #388E3C)',
-    description: 'Clear technical documentation and team communication'
+    color: '#F05032',
+    gradient: 'linear-gradient(135deg, #F05032, #C93D1B)',
+    description: 'Git workflows, branching strategies, and team collaboration'
   },
-  { 
-    name: 'Project Leadership', 
-    icon: 'fas fa-user-tie',
-    category: 'professional',
+  {
+    name: 'Docker',
+    icon: 'fab fa-docker',
+    category: 'devops',
+    level: 72,
+    color: '#2496ED',
+    gradient: 'linear-gradient(135deg, #2496ED, #1366C0)',
+    description: 'Container-based deployment and environment standardization'
+  },
+  {
+    name: 'SCRUM / Agile PM',
+    icon: 'fas fa-tasks',
+    category: 'devops',
     level: 85,
     color: '#FF9800',
     gradient: 'linear-gradient(135deg, #FF9800, #F57C00)',
-    description: 'Team leadership, project planning, and agile development'
-  },
-  { 
-    name: 'Event Management', 
-    icon: 'fas fa-calendar-alt',
-    category: 'professional',
-    level: 80,
-    color: '#607D8B',
-    gradient: 'linear-gradient(135deg, #607D8B, #455A64)',
-    description: 'Organizing tech events, workshops, and community meetups'
-  },
-  { 
-    name: 'Problem Solving', 
-    icon: 'fas fa-puzzle-piece',
-    category: 'professional',
-    level: 95,
-    color: '#795548',
-    gradient: 'linear-gradient(135deg, #795548, #5D4037)',
-    description: 'Analytical thinking and creative solution development'
+    description: 'SCRUM sprints, technical project management, and SIH 2025 team leadership'
   }
 ];
 
@@ -123,13 +152,13 @@ const SkillCard = ({ skill, isSelected, onClick, index }) => {
       onClick={onClick}
       initial={{ opacity: 0, scale: 0.8, y: 50 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
-      transition={{ 
-        duration: 0.6, 
+      transition={{
+        duration: 0.6,
         delay: index * 0.1,
         type: "spring",
         stiffness: 100
       }}
-      whileHover={{ 
+      whileHover={{
         y: -15,
         scale: 1.05,
         transition: { duration: 0.3 }
@@ -137,22 +166,22 @@ const SkillCard = ({ skill, isSelected, onClick, index }) => {
       whileTap={{ scale: 0.95 }}
     >
       {/* Animated Background Gradient */}
-      <div 
+      <div
         className={styles.cardGradient}
         style={{ background: skill.gradient }}
       />
-      
+
       {/* Glow Effect */}
       <div className={styles.cardGlow} />
-      
+
       <div className={styles.cardContent}>
         {/* Icon with floating animation */}
-        <motion.div 
+        <motion.div
           className={styles.iconContainer}
-          animate={{ 
+          animate={{
             y: [0, -10, 0],
           }}
-          transition={{ 
+          transition={{
             duration: 3,
             repeat: Infinity,
             ease: "easeInOut"
@@ -163,10 +192,10 @@ const SkillCard = ({ skill, isSelected, onClick, index }) => {
 
         {/* Skill Name */}
         <h3 className={styles.skillName}>{skill.name}</h3>
-        
+
         {/* Progress Bar */}
         <div className={styles.progressContainer}>
-          <motion.div 
+          <motion.div
             className={styles.progressBar}
             initial={{ width: 0 }}
             animate={{ width: `${skill.level}%` }}
@@ -184,7 +213,7 @@ const SkillCard = ({ skill, isSelected, onClick, index }) => {
 
       {/* Selection Indicator */}
       {isSelected && (
-        <motion.div 
+        <motion.div
           className={styles.selectionRing}
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
@@ -247,7 +276,7 @@ function Skills() {
   const categories = ['all', ...new Set(skillsData.map(skill => skill.category))];
 
   // Filter skills by category
-  const filteredSkills = skillsData.filter(skill => 
+  const filteredSkills = skillsData.filter(skill =>
     activeCategory === 'all' || skill.category === activeCategory
   );
 
@@ -262,8 +291,8 @@ function Skills() {
   };
 
   return (
-    <motion.section 
-      id="skills" 
+    <motion.section
+      id="skills"
       className={styles.skillsSection}
       ref={ref}
       initial="hidden"
@@ -279,7 +308,7 @@ function Skills() {
 
       <div className={styles.container}>
         {/* Section Header */}
-        <motion.div 
+        <motion.div
           className={styles.sectionHeader}
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -298,7 +327,7 @@ function Skills() {
         </motion.div>
 
         {/* Category Filter */}
-        <motion.div 
+        <motion.div
           className={styles.categoryFilter}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -307,9 +336,8 @@ function Skills() {
           {categories.map(category => (
             <motion.button
               key={category}
-              className={`${styles.categoryBtn} ${
-                activeCategory === category ? styles.active : ''
-              }`}
+              className={`${styles.categoryBtn} ${activeCategory === category ? styles.active : ''
+                }`}
               onClick={() => setActiveCategory(category)}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -320,7 +348,7 @@ function Skills() {
         </motion.div>
 
         {/* Skills Grid */}
-        <motion.div 
+        <motion.div
           className={styles.skillsGrid}
           layout
         >
@@ -359,17 +387,17 @@ function Skills() {
                     {selectedSkill.category}
                   </span>
                 </div>
-                <button 
+                <button
                   className={styles.closeBtn}
                   onClick={() => setSelectedSkill(null)}
                 >
                   ×
                 </button>
               </div>
-              
+
               <div className={styles.detailContent}>
                 <p>{selectedSkill.description}</p>
-                
+
                 <div className={styles.skillStats}>
                   <div className={styles.stat}>
                     <span className={styles.statValue}>{selectedSkill.level}%</span>
@@ -385,7 +413,7 @@ function Skills() {
 
                 <div className={styles.skillLevel}>
                   <div className={styles.levelBar}>
-                    <motion.div 
+                    <motion.div
                       className={styles.levelFill}
                       initial={{ width: 0 }}
                       animate={{ width: `${selectedSkill.level}%` }}
@@ -406,7 +434,7 @@ function Skills() {
         </AnimatePresence>
 
         {/* Skills Summary */}
-        <motion.div 
+        <motion.div
           className={styles.skillsSummary}
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}

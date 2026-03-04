@@ -33,65 +33,65 @@ const experienceData = [
   {
     id: 2,
     company: 'Space for Website',
-    role: 'Founder & Web Developer',
+    role: 'Founder & Lead Developer',
     period: '2024 – Present',
     duration: '1+ Year',
-    description: 'Bespoke website development agency creating professional, responsive websites for diverse clients from concept to deployment with focus on modern design and user experience.',
-    technologies: ['HTML5', 'CSS3', 'JavaScript', 'React', 'UI/UX'],
+    description: 'Launched a SaaS development agency delivering market-ready solutions, including a specialized Driver Gas Booking App and Medical Clinic Portals. Managed end-to-end product lifecycles for 5+ clients, translating complex business requirements into scalable architectures with intuitive UX.',
+    technologies: ['React', 'HTML5', 'CSS3', 'JavaScript', 'UI/UX'],
     type: 'startup',
     status: 'active',
     link: 'https://spaceforwebsite.in',
     achievements: [
-      '20+ websites delivered',
-      'Custom design solutions',
-      'SEO optimization',
-      'Performance focused'
+      '5+ successful client deliveries',
+      'SaaS product development',
+      'Medical Clinic Portals',
+      'Driver Gas Booking App'
     ],
     side: 'right',
     featured: true
   },
   {
     id: 3,
-    company: 'SwizoSoft',
-    role: 'Full Stack Development Intern',
-    period: 'Summer 2023',
-    duration: '3 Months',
-    description: 'Intensive full-stack development internship under expert guidance. Worked on real-world projects using modern web technologies and database management systems.',
-    technologies: ['HTML', 'CSS', 'Flask', 'MongoDB', 'MySQL'],
+    company: 'Dhaarini Academy',
+    role: 'Project Intern – Medical Deep Learning',
+    period: 'July 2025 – October 2025',
+    duration: '4 Months',
+    description: 'Engineered a deep learning-based Doctor-Patient Translator using CNNs and neural networks to bridge communication gaps in healthcare. Trained predictive models on real-world medical datasets and contributed to multilingual accessibility frameworks in modern medical services.',
+    technologies: ['Python', 'TensorFlow', 'Keras', 'NMT', 'Medical NLP'],
     type: 'internship',
     status: 'completed',
-    mentor: 'Aditya M. Bhatt',
-    certificate: swizosoftCert,
+    certificate: dhaariniCert,
+    projects: [
+      'Doctor-Patient Translator (Medical NMT)',
+      'Real-time Multilingual Clinical Communication',
+      'Predictive Health Models'
+    ],
     achievements: [
-      'Full-stack project development',
-      'Database design & optimization',
-      'REST API development',
-      'Agile methodology'
+      'Medical NLP engineering',
+      'Neural MT architecture',
+      'Clinical data preprocessing',
+      'Keras model training & evaluation'
     ],
     side: 'left',
     featured: false
   },
   {
     id: 4,
-    company: 'Dharini Academy',
-    role: 'Deep Learning Intern',
-    period: 'Summer 2023',
-    duration: '3 Months',
-    description: 'Practical deep learning internship focusing on computer vision and predictive analytics. Contributed to innovative AI projects with real-world applications.',
-    technologies: ['Python', 'TensorFlow', 'OpenCV', 'CNN', 'RNN'],
+    company: 'SwizoSoft',
+    role: 'Full Stack Development Intern',
+    period: 'Apr 2025 – May 2025',
+    duration: '2 Months',
+    description: 'Developed and deployed dynamic web applications utilizing Flask, MongoDB, and JavaScript, focusing on high-performance backend logic. Collaborated on responsive frontend designs to enhance user engagement for diverse web platforms.',
+    technologies: ['HTML', 'CSS', 'Flask', 'MongoDB', 'JavaScript'],
     type: 'internship',
     status: 'completed',
-    certificate: dhaariniCert,
-    projects: [
-      'Real-time Mask Detection System',
-      'Plant Species Classification',
-      'Stock Market Prediction Model'
-    ],
+    mentor: 'Aditya M. Bhatt',
+    certificate: swizosoftCert,
     achievements: [
-      'Computer vision applications',
-      'Neural network architecture',
-      'Model training & evaluation',
-      'Data preprocessing'
+      'Full-stack web application development',
+      'Database design & optimization',
+      'REST API development',
+      'Agile methodology'
     ],
     side: 'right',
     featured: false
@@ -109,13 +109,13 @@ const ExperienceCard = ({ experience, isActive, onClick, index }) => {
       onClick={onClick}
       initial={{ opacity: 0, y: 50, scale: 0.9 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
-      transition={{ 
-        duration: 0.6, 
+      transition={{
+        duration: 0.6,
         delay: index * 0.15,
         type: "spring",
         stiffness: 100
       }}
-      whileHover={{ 
+      whileHover={{
         y: -10,
         transition: { duration: 0.3 }
       }}
@@ -128,15 +128,15 @@ const ExperienceCard = ({ experience, isActive, onClick, index }) => {
       </div>
 
       {/* Card Gradient Border */}
-      <div 
+      <div
         className={styles.cardGradient}
-        style={{ 
-          background: experience.type === 'startup' 
-            ? 'linear-gradient(135deg, #8B5CF6, #EC4899)' 
+        style={{
+          background: experience.type === 'startup'
+            ? 'linear-gradient(135deg, #8B5CF6, #EC4899)'
             : 'linear-gradient(135deg, #3B82F6, #06B6D4)'
         }}
       />
-      
+
       <div className={styles.cardContent}>
         {/* Card Header */}
         <div className={styles.cardHeader}>
@@ -198,7 +198,7 @@ const ExperienceCard = ({ experience, isActive, onClick, index }) => {
               Visit Website
             </motion.a>
           )}
-          
+
           {experience.certificate && (
             <motion.button
               className={styles.certificateBtn}
@@ -225,7 +225,7 @@ const ExperienceCard = ({ experience, isActive, onClick, index }) => {
 
       {/* Active Indicator */}
       {isActive && (
-        <motion.div 
+        <motion.div
           className={styles.activeIndicator}
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
@@ -262,8 +262,8 @@ const CertificateModal = ({ experience, isOpen, onClose }) => {
           </button>
         </div>
         <div className={styles.certificateImage}>
-          <img 
-            src={experience.certificate} 
+          <img
+            src={experience.certificate}
             alt={`${experience.company} Certificate`}
           />
         </div>
@@ -351,8 +351,8 @@ function Experience() {
   };
 
   return (
-    <motion.section 
-      id="experience" 
+    <motion.section
+      id="experience"
       className={styles.experienceSection}
       ref={ref}
       initial="hidden"
@@ -368,7 +368,7 @@ function Experience() {
 
       <div className={styles.container}>
         {/* Section Header */}
-        <motion.div 
+        <motion.div
           className={styles.sectionHeader}
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -390,7 +390,7 @@ function Experience() {
         <div className={styles.timelineContainer}>
           {/* Central Timeline */}
           <div className={styles.centralTimeline}>
-            <motion.div 
+            <motion.div
               className={styles.timelineProgress}
               initial={{ scaleY: 0 }}
               animate={{ scaleY: 1 }}
@@ -413,7 +413,7 @@ function Experience() {
         </div>
 
         {/* Experience Summary */}
-        <motion.div 
+        <motion.div
           className={styles.experienceSummary}
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}

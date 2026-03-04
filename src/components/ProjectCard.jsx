@@ -37,6 +37,11 @@ import imgSql1 from '../assets/images/project_sql/project-sql1.png'
 import imgSql2 from '../assets/images/project_sql/project-sql2.png';
 import imgSql3 from '../assets/images/project_sql/project-sql3.png';
 
+import imgSih1 from '../assets/images/project_sih/sih-1.jpeg';
+import imgSih2 from '../assets/images/project_sih/sih-2.jpeg';
+import imgSih3 from '../assets/images/project_sih/sih-3.jpeg';
+import imgSih4 from '../assets/images/project_sih/sih-4.jpeg';
+
 const imageMap = {
   'project1.jpg': imgSmart1,
   'project11.png': imgSmart11,
@@ -65,6 +70,10 @@ const imageMap = {
   'project-sql1.png': imgSql1,
   'project-sql2.png': imgSql2,
   'project-sql3.png': imgSql3,
+  'sih-1.jpeg': imgSih1,
+  'sih-2.jpeg': imgSih2,
+  'sih-3.jpeg': imgSih3,
+  'sih-4.jpeg': imgSih4,
 };
 
 
@@ -99,11 +108,11 @@ class ErrorBoundary extends React.Component {
 // Animation variants
 const cardVariants = {
   hidden: { opacity: 0, y: 30 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     y: 0,
-    transition: { 
-      type: 'spring', 
+    transition: {
+      type: 'spring',
       stiffness: 100,
       duration: 0.6
     }
@@ -124,10 +133,10 @@ function ProjectCard({ project, featured }) {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
-    
+
     checkMobile();
     window.addEventListener('resize', checkMobile);
-    
+
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
@@ -156,7 +165,7 @@ function ProjectCard({ project, featured }) {
       const interval = setInterval(() => {
         nextImage();
       }, 4000);
-      
+
       return () => clearInterval(interval);
     }
   }, [isMobile, images.length]);
@@ -164,7 +173,7 @@ function ProjectCard({ project, featured }) {
   // Get truncated description
   const getTruncatedDescription = () => {
     const truncateLength = isMobile ? 80 : 120;
-    return project.description.length > truncateLength && !isExpanded 
+    return project.description.length > truncateLength && !isExpanded
       ? `${project.description.substring(0, truncateLength)}...`
       : project.description;
   };
@@ -179,7 +188,7 @@ function ProjectCard({ project, featured }) {
 
   return (
     <ErrorBoundary>
-      <motion.div 
+      <motion.div
         className={`${styles.projectCard} ${featured ? styles.featured : ''}`}
         ref={cardRef}
         variants={cardVariants}
@@ -205,7 +214,7 @@ function ProjectCard({ project, featured }) {
           <div className={styles.carouselWrapper}>
             {images.length > 0 ? (
               <>
-                <motion.div 
+                <motion.div
                   className={styles.carouselImages}
                   animate={{ x: `-${currentImage * 100}%` }}
                   transition={{ type: "spring", stiffness: 300, damping: 30 }}
@@ -213,9 +222,9 @@ function ProjectCard({ project, featured }) {
                   {images.map((imgName, index) => (
                     <div key={index} className={styles.carouselSlide}>
                       {!imageError[imgName] ? (
-                        <img 
-                          src={imageMap[imgName]} 
-                          alt={`${project.title} screenshot ${index + 1}`} 
+                        <img
+                          src={typeof imgName === 'string' && imageMap[imgName] ? imageMap[imgName] : imgName}
+                          alt={`${project.title} screenshot ${index + 1}`}
                           className={styles.carouselImg}
                           onError={() => handleImageError(imgName)}
                           loading="lazy"
@@ -275,10 +284,10 @@ function ProjectCard({ project, featured }) {
             {/* Project Links */}
             <div className={styles.projectLinks}>
               {project.githubLink && (
-                <motion.a 
-                  href={project.githubLink} 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
+                <motion.a
+                  href={project.githubLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className={`${styles.btn} ${styles.btnSecondary}`}
                   whileTap={{ scale: 0.95 }}
                   onClick={(e) => e.stopPropagation()}
@@ -288,10 +297,10 @@ function ProjectCard({ project, featured }) {
                 </motion.a>
               )}
               {project.liveLink && (
-                <motion.a 
-                  href={project.liveLink} 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
+                <motion.a
+                  href={project.liveLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className={`${styles.btn} ${styles.btnPrimary}`}
                   whileTap={{ scale: 0.95 }}
                   onClick={(e) => e.stopPropagation()}

@@ -11,15 +11,21 @@ import innofest from '../assets/Achievements/Innofest_!st_place.jpg';
 import startupIdea from '../assets/Achievements/startup_ideaPresentation_1st_Place.jpg';
 import prathibaTurnthecoat from '../assets/Achievements/prathiba_turnthecoat_2nd_place.jpg';
 import prathibaDebate from '../assets/Achievements/prathiba_debate_2nd_place.jpg';
+import sihTop5 from '../assets/Achievements/SIH-TOP5.jpeg';
+import solveAThon from '../assets/Achievements/Solve-A-Thon_2nd_place.jpeg';
+import ieeeBestPaper from '../assets/Achievements/IEEE_Best_Paper.jpeg';
 
 // Achievement images array for gallery
 const achievementImages = [
-  { id: 1, src: academicExcellence, title: 'Academic Excellence Award - 1st Place', category: 'academic' },
-  { id: 2, src: fixAndReveal, title: 'Fix & Reveal Competition - 1st Place', category: 'technical' },
-  { id: 3, src: innofest, title: 'Innofest Innovation - 1st Place', category: 'technical' },
-  { id: 4, src: startupIdea, title: 'Startup Idea Presentation - 1st Place', category: 'technical' },
-  { id: 5, src: prathibaTurnthecoat, title: 'Prathiba Turn the Coat - 2nd Place', category: 'academic' },
-  { id: 6, src: prathibaDebate, title: 'Prathiba Debate Competition - 2nd Place', category: 'academic' }
+  { id: 1, src: ieeeBestPaper, title: 'IEEE Best Paper Award – 2025', category: 'technical' },
+  { id: 2, src: sihTop5, title: 'Smart India Hackathon (SIH) 2025 – Top 5 Finalist', category: 'technical' },
+  { id: 3, src: solveAThon, title: 'Solve-A-Thon – 2nd Place', category: 'technical' },
+  { id: 4, src: academicExcellence, title: 'Academic Excellence Award – 1st Place', category: 'academic' },
+  { id: 5, src: fixAndReveal, title: 'Fix & Reveal Competition – 1st Place', category: 'technical' },
+  { id: 6, src: innofest, title: 'Innofest Innovation – 1st Place', category: 'technical' },
+  { id: 7, src: startupIdea, title: 'Startup Idea Presentation – 1st Place', category: 'technical' },
+  { id: 8, src: prathibaTurnthecoat, title: 'Prathiba Turn the Coat – 2nd Place', category: 'academic' },
+  { id: 9, src: prathibaDebate, title: 'Prathiba Debate Competition – 2nd Place', category: 'academic' }
 ];
 
 // Enhanced achievements data
@@ -43,14 +49,14 @@ const achievementsData = [
     icon: 'fas fa-trophy',
     title: 'Competitive Recognition',
     category: 'technical',
-    highlights: ['GDG Hackathon', 'Top 5 Codethon', '60+ Teams'],
+    highlights: ['AYUSH HABBA 2026', 'SIH 2025 Top 5', 'National Level'],
     points: [
-      'Secured spot in Top 1000 at Google Developers Group (GDG) Hackathon.',
-      'Project placed in Top 5 out of 60 teams in college-level Codethon at SIT.',
-      'Recognized for innovative problem-solving and technical execution.',
-      'Competed against national-level participants in tech competitions.',
+      'Won 2nd Place at AYUSH HABBA 2026 IDEA Hackathon – T.M.A. Pai Convention Centre (70+ teams).',
+      'Team Lead for Smart India Hackathon (SIH) 2025 – Top 5 National Finalist for Digital Biosecurity Portal.',
+      '2nd Place at Solve-A-Thon for rapid technical problem-solving and cross-functional collaboration.',
+      'Published as Main Author in IEEE Xplore 2025 with 0.7747 BLEU score on Medical NMT.',
     ],
-    stats: { competitions: 12, rankings: 'Top 5', teams: '60+' }
+    stats: { competitions: 12, rankings: 'Top 5', teams: '70+' }
   },
   {
     id: 3,
@@ -86,8 +92,8 @@ const AchievementGallery = () => {
             onClick={() => setSelectedImage(image)}
           >
             <div className={styles.imageWrapper}>
-              <img 
-                src={image.src} 
+              <img
+                src={image.src}
                 alt={image.title}
                 className={styles.galleryImage}
               />
@@ -127,14 +133,14 @@ const AchievementGallery = () => {
               exit={{ scale: 0.8, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
             >
-              <button 
+              <button
                 className={styles.closeButton}
                 onClick={() => setSelectedImage(null)}
               >
                 <i className="fas fa-times"></i>
               </button>
-              <img 
-                src={selectedImage.src} 
+              <img
+                src={selectedImage.src}
                 alt={selectedImage.title}
                 className={styles.modalImage}
               />
@@ -201,20 +207,20 @@ const AchievementCard = ({ achievement, index }) => {
       className={`${styles.achievementCard} ${styles[achievement.category]}`}
       initial={{ opacity: 0, y: 50, scale: 0.9 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
-      transition={{ 
-        duration: 0.6, 
+      transition={{
+        duration: 0.6,
         delay: index * 0.2,
         type: "spring",
         stiffness: 100
       }}
-      whileHover={{ 
+      whileHover={{
         y: -10,
         transition: { duration: 0.3 }
       }}
     >
       {/* Card Gradient Border */}
       <div className={styles.cardGradient} />
-      
+
       <div className={styles.cardContent}>
         {/* Card Header */}
         <div className={styles.cardHeader}>
@@ -306,8 +312,8 @@ function Achievements() {
   };
 
   return (
-    <motion.section 
-      id="achievements" 
+    <motion.section
+      id="achievements"
       className={styles.achievementsSection}
       ref={ref}
       initial="hidden"
@@ -323,7 +329,7 @@ function Achievements() {
 
       <div className={styles.container}>
         {/* Section Header */}
-        <motion.div 
+        <motion.div
           className={styles.sectionHeader}
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -342,7 +348,7 @@ function Achievements() {
         </motion.div>
 
         {/* Achievement Gallery */}
-        <motion.div 
+        <motion.div
           className={styles.gallerySection}
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
@@ -354,7 +360,7 @@ function Achievements() {
         </motion.div>
 
         {/* Achievements Grid */}
-        <motion.div 
+        <motion.div
           className={styles.achievementsGrid}
           layout
         >
@@ -368,7 +374,7 @@ function Achievements() {
         </motion.div>
 
         {/* Achievements Summary */}
-        <motion.div 
+        <motion.div
           className={styles.achievementsSummary}
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}

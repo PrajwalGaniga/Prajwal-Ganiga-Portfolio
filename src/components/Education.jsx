@@ -10,26 +10,26 @@ const educationData = [
     id: 1,
     institution: 'Srinivas Institute of Technology',
     degree: 'BE in Computer Science & Design',
-    period: '2022 – Present',
+    period: '2023 – 2027',
     duration: '3rd Year (5th Semester)',
-    description: 'Pursuing my BE with focus on full-stack development, AI/ML, and design thinking. Actively participating in tech communities and building innovative projects.',
+    description: 'Pursuing BE with focus on Full-Stack AI, Deep Learning, and Health-Tech. Main author of IEEE Xplore publication on Medical NMT. Founder of two tech ventures and active national hackathon participant.',
     icon: '🎓',
     color: '#3B82F6',
     gradient: 'linear-gradient(135deg, #3B82F6, #1D4ED8)',
-    achievements: ['CGPA: 8.5+', 'Tech Club Member', 'Project Lead'],
+    achievements: ['CGPA: 9.25', 'Academic Rank #1 – 3 Semesters', 'IEEE Published Author'],
     status: 'current'
   },
   {
     id: 2,
     institution: 'Capitanio PU Composite',
-    degree: 'Pre-University College',
-    period: '2020 – 2022',
+    degree: 'Pre-University College (PCMB)',
+    period: '2021 – 2023',
     duration: '2 Years',
-    description: 'Completed PUC with focus on Science stream. Built strong foundation in mathematics and computer science fundamentals.',
+    description: 'Completed PUC with Science stream (PCMB). Achieved 88% aggregate. Sports Champion in Athletics and active member of the College Volleyball Team.',
     icon: '📚',
     color: '#10B981',
     gradient: 'linear-gradient(135deg, #10B981, #047857)',
-    achievements: ['Science Stream', 'Mathematics Focus', 'Computer Basics'],
+    achievements: ['88% Aggregate', 'Sports Champion – Athletics', 'Volleyball Team'],
     status: 'completed'
   },
   {
@@ -38,7 +38,7 @@ const educationData = [
     degree: 'Secondary Education',
     period: '2015 – 2020',
     duration: '5 Years (6th–10th)',
-    description: 'Completed secondary education with excellence in academics and extracurricular activities. Developed interest in technology and programming.',
+    description: 'Completed secondary education with excellence in academics and extracurricular activities. Developed early interest in technology and programming.',
     icon: '🏫',
     color: '#F59E0B',
     gradient: 'linear-gradient(135deg, #F59E0B, #D97706)',
@@ -51,7 +51,7 @@ const educationData = [
     degree: 'Primary Education',
     period: '2010 – 2015',
     duration: '5 Years (1st–5th)',
-    description: 'Primary education that laid the foundation for academic journey. Developed curiosity for technology and creative problem-solving.',
+    description: 'Primary education that laid the foundation for the academic journey. Developed curiosity for technology and creative problem-solving.',
     icon: '👶',
     color: '#8B5CF6',
     gradient: 'linear-gradient(135deg, #8B5CF6, #7C3AED)',
@@ -72,17 +72,17 @@ const EducationCard = ({ education, isActive, onClick, index }) => {
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
-      whileHover={{ 
+      whileHover={{
         y: -10,
         transition: { duration: 0.3 }
       }}
       whileTap={{ scale: 0.98 }}
     >
-      <div 
+      <div
         className={styles.cardGradient}
         style={{ background: education.gradient }}
       />
-      
+
       <div className={styles.cardContent}>
         <div className={styles.cardHeader}>
           <div className={styles.iconContainer}>
@@ -123,7 +123,7 @@ const EducationCard = ({ education, isActive, onClick, index }) => {
         </div>
 
         <div className={styles.cardFooter}>
-          <motion.div 
+          <motion.div
             className={styles.progressIndicator}
             initial={{ width: 0 }}
             animate={{ width: isActive ? '100%' : '0%' }}
@@ -164,8 +164,8 @@ function Education() {
   };
 
   return (
-    <motion.section 
-      id="education" 
+    <motion.section
+      id="education"
       className={styles.educationSection}
       ref={ref}
       initial="hidden"
@@ -181,7 +181,7 @@ function Education() {
 
       <div className={styles.container}>
         {/* Section Header */}
-        <motion.div 
+        <motion.div
           className={styles.sectionHeader}
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -203,7 +203,7 @@ function Education() {
         <div className={styles.timelineContainer}>
           {/* Progress Line */}
           <div className={styles.progressLine}>
-            <motion.div 
+            <motion.div
               className={styles.progressFill}
               initial={{ scaleY: 0 }}
               animate={{ scaleY: 1 }}

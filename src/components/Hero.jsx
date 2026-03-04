@@ -59,13 +59,13 @@ function Hero() {
             >
               <TypeAnimation
                 sequence={[
-                  'Full Stack Developer',
+                  'Full-Stack AI Developer',
                   2000,
-                  'Tech Innovator',
+                  'Published IEEE Researcher',
                   2000,
-                  'Business & Data Enthusiast',
+                  'Health-Tech Innovator',
                   2000,
-                  'AI Learner',
+                  'Full-Stack Founder',
                   2000,
                 ]}
                 wrapper="span"
@@ -88,7 +88,7 @@ function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.1 }}
             >
-              "Building thoughtful tech that empowers every mind through innovative solutions and user-centered design."
+              "Bridging Ayurvedic wisdom and Deep Learning to build intelligent, human-centered health technology."
             </motion.p>
 
             {/* CTA Buttons */}

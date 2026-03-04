@@ -5,98 +5,138 @@ import { useInView } from 'react-intersection-observer';
 import styles from './Projects.module.css';
 import ProjectCard from './ProjectCard.jsx';
 
+// AYU-EAT images
+import ayush1 from '../assets/images/project_ayu/ayush-1.png';
+import ayush2 from '../assets/images/project_ayu/ayush-2.png';
+import ayush3 from '../assets/images/project_ayu/ayush-3.png';
+
+// Aegis.ai images
+import aegis1 from '../assets/images/project_aegis/aegis-1.jpeg';
+import aegis2 from '../assets/images/project_aegis/aegis-2.png';
+import aegis3 from '../assets/images/project_aegis/aegis-3.jpeg';
+import aegis4 from '../assets/images/project_aegis/aegis-4.jpeg';
+
+// Digital Biosecurity Portal (SIH) images
+import sih1 from '../assets/images/project_sih/sih-1.jpeg';
+import sih2 from '../assets/images/project_sih/sih-2.jpeg';
+import sih3 from '../assets/images/project_sih/sih-3.jpeg';
+import sih4 from '../assets/images/project_sih/sih-4.jpeg';
+
+// Smart Classroom images
+import smart1 from '../assets/images/project_1/project1.jpg';
+import smart11 from '../assets/images/project_1/project11.png';
+import smart12 from '../assets/images/project_1/project12.png';
+import smart13 from '../assets/images/project_1/project13.png';
+
+// NL2SQL images
+import sql1 from '../assets/images/project_sql/project-sql.png';
+import sql2 from '../assets/images/project_sql/project-sql1.png';
+import sql3 from '../assets/images/project_sql/project-sql2.png';
+import sql4 from '../assets/images/project_sql/project-sql3.png';
+
+// FocusLy images
+import focus1 from '../assets/images/project_2/project2.jpg';
+import focus2 from '../assets/images/project_2/project21.png';
+import focus3 from '../assets/images/project_2/project22.png';
+import focus4 from '../assets/images/project_2/project23.png';
+
+// Do It For Me images
+import doIt1 from '../assets/images/project_6/project61.png';
+import doIt2 from '../assets/images/project_6/project62.png';
+import doIt3 from '../assets/images/project_6/project63.png';
+
 // Enhanced project data
 const projectsData = [
   {
     id: 1,
+    title: 'AYU-EAT: Ayurvedic Vitality Platform',
+    description: '🏆 2nd Place – AYUSH HABBA 2026 (70+ teams). Ayurvedic health platform that computes an Ojas Vitality Index from Prakriti/Agni biomarkers. Features a Vaidya Lens (YOLOv8) for real-time food analysis, Viruddha Ahara detection, and Gemini-powered bilingual medicinal recipes.',
+    tech: 'Flutter, FastAPI, MongoDB, YOLOv8, Gemini API',
+    githubLink: 'https://github.com/PrajwalGaniga/AYU-EAT',
+    liveLink: null,
+    images: [ayush1, ayush2, ayush3],
+    category: 'health-tech',
+    status: 'completed',
+    featured: true,
+    highlights: ['🏆 2nd Place AYUSH HABBA 2026', 'YOLOv8 Vaidya Lens', 'Ojas Vitality Index']
+  },
+  {
+    id: 2,
+    title: 'Digital Biosecurity Portal',
+    description: 'SIH 2025 Top 5 Finalist – National-scale framework for secure management and predictive analysis of biological data. Designing knowledge frameworks to integrate large-scale clinical data with security protocols for national wellness programs.',
+    tech: 'React, FastAPI, MongoDB, Python, ML Pipelines',
+    githubLink: 'https://github.com/PrajwalGaniga',
+    liveLink: null,
+    images: [sih1, sih2, sih3, sih4],
+    category: 'national-level',
+    status: 'active',
+    featured: true,
+    highlights: ['SIH 2025 Top 5', 'Team Lead', 'National Biosecurity']
+  },
+  {
+    id: 3,
     title: 'Smart Classroom',
     description: 'AI-powered personalized student quiz feedback system developed for Google Developers Group Hackathon. Features real-time analytics and adaptive learning paths.',
     tech: 'FastAPI, HTML, CSS, JS, MongoDB, Gemini API',
     githubLink: 'https://github.com/PrajwalGaniga/Student-Teacher-Feedback-AI_integrated',
     liveLink: 'https://smart-classroom-x7xs.onrender.com/',
-    images: ['project1.jpg', 'project11.png', 'project13.png', 'project12.png'],
+    images: [smart1, smart11, smart13, smart12],
     category: 'ai-ml',
     status: 'completed',
-    featured: true,
+    featured: false,
     highlights: ['AI Integration', 'Real-time Analytics', 'Adaptive Learning']
   },
   {
-    id: 2,
+    id: 4,
+    title: 'Aegis.ai – Mental Stress Analytics',
+    description: 'AI-powered predictive tool to monitor psychological stress by translating subjective behavioral inputs into structured health markers. Supports long-term wellness tracking and early risk alerts for mental health optimization.',
+    tech: 'React, FastAPI, Python, MongoDB, Gemini API',
+    githubLink: 'https://github.com/PrajwalGaniga',
+    liveLink: null,
+    images: [aegis1, aegis2, aegis3, aegis4],
+    category: 'health-tech',
+    status: 'completed',
+    featured: true,
+    highlights: ['Stress Prediction', 'Behavioral Analytics', 'Early Risk Alerts']
+  },
+  {
+    id: 5,
     title: 'Natural Language to SQL',
     description: 'Advanced AI tool that translates natural English queries into optimized SQL commands using transformer models. Features query validation and database schema understanding.',
     tech: 'Deep Learning, Transformers, Python, FastAPI, React',
     githubLink: 'https://github.com/PrajwalGaniga/NL2SQL',
     liveLink: null,
-    images: ['project-sql.png','project-sql1.png','project-sql2.png','project-sql3.png'],
+    images: [sql1, sql2, sql3, sql4],
     category: 'ai-ml',
     status: 'development',
-    featured: true,
+    featured: false,
     highlights: ['Transformer Models', 'Query Optimization', 'Schema Understanding']
   },
   {
-    id: 3,
+    id: 6,
     title: 'FocusLy – ToDo App',
     description: 'Productivity application with advanced features including smart alerts, Pomodoro timers, habit tracking, and comprehensive analytics dashboard.',
     tech: 'Flask, HTML, CSS, JS, MongoDB',
     githubLink: 'https://github.com/PrajwalGaniga/FocusLy-todo-flask-app',
     liveLink: 'https://focusly-todo-flask-app.onrender.com/',
-    images: ['project2.jpg', 'project21.png', 'project22.png', 'project23.png'],
+    images: [focus1, focus2, focus3, focus4],
     category: 'web-app',
     status: 'completed',
     featured: false,
     highlights: ['Pomodoro Timer', 'Habit Tracking', 'Analytics Dashboard']
   },
   {
-    id: 4,
-    title: 'Doctor-Patient Translator',
-    description: 'Real-time multilingual medical communication assistant using deep learning for accurate translation and text-to-speech capabilities.',
-    tech: 'RNNs, Transformers, Deep Learning, Python',
-    githubLink: 'https://github.com/PrajwalGaniga',
-    liveLink: null,
-    images: ['project5.jpg', 'project51.png','project52.png','project53.png'],
-    category: 'ai-ml',
-    status: 'development',
-    featured: false,
-    highlights: ['Real-time Translation', 'Medical Terminology', 'Text-to-Speech']
-  },
-  {
-    id: 5,
+    id: 7,
     title: 'Do It For Me (Startup)',
     description: 'Self-initiated startup providing comprehensive development services including full-stack applications, AI integrations, and custom software solutions for clients.',
     tech: 'Varies (React, Node.js, Python, AI/ML, Cloud)',
     githubLink: 'https://github.com/PrajwalGaniga/Do-It-For-Me',
     liveLink: 'https://doitformebot.netlify.app/',
-    images: ['project61.png', 'project62.png', 'project63.png'],
+    images: [doIt1, doIt2, doIt3],
     category: 'startup',
     status: 'active',
-    featured: true,
+    featured: false,
     highlights: ['Full-stack Development', 'AI Integration', 'Client Projects']
-  },
-  {
-    id: 6,
-    title: 'Volunteer Connection Hub',
-    description: 'Modern volunteer coordination platform with intuitive UX, real-time matching, and comprehensive management tools for organizations.',
-    tech: 'HTML, CSS, JS (Frontend)',
-    githubLink: 'https://github.com/PrajwalGaniga/Public-Volunteer-HUB',
-    liveLink: null,
-    images: ['project3.jpg', 'project31.png', 'project32.png', 'project33.png'],
-    category: 'web-app',
-    status: 'completed',
-    featured: false,
-    highlights: ['Volunteer Matching', 'Event Management', 'Real-time Updates']
-  },
-  {
-    id: 7,
-    title: 'JobCycle (All-in-One Help System)',
-    description: 'Comprehensive job management ecosystem with multi-role access, automated workflows, and integrated communication systems.',
-    tech: 'HTML, CSS, JS, Minimal PHP',
-    githubLink: 'https://github.com/PrajwalGaniga/code-forge',
-    liveLink: null,
-    images: ['project4.jpg', 'project41.png', 'project42.png', 'project43.png'],
-    category: 'web-app',
-    status: 'completed',
-    featured: false,
-    highlights: ['Multi-role System', 'Workflow Automation', 'Integrated Communication']
   }
 ];
 
@@ -168,8 +208,8 @@ function Projects() {
   };
 
   return (
-    <motion.section 
-      id="projects" 
+    <motion.section
+      id="projects"
       className={styles.projectsSection}
       ref={ref}
       initial="hidden"
@@ -185,7 +225,7 @@ function Projects() {
 
       <div className={styles.container}>
         {/* Section Header */}
-        <motion.div 
+        <motion.div
           className={styles.sectionHeader}
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -218,8 +258,8 @@ function Projects() {
                 exit={{ opacity: 0, x: -300 }}
                 transition={{ duration: 0.5 }}
               >
-                <ProjectCard 
-                  project={projectsData[activeProject]} 
+                <ProjectCard
+                  project={projectsData[activeProject]}
                   featured={projectsData[activeProject].featured}
                 />
               </motion.div>
@@ -227,14 +267,14 @@ function Projects() {
 
             {/* Carousel Controls */}
             <div className={styles.carouselControls}>
-              <button 
-                className={styles.carouselBtn} 
+              <button
+                className={styles.carouselBtn}
                 onClick={prevProject}
                 aria-label="Previous project"
               >
                 <i className="fas fa-chevron-left"></i>
               </button>
-              
+
               <div className={styles.carouselDots}>
                 {projectsData.map((_, index) => (
                   <button
@@ -245,9 +285,9 @@ function Projects() {
                   />
                 ))}
               </div>
-              
-              <button 
-                className={styles.carouselBtn} 
+
+              <button
+                className={styles.carouselBtn}
                 onClick={nextProject}
                 aria-label="Next project"
               >
@@ -270,7 +310,7 @@ function Projects() {
         </div>
 
         {/* Projects Stats */}
-        <motion.div 
+        <motion.div
           className={styles.projectsStats}
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
