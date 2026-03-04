@@ -1,0 +1,149 @@
+/* src/components/PageLoader.module.css */
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    background: #080808;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    overflow: hidden;
+}
+
+/* Pixel dot grid */
+.grid {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+    background-size: 28px 28px;
+    pointer-events: none;
+}
+
+/* Profile bg */
+.profileWrap {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+
+.profileBg {
+    height: 100vh;
+    width: auto;
+    object-fit: cover;
+    object-position: top center;
+    filter: grayscale(100%) contrast(1.1) brightness(0.6);
+    mix-blend-mode: luminosity;
+    user-select: none;
+}
+
+.profileFade {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 70% 60% at 50% 50%, transparent 20%, #080808 75%);
+}
+
+/* Name row */
+.nameRow {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: baseline;
+    gap: 0.02em;
+    perspective: 600px;
+}
+
+.nameLetter {
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
+    font-weight: 900;
+    font-size: clamp(2.5rem, 7vw, 5.5rem);
+    letter-spacing: -0.03em;
+    color: #FFFFFF;
+    line-height: 1;
+    display: inline-block;
+}
+
+.nameDot {
+    font-family: 'Space Mono', monospace;
+    font-size: clamp(2rem, 5vw, 4rem);
+    color: rgba(255, 255, 255, 0.5);
+    display: inline-block;
+    margin: 0 0.05em;
+}
+
+/* Tagline */
+.tagline {
+    position: relative;
+    z-index: 2;
+    font-family: 'Space Mono', monospace;
+    font-size: clamp(0.7rem, 1.5vw, 0.875rem);
+    color: rgba(255, 255, 255, 0.4);
+    letter-spacing: 0.1em;
+}
+
+.monoPrefix {
+    color: rgba(255, 255, 255, 0.25);
+    margin-right: 0.3em;
+}
+
+/* Progress */
+.progressWrap {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: min(320px, 70vw);
+}
+
+.progressTrack {
+    flex: 1;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.progressFill {
+    height: 100%;
+    background: #FFFFFF;
+    border-radius: 2px;
+    transition: width 0.2s ease;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+}
+
+.progressNum {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.35);
+    min-width: 32px;
+    text-align: right;
+    letter-spacing: 0.05em;
+}
+
+/* Curtains */
+.curtain {
+    position: absolute;
+    left: 0;
+    right: 0;
+    background: #080808;
+    z-index: 10;
+    transform-origin: top;
+}
+
+.curtainTop {
+    top: 0;
+    height: 50%;
+    transform-origin: top;
+}
+
+.curtainBottom {
+    bottom: 0;
+    height: 50%;
+    transform-origin: bottom;
+}

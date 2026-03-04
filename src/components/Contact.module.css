@@ -1,292 +1,259 @@
 /* src/components/Contact.module.css */
 
 .contactSection {
-  padding: var(--spacing-xxl) 0;
-  background: linear-gradient(135deg, var(--color-bg) 0%, #1a1a2e 50%, #16213e 100%);
+  padding-block: var(--section-pad);
+  background: var(--color-bg);
   position: relative;
-  overflow: hidden;
-  border-top: 1px solid var(--color-border);
 }
 
-.backgroundElements {
+.contactSection::before {
+  content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
+  background: radial-gradient(ellipse 50% 40% at 50% 100%, rgba(255, 255, 255, 0.025) 0%, transparent 70%);
   pointer-events: none;
-}
-
-.floatingShape1, .floatingShape2 {
-  position: absolute;
-  border-radius: 50%;
-  background: linear-gradient(45deg, var(--color-primary), transparent);
-  opacity: 0.1;
-  filter: blur(40px);
-}
-
-.floatingShape1 {
-  width: 300px;
-  height: 300px;
-  top: 10%;
-  left: 10%;
-}
-
-.floatingShape2 {
-  width: 200px;
-  height: 200px;
-  bottom: 20%;
-  right: 10%;
-  background: linear-gradient(45deg, var(--color-secondary), transparent);
 }
 
 .container {
-  width: 90%;
-  max-width: 800px;
-  margin: 0 auto;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
   position: relative;
-  z-index: 2;
 }
 
-.header {
+.sectionHeader {
   text-align: center;
-  margin-bottom: var(--spacing-xxl);
+  margin-bottom: var(--space-12);
 }
 
-.container h2 {
-  font-size: 3rem;
+.sectionBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--color-text-secondary);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: var(--space-4);
+}
+
+.mono {
+  font-family: var(--font-mono);
+  color: rgba(255, 255, 255, 0.3);
+}
+
+/* Big CTA button */
+.bigCta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+  padding: var(--space-4) var(--space-10);
+  background: #FFFFFF;
+  color: #080808;
+  border: none;
+  border-radius: var(--radius-full);
+  font-family: 'Space Grotesk', sans-serif;
   font-weight: 700;
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  font-size: var(--text-base);
+  cursor: pointer;
+  box-shadow: 0 4px 24px rgba(255, 255, 255, 0.15);
+  transition: box-shadow 200ms ease;
+}
+
+.bigCta:hover {
+  box-shadow: 0 8px 40px rgba(255, 255, 255, 0.28);
+}
+
+.sectionTitle {
+  font-family: var(--font-display);
+  font-size: clamp(var(--text-3xl), 5vw, var(--text-5xl));
+  font-weight: 800;
+  color: var(--color-text);
+  letter-spacing: -0.02em;
+}
+
+.gradientText {
+  background: linear-gradient(135deg, var(--color-accent), var(--color-neon));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  margin-bottom: var(--spacing-lg);
-  text-transform: uppercase;
-  letter-spacing: 2px;
 }
 
-.contactIntro {
-  font-size: 1.2rem;
+.sectionSub {
+  margin-top: var(--space-3);
+  font-size: var(--text-sm);
   color: var(--color-text-secondary);
-  line-height: 1.8;
-  max-width: 600px;
-  margin: 0 auto;
 }
 
-.contactDetails {
+.contactGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-6);
+  align-items: start;
+}
+
+/* Email card */
+.emailCard {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-8);
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-lg);
-  margin-bottom: var(--spacing-xxl);
+  gap: var(--space-6);
 }
 
-.contactItem {
+.emailHeader {
   display: flex;
   align-items: center;
-  gap: var(--spacing-lg);
-  padding: var(--spacing-lg);
+  gap: var(--space-4);
+}
+
+.emailIcon {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-lg);
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  backdrop-filter: blur(10px);
-  text-decoration: none;
-  color: var(--color-text);
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.contactItem::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-  transition: left 0.5s ease;
-}
-
-.contactItem:hover::before {
-  left: 100%;
-}
-
-.iconWrapper {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
-  color: white;
+  color: var(--color-text);
+  font-size: 1.2rem;
   flex-shrink: 0;
 }
 
-.contactText {
-  flex: 1;
-  text-align: left;
-}
-
-.contactLabel {
-  display: block;
-  font-size: 0.9rem;
+.emailLabel {
+  font-size: var(--text-xs);
   color: var(--color-text-secondary);
-  margin-bottom: 4px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  font-family: var(--font-mono);
 }
 
-.contactValue {
-  display: block;
-  font-size: 1.1rem;
-  font-weight: 500;
+.emailAddress {
+  font-size: var(--text-base);
+  font-weight: 700;
   color: var(--color-text);
+  word-break: break-all;
 }
 
-.copyButton {
-  padding: var(--spacing-sm);
-  background: rgba(255, 255, 255, 0.1);
-  border: none;
-  border-radius: 10px;
-  color: var(--color-text);
-  cursor: pointer;
-  transition: all 0.3s ease;
+.emailActions {
   display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.copyButton:hover {
-  background: rgba(255, 255, 255, 0.2);
-}
-
-.socialSection {
-  text-align: center;
-  margin-bottom: var(--spacing-xl);
-}
-
-.socialSection h3 {
-  font-size: 1.5rem;
-  color: var(--color-text);
-  margin-bottom: var(--spacing-lg);
-  font-weight: 600;
-}
-
-.socialIcons {
-  display: flex;
-  justify-content: center;
-  gap: var(--spacing-lg);
+  gap: var(--space-3);
   flex-wrap: wrap;
 }
 
-.socialIcon {
-  position: relative;
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+.copyBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  border-radius: var(--radius-full);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  transition: border-color var(--duration-base) ease, color var(--duration-base) ease;
+  min-width: 130px;
+  justify-content: center;
+}
+
+.copyBtn:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+  color: var(--color-text);
+}
+
+.copiedState {
+  color: #4ade80;
+}
+
+.mailtoBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-5);
+  border-radius: var(--radius-full);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  background: #FFFFFF;
+  color: #080808;
+  box-shadow: 0 4px 16px rgba(255, 255, 255, 0.15);
+  transition: transform var(--duration-base) ease, box-shadow var(--duration-base) ease;
+}
+
+.mailtoBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(255, 255, 255, 0.25);
+}
+
+/* Socials grid */
+.socialsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+}
+
+.socialCard {
   display: flex;
   align-items: center;
-  justify-content: center;
-  color: var(--color-text-secondary);
-  font-size: 1.8rem;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-5);
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  transition: border-color var(--duration-base) ease, box-shadow var(--duration-base) ease;
 }
 
-.socialIcon:hover {
-  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
-  color: white;
-  border-color: transparent;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+.socialCard:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: var(--shadow-md);
 }
 
-.tooltip {
-  position: absolute;
-  bottom: -40px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(0, 0, 0, 0.8);
-  color: white;
-  padding: 5px 10px;
-  border-radius: 6px;
-  font-size: 0.8rem;
-  white-space: nowrap;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
-}
-
-.socialIcon:hover .tooltip {
-  opacity: 1;
-}
-
-.ctaSection {
-  text-align: center;
-  padding: var(--spacing-lg);
-}
-
-.ctaSection p {
+.socialCardIcon {
   font-size: 1.3rem;
-  font-weight: 600;
-  color: var(--color-primary);
-  margin: 0;
+  color: var(--color-text-secondary);
+  flex-shrink: 0;
 }
 
-/* Success notification */
-.contactItem .fa-check {
-  color: #4CAF50;
+.socialCardLabel {
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1.2;
 }
 
-/* Responsive Design */
+.socialCardSub {
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+}
+
 @media (max-width: 768px) {
-  .container h2 {
-    font-size: 2.2rem;
+  .contactGrid {
+    grid-template-columns: 1fr;
   }
-  
-  .contactItem {
-    flex-direction: column;
-    text-align: center;
-    gap: var(--spacing-md);
-  }
-  
-  .contactText {
-    text-align: center;
-  }
-  
-  .socialIcon {
-    width: 60px;
-    height: 60px;
-    font-size: 1.5rem;
-  }
-  
-  .iconWrapper {
-    width: 50px;
-    height: 50px;
-    font-size: 1.2rem;
+
+  .socialsGrid {
+    grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 480px) {
-  .container h2 {
-    font-size: 1.8rem;
+  .emailActions {
+    flex-direction: column;
   }
-  
-  .contactIntro {
-    font-size: 1rem;
-  }
-  
-  .socialIcons {
-    gap: var(--spacing-md);
-  }
-  
-  .socialIcon {
-    width: 50px;
-    height: 50px;
-    font-size: 1.3rem;
+
+  .mailtoBtn,
+  .copyBtn {
+    width: 100%;
+    justify-content: center;
   }
 }

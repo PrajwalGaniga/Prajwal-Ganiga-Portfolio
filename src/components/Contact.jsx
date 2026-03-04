@@ -1,203 +1,150 @@
-// src/components/Contact.jsx
+// src/components/Contact.jsx — B&W with modal trigger
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import styles from './Contact.module.css';
 
-function Contact() {
-  const { ref, inView } = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
+const EMAIL = 'prajwalganiga8@gmail.com';
 
-  const [isCopied, setIsCopied] = useState(false);
+const socials = [
+  { href: 'https://www.linkedin.com/in/prajwalganiga', icon: 'fab fa-linkedin', label: 'LinkedIn', sub: 'Connect professionally' },
+  { href: 'https://github.com/PrajwalGaniga', icon: 'fab fa-github', label: 'GitHub', sub: 'Explore my code' },
+  { href: 'https://www.youtube.com/@codeforge1', icon: 'fab fa-youtube', label: 'YouTube', sub: 'Watch my builds' },
+  { href: 'https://www.instagram.com/_prajwal_ganiga__/', icon: 'fab fa-instagram', label: 'Instagram', sub: 'Behind the scenes' },
+];
 
-  const copyToClipboard = (text) => {
-    navigator.clipboard.writeText(text);
-    setIsCopied(true);
-    setTimeout(() => setIsCopied(false), 2000);
-  };
+function Contact({ onContactClick }) {
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.15 });
+  const [copied, setCopied] = useState(false);
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        duration: 0.8
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, ease: "easeOut" }
-    }
-  };
-
-  const iconVariants = {
-    hover: {
-      scale: 1.2,
-      rotate: 5,
-      transition: { duration: 0.3 }
-    },
-    tap: {
-      scale: 0.9
-    }
-  };
-
-  const floatingAnimation = {
-    y: [-10, 10, -10],
-    transition: {
-      duration: 4,
-      repeat: Infinity,
-      ease: "easeInOut"
-    }
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(EMAIL);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch { setCopied(false); }
   };
 
   return (
-    <motion.section 
-      id="contact" 
-      className={styles.contactSection}
-      ref={ref}
-      initial="hidden"
-      animate={inView ? "visible" : "hidden"}
-      variants={containerVariants}
-    >
-      {/* Animated Background Elements */}
-      <div className={styles.backgroundElements}>
-        <motion.div className={styles.floatingShape1} animate={floatingAnimation} />
-        <motion.div 
-          className={styles.floatingShape2} 
-          animate={{ ...floatingAnimation, y: [10, -10, 10] }} 
-        />
-      </div>
-
+    <section id="contact" className={styles.contactSection} ref={ref}>
       <div className={styles.container}>
-        <motion.div className={styles.header} variants={itemVariants}>
-          <motion.h2
-            initial={{ scale: 0.5 }}
-            animate={inView ? { scale: 1 } : { scale: 0.5 }}
-            transition={{ duration: 0.8, type: "spring", stiffness: 100 }}
-          >
-            Let's Create Something Amazing!
-          </motion.h2>
-          <motion.p className={styles.contactIntro} variants={itemVariants}>
-            Ready to bring your ideas to life? Whether it's a new project, collaboration, 
-            or just a friendly chat about tech—I'd love to hear from you!
-          </motion.p>
-        </motion.div>
-        
-        <motion.div className={styles.contactDetails} variants={itemVariants}>
-          <motion.a 
-            href="mailto:prajwalganiga06@gmail.com" 
-            className={styles.contactItem}
-            whileHover={{ scale: 1.05, x: 10 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <motion.div 
-              className={styles.iconWrapper}
-              whileHover={{ rotate: 360 }}
-              transition={{ duration: 0.6 }}
-            >
-              <i className="fas fa-envelope"></i>
-            </motion.div>
-            <div className={styles.contactText}>
-              <span className={styles.contactLabel}>Email Me</span>
-              <span className={styles.contactValue}>prajwalganiga06@gmail.com</span>
-            </div>
-            <motion.div 
-              className={styles.copyButton}
-              onClick={(e) => {
-                e.preventDefault();
-                copyToClipboard('prajwalganiga06@gmail.com');
-              }}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              <i className={`fas ${isCopied ? 'fa-check' : 'fa-copy'}`}></i>
-            </motion.div>
-          </motion.a>
+        {/* Header */}
+        <motion.div
+          className={styles.sectionHeader}
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+        >
+          <div className={styles.sectionBadge}>
+            <span className={styles.mono}>{'>'}</span> Get In Touch
+          </div>
+          <h2 className={styles.sectionTitle}>
+            Let's <span className={styles.gradientText}>Collaborate</span>
+          </h2>
+          <p className={styles.sectionSub}>
+            Open to research collaborations, internships, freelance projects, and innovative ideas.
+          </p>
 
-          <motion.div 
-            className={styles.contactItem}
-            whileHover={{ scale: 1.05, x: 10 }}
-            whileTap={{ scale: 0.95 }}
+          {/* Big open-modal CTA */}
+          <motion.button
+            className={styles.bigCta}
+            onClick={onContactClick}
+            whileHover={{ scale: 1.03, y: -2 }}
+            whileTap={{ scale: 0.97 }}
+            initial={{ opacity: 0, y: 16 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.3 }}
           >
-            <motion.div 
-              className={styles.iconWrapper}
-              whileHover={{ rotate: 360 }}
-              transition={{ duration: 0.6 }}
-            >
-              <i className="fas fa-phone-alt"></i>
-            </motion.div>
-            <div className={styles.contactText}>
-              <span className={styles.contactLabel}>Call Me</span>
-              <span className={styles.contactValue}>+91 9110687983</span>
-            </div>
-            <motion.div 
-              className={styles.copyButton}
-              onClick={() => copyToClipboard('+91 9110687983')}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              <i className={`fas ${isCopied ? 'fa-check' : 'fa-copy'}`}></i>
-            </motion.div>
-          </motion.div>
+            <i className="fas fa-paper-plane" />
+            <span>Send Me a Message</span>
+            <i className="fas fa-arrow-right" />
+          </motion.button>
         </motion.div>
-        
-        <motion.div className={styles.socialSection} variants={itemVariants}>
-          <h3>Follow My Journey</h3>
-          <div className={styles.socialIcons}>
-            {[
-              { href: "https://www.linkedin.com/in/prajwalganiga", icon: "fab fa-linkedin", label: "LinkedIn" },
-              { href: "https://github.com/PrajwalGaniga", icon: "fab fa-github", label: "GitHub" },
-              { href: "https://www.youtube.com/@codeforge1", icon: "fab fa-youtube", label: "YouTube" },
-              { href: "https://www.instagram.com/_prajwal_ganiga__/?igsh=YW9xOXN3Ympsb3Z3", icon: "fab fa-instagram", label: "Instagram" },
-            ].map((social, index) => (
+
+        <div className={styles.contactGrid}>
+          {/* Email card */}
+          <motion.div
+            className={styles.emailCard}
+            initial={{ opacity: 0, y: 30 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            <div className={styles.emailHeader}>
+              <div className={styles.emailIcon}>
+                <i className="fas fa-envelope" />
+              </div>
+              <div>
+                <p className={styles.emailLabel}>Email me at</p>
+                <p className={styles.emailAddress}>{EMAIL}</p>
+              </div>
+            </div>
+            <div className={styles.emailActions}>
+              <motion.button
+                className={styles.copyBtn}
+                onClick={copyEmail}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.96 }}
+              >
+                <AnimatePresence mode="wait">
+                  {copied ? (
+                    <motion.span
+                      key="copied"
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -8 }}
+                      className={styles.copiedState}
+                    >
+                      <i className="fas fa-check" /> Copied!
+                    </motion.span>
+                  ) : (
+                    <motion.span
+                      key="copy"
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -8 }}
+                    >
+                      <i className="fas fa-copy" /> Copy Email
+                    </motion.span>
+                  )}
+                </AnimatePresence>
+              </motion.button>
+              <a href={`mailto:${EMAIL}`} className={styles.mailtoBtn}>
+                <i className="fas fa-paper-plane" /> Send Email
+              </a>
+            </div>
+          </motion.div>
+
+          {/* Social links */}
+          <motion.div
+            className={styles.socialsGrid}
+            initial={{ opacity: 0, y: 30 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
+            {socials.map((s, i) => (
               <motion.a
-                key={social.label}
-                href={social.href}
+                key={s.label}
+                href={s.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label={social.label}
-                className={styles.socialIcon}
-                variants={iconVariants}
-                whileHover="hover"
-                whileTap="tap"
-                initial={{ opacity: 0, scale: 0 }}
-                animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
-                transition={{ delay: index * 0.1 + 0.5 }}
+                className={styles.socialCard}
+                whileHover={{ y: -4 }}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={inView ? { opacity: 1, scale: 1 } : {}}
+                transition={{ duration: 0.4, delay: 0.35 + i * 0.08 }}
               >
-                <i className={social.icon}></i>
-                <span className={styles.tooltip}>{social.label}</span>
+                <i className={`${s.icon} ${styles.socialCardIcon}`} />
+                <div>
+                  <p className={styles.socialCardLabel}>{s.label}</p>
+                  <p className={styles.socialCardSub}>{s.sub}</p>
+                </div>
+                <i className="fas fa-arrow-right" style={{ color: 'var(--color-text-tertiary)', fontSize: '0.8rem' }} />
               </motion.a>
             ))}
-          </div>
-        </motion.div>
-
-        <motion.div 
-          className={styles.ctaSection}
-          variants={itemVariants}
-        >
-          <motion.p
-            animate={{ 
-              opacity: [1, 0.7, 1],
-            }}
-            transition={{ 
-              duration: 2, 
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          >
-            Let's build the future, one line of code at a time! 🚀
-          </motion.p>
-        </motion.div>
+          </motion.div>
+        </div>
       </div>
-    </motion.section>
+    </section>
   );
 }
 

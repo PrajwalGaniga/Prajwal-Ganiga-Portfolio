@@ -1,211 +1,157 @@
-// src/components/About.jsx - UPDATED & OPTIMIZED
+// src/components/About.jsx — Bento Grid Layout
 import React from 'react';
 import { motion } from 'framer-motion';
 import styles from './About.module.css';
 import echoLogo from '../assets/logos/echo.png';
 import acodeLogo from '../assets/logos/acode.png';
 
+const cardVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: (i) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: i * 0.12, duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+  }),
+};
+
+const interests = [
+  { icon: '💻', name: 'Web Dev' },
+  { icon: '🧠', name: 'AI & ML' },
+  { icon: '🎨', name: 'UI/UX' },
+  { icon: '📈', name: 'Stock Analysis' },
+  { icon: '🏐', name: 'Volleyball' },
+  { icon: '🎵', name: 'Music' },
+];
+
 function About() {
-  const leadershipRoles = [
-    {
-      logo: echoLogo,
-      title: "President",
-      organization: "ECHO Tech Club",
-      description: "Leading initiatives to help peers grow technically through workshops and collaborative projects"
-    },
-    {
-      logo: acodeLogo,
-      title: "Vice President",
-      organization: "ACODE Association",
-      description: "CS&D Department association fostering technical excellence and innovation"
-    }
-  ];
-
-  const interests = [
-    { icon: "💻", name: "Web Development" },
-    { icon: "🎨", name: "UI/UX Design" },
-    { icon: "🚀", name: "Tech Innovation" },
-    { icon: "📈", name: "Stock Analysis" },
-    { icon: "🏐", name: "Volleyball" },
-    { icon: "🎵", name: "Music Production" }
-  ];
-
-  const skills = [
-    { category: "AI & Research", items: ["Transformers/BERT", "YOLOv8", "NMT", "TensorFlow"] },
-    { category: "Full-Stack", items: ["React", "FastAPI", "Flutter", "MongoDB"] },
-    { category: "Health-Tech", items: ["Prakriti Modeling", "CDSS", "Ojas Indexing"] }
-  ];
-
   return (
     <section id="about" className={styles.aboutSection}>
-      {/* Background Elements */}
-      <div className={styles.backgroundElements}>
-        <div className={styles.orb1}></div>
-        <div className={styles.orb2}></div>
-        <div className={styles.gridPattern}></div>
-      </div>
-
       <div className={styles.container}>
         {/* Section Header */}
-        <div className={styles.sectionHeader}>
+        <motion.div
+          className={styles.sectionHeader}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
           <div className={styles.sectionBadge}>
             <span>About Me</span>
           </div>
           <h2 className={styles.sectionTitle}>
-            Crafting <span className={styles.gradientText}>Digital Experiences</span>
+            The <span className={styles.gradientText}>Story</span> Behind the Code
           </h2>
-          <p className={styles.sectionSubtitle}>
-            Computer Science & Design student passionate about creating meaningful technology solutions
-          </p>
-        </div>
+        </motion.div>
 
-        {/* Main Content Grid - Updated Layout */}
-        <div className={styles.contentGrid}>
-          {/* Column 1: Intro & Leadership */}
-          <div className={styles.column}>
-            {/* Intro Card */}
-            <motion.div
-              className={styles.introCard}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-            >
-              <div className={styles.profileHeader}>
-                <div className={styles.avatar}>PG</div>
-                <div className={styles.profileInfo}>
-                  <h3>Prajwal Ganiga</h3>
-                  <p>CS&D Student · IEEE Published Author</p>
+        {/* Bento Grid */}
+        <div className={styles.bentoGrid}>
+
+          {/* Card 1 — Intro (wide) */}
+          <motion.div
+            className={`${styles.bentoCard} ${styles.cardIntro}`}
+            custom={0}
+            variants={cardVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            whileHover={{ y: -4 }}
+          >
+            <div className={styles.introAvatar}>PG</div>
+            <div>
+              <h3 className={styles.introName}>Prajwal Ganiga</h3>
+              <p className={styles.introRole}>CS&D Student · IEEE Published Author</p>
+            </div>
+            <p className={styles.introText}>
+              Full-Stack AI Developer and Researcher specializing in the integration of Ayurvedic
+              principles with Deep Learning. Main author of IEEE research on Medical NMT (BLEU: 0.7747)
+              and 2nd Place winner at AYUSH HABBA 2026. Passionate about building intelligent,
+              human-centred health technology that bridges ancient wisdom with modern ML.
+            </p>
+            <div className={styles.missionQuote}>
+              <p>"Bridging Ayurvedic wisdom and Deep Learning to build intelligent, human-centered health technology."</p>
+            </div>
+          </motion.div>
+
+          {/* Card 2 — Leadership */}
+          <motion.div
+            className={`${styles.bentoCard} ${styles.cardLeadership}`}
+            custom={1}
+            variants={cardVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            whileHover={{ y: -4 }}
+          >
+            <div className={styles.cardLabel}>
+              <span>🎖</span> Leadership
+            </div>
+            {[
+              { logo: echoLogo, role: 'President', org: 'ECHO Tech Club', desc: 'Leading technical workshops and peer mentorship programs' },
+              { logo: acodeLogo, role: 'Vice President', org: 'ACODE Association', desc: 'CS&D department association fostering technical excellence' },
+            ].map((item, i) => (
+              <div key={i} className={styles.leaderItem}>
+                <img src={item.logo} alt={item.org} className={styles.leaderLogo} />
+                <div>
+                  <p className={styles.leaderRole}>{item.role}</p>
+                  <p className={styles.leaderOrg}>{item.org}</p>
+                  <p className={styles.leaderDesc}>{item.desc}</p>
                 </div>
               </div>
-              <p className={styles.introText}>
-                Full-Stack AI Developer and Researcher specializing in the integration of Ayurvedic principles
-                with Deep Learning. Main author of IEEE research on Medical NMT and 2nd Place winner at AYUSH HABBA 2026.
-                Proven track record in building predictive health models and leading high-stakes technical projects.
-              </p>
-            </motion.div>
+            ))}
+          </motion.div>
 
-            {/* Leadership Section */}
-            <div className={styles.leadershipSection}>
-              <h3 className={styles.sectionSubtitle}>Leadership Roles</h3>
-              <div className={styles.leadershipGrid}>
-                {leadershipRoles.map((role, index) => (
-                  <motion.div
-                    key={index}
-                    className={styles.leadershipCard}
-                    whileHover={{ scale: 1.02 }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                  >
-                    <div className={styles.roleHeader}>
-                      <img src={role.logo} alt={role.organization} className={styles.roleLogo} />
-                      <div className={styles.roleTitles}>
-                        <h4>{role.title}</h4>
-                        <p>{role.organization}</p>
-                      </div>
-                    </div>
-                    <p className={styles.roleDescription}>{role.description}</p>
-                  </motion.div>
-                ))}
+          {/* Card 3 — Education metrics */}
+          <motion.div
+            className={`${styles.bentoCard} ${styles.cardEdu}`}
+            custom={2}
+            variants={cardVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            whileHover={{ y: -4 }}
+          >
+            <div className={styles.cardLabel}>
+              <span>🎓</span> Education
+            </div>
+            <div className={styles.eduMetrics}>
+              <div className={styles.metric}>
+                <span className={styles.metricValue}>9.25</span>
+                <span className={styles.metricLabel}>CGPA</span>
+              </div>
+              <div className={styles.metricDivider} />
+              <div className={styles.metric}>
+                <span className={styles.metricValue}>#1</span>
+                <span className={styles.metricLabel}>Dept Rank</span>
               </div>
             </div>
-          </div>
+            <p className={styles.eduName}>BE Computer Science & Design</p>
+            <p className={styles.eduInstitute}>Srinivas Institute of Technology</p>
+            <span className={styles.monoTag}>2023 — 2027</span>
+          </motion.div>
 
-          {/* Column 2: Details & Skills */}
-          <div className={styles.column}>
-            {/* Education & Details */}
-            <motion.div
-              className={styles.detailsCard}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              <h3 className={styles.cardTitle}>Education & Journey</h3>
-              <div className={styles.detailsList}>
-                <div className={styles.detailItem}>
-                  <div className={styles.detailIcon}>🎓</div>
-                  <div className={styles.detailContent}>
-                    <strong>Bachelor of Engineering (CS&D)</strong>
-                    <span>CGPA: 9.25 · Academic Rank #1</span>
-                  </div>
+          {/* Card 4 — Interests */}
+          <motion.div
+            className={`${styles.bentoCard} ${styles.cardInterests}`}
+            custom={3}
+            variants={cardVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            whileHover={{ y: -4 }}
+          >
+            <div className={styles.cardLabel}>
+              <span>✨</span> Interests
+            </div>
+            <div className={styles.interestGrid}>
+              {interests.map((item) => (
+                <div key={item.name} className={styles.interestPill}>
+                  <span>{item.icon}</span>
+                  <span>{item.name}</span>
                 </div>
-                <div className={styles.detailItem}>
-                  <div className={styles.detailIcon}>🏫</div>
-                  <div className={styles.detailContent}>
-                    <strong>Srinivas Institute of Technology</strong>
-                    <span>2023 – 2027</span>
-                  </div>
-                </div>
-                <div className={styles.detailItem}>
-                  <div className={styles.detailIcon}>📜</div>
-                  <div className={styles.detailContent}>
-                    <strong>IEEE Xplore Publication (2025)</strong>
-                    <span>Medical NMT · BLEU Score: 0.7747</span>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
+              ))}
+            </div>
+          </motion.div>
 
-            {/* Skills Card */}
-            <motion.div
-              className={styles.skillsCard}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-            >
-              <h3 className={styles.cardTitle}>Skills & Technologies</h3>
-              <div className={styles.skillsGrid}>
-                {skills.map((skill, index) => (
-                  <div key={index} className={styles.skillCategory}>
-                    <h4>{skill.category}</h4>
-                    <div className={styles.skillItems}>
-                      {skill.items.map((item, itemIndex) => (
-                        <span key={itemIndex} className={styles.skillItem}>
-                          {item}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-          </div>
-
-          {/* Column 3: Interests & Mission */}
-          <div className={styles.column}>
-            {/* Interests Card */}
-            <motion.div
-              className={styles.interestsCard}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-            >
-              <h3 className={styles.cardTitle}>Passions & Interests</h3>
-              <div className={styles.interestsGrid}>
-                {interests.map((interest, index) => (
-                  <div key={index} className={styles.interestItem}>
-                    <div className={styles.interestIcon}>{interest.icon}</div>
-                    <span className={styles.interestName}>{interest.name}</span>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* Mission Statement */}
-            <motion.div
-              className={styles.missionCard}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-            >
-              <div className={styles.missionHeader}>
-                <div className={styles.missionIcon}>✨</div>
-                <h3>My Mission</h3>
-              </div>
-              <p className={styles.missionText}>
-                "Bridging Ayurvedic wisdom and Deep Learning to build intelligent, human-centered health technology
-                — from IEEE-published research to award-winning products."
-              </p>
-            </motion.div>
-          </div>
         </div>
       </div>
     </section>

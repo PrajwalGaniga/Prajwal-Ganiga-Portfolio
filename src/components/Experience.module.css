@@ -3,7 +3,7 @@
 .experienceSection {
   position: relative;
   padding: 120px 0;
-  background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+  background: var(--color-bg);
   overflow: hidden;
   min-height: 100vh;
 }
@@ -21,7 +21,7 @@
   left: 8%;
   width: 350px;
   height: 350px;
-  background: radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 70%);
+  background: radial-gradient(circle, var(--color-accent-glow) 0%, transparent 70%);
   border-radius: 50%;
   filter: blur(40px);
   animation: float 8s ease-in-out infinite;
@@ -33,7 +33,7 @@
   right: 8%;
   width: 280px;
   height: 280px;
-  background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
+  background: radial-gradient(circle, var(--color-accent-glow) 0%, transparent 70%);
   border-radius: 50%;
   filter: blur(40px);
   animation: float 10s ease-in-out infinite reverse;
@@ -52,8 +52,15 @@
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0px) scale(1); }
-  50% { transform: translateY(-20px) scale(1.05); }
+
+  0%,
+  100% {
+    transform: translateY(0px) scale(1);
+  }
+
+  50% {
+    transform: translateY(-20px) scale(1.05);
+  }
 }
 
 /* Container */
@@ -82,30 +89,28 @@
   margin-bottom: 2rem;
   font-size: 1rem;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--color-text);
 }
 
 .sectionTitle {
   font-size: 4rem;
   font-weight: 800;
-  color: white;
+  color: var(--color-text);
   line-height: 1.1;
   margin-bottom: 1.5rem;
   letter-spacing: -0.02em;
 }
 
 .gradientText {
-  background: linear-gradient(135deg, #8B5CF6, #3B82F6, #06B6D4);
+  background: linear-gradient(135deg, var(--color-text), var(--color-text-secondary));
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  background-size: 200% 200%;
-  animation: gradientShift 3s ease infinite;
 }
 
 .sectionSubtitle {
   font-size: 1.3rem;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--color-text-secondary);
   max-width: 600px;
   margin: 0 auto 2rem;
   line-height: 1.6;
@@ -114,14 +119,21 @@
 .titleDivider {
   width: 120px;
   height: 4px;
-  background: linear-gradient(90deg, #8B5CF6, #3B82F6);
+  background: linear-gradient(90deg, var(--color-text), var(--color-text-tertiary));
   margin: 0 auto;
   border-radius: 2px;
 }
 
 @keyframes gradientShift {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 /* Timeline Container */
@@ -143,7 +155,7 @@
 .timelineProgress {
   width: 100%;
   height: 100%;
-  background: linear-gradient(180deg, #8B5CF6, #3B82F6, #06B6D4);
+  background: linear-gradient(180deg, var(--color-text), var(--color-text-tertiary));
   border-radius: 2px;
   transform-origin: top;
 }
@@ -192,14 +204,12 @@
 
 .experienceCard.active {
   transform: scale(1.02);
-  border-color: rgba(139, 92, 246, 0.3);
-  box-shadow: 
-    0 20px 40px rgba(0, 0, 0, 0.3),
-    0 0 80px rgba(139, 92, 246, 0.1);
+  border-color: var(--color-border-active);
+  box-shadow: var(--shadow-md);
 }
 
 .experienceCard.featured {
-  border-color: rgba(245, 158, 11, 0.3);
+  border-color: var(--color-text);
 }
 
 .experienceCard.left {
@@ -235,19 +245,19 @@
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #8B5CF6, #3B82F6);
-  border: 3px solid #0f0f23;
-  box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+  background: var(--color-bg);
+  border: 3px solid var(--color-text);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
 }
 
 .timelineLine {
   width: 24px;
   height: 2px;
-  background: linear-gradient(90deg, #8B5CF6, transparent);
+  background: linear-gradient(90deg, var(--color-text), transparent);
 }
 
 .experienceCard.right .timelineLine {
-  background: linear-gradient(90deg, transparent, #8B5CF6);
+  background: linear-gradient(90deg, transparent, var(--color-text));
 }
 
 .cardGradient {
@@ -286,25 +296,25 @@
 .company {
   font-size: 1.6rem;
   font-weight: 700;
-  color: white;
+  color: var(--color-text);
   margin-bottom: 0.5rem;
   line-height: 1.2;
 }
 
 .role {
   font-size: 1.1rem;
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--color-text-secondary);
   margin: 0;
   font-weight: 500;
 }
 
 .typeBadge {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--glass-bg);
   padding: 6px 12px;
   border-radius: 12px;
   font-size: 0.8rem;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--color-text);
   white-space: nowrap;
 }
 
@@ -316,21 +326,23 @@
   flex-wrap: wrap;
 }
 
-.period, .duration {
+.period,
+.duration {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--color-text-secondary);
 }
 
-.period i, .duration i {
-  color: #8B5CF6;
+.period i,
+.duration i {
+  color: var(--color-text-secondary);
 }
 
 /* Description */
 .description {
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--color-text-secondary);
   line-height: 1.6;
   margin-bottom: 1.5rem;
 }
@@ -344,9 +356,9 @@
 }
 
 .techTag {
-  background: rgba(59, 130, 246, 0.1);
-  border: 1px solid rgba(59, 130, 246, 0.3);
-  color: rgba(255, 255, 255, 0.9);
+  background: var(--glass-bg);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
   padding: 4px 12px;
   border-radius: 12px;
   font-size: 0.8rem;
@@ -355,7 +367,7 @@
 
 /* Achievements */
 .achievements h4 {
-  color: white;
+  color: var(--color-text);
   font-size: 1rem;
   margin-bottom: 0.75rem;
   font-weight: 600;
@@ -368,7 +380,7 @@
 }
 
 .achievements li {
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--color-text-secondary);
   line-height: 1.5;
   margin-bottom: 0.5rem;
   padding-left: 1rem;
@@ -379,7 +391,7 @@
   content: '▸';
   position: absolute;
   left: 0;
-  color: #8B5CF6;
+  color: var(--color-text-secondary);
 }
 
 /* Action Buttons */
@@ -391,7 +403,8 @@
   align-items: center;
 }
 
-.visitBtn, .certificateBtn {
+.visitBtn,
+.certificateBtn {
   padding: 10px 20px;
   border-radius: 12px;
   font-weight: 600;
@@ -406,32 +419,32 @@
 }
 
 .visitBtn {
-  background: linear-gradient(135deg, #8B5CF6, #7C3AED);
-  color: white;
-  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+  background: var(--color-text);
+  color: var(--color-bg);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .visitBtn:hover {
-  background: linear-gradient(135deg, #7C3AED, #8B5CF6);
-  box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
+  background: var(--color-text-secondary);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
 
 .certificateBtn {
-  background: rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: var(--glass-bg);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
 }
 
 .certificateBtn:hover {
-  background: rgba(255, 255, 255, 0.15);
-  border-color: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--color-border-active);
 }
 
 .mentorInfo {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--color-text-secondary);
   font-size: 0.9rem;
   margin-left: auto;
 }
@@ -440,14 +453,21 @@
 .activeIndicator {
   position: absolute;
   inset: -3px;
-  border: 2px solid #8B5CF6;
+  border: 2px solid var(--color-border-active);
   border-radius: 26px;
   animation: pulse 2s infinite;
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
 }
 
 /* Experience Summary */
@@ -468,17 +488,13 @@
 .summaryNumber {
   font-size: 3rem;
   font-weight: 800;
-  color: white;
+  color: var(--color-text);
   margin-bottom: 0.5rem;
-  background: linear-gradient(135deg, #8B5CF6, #3B82F6);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
 }
 
 .summaryLabel {
   font-size: 1rem;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--color-text-secondary);
   text-transform: uppercase;
   letter-spacing: 1px;
 }
@@ -516,7 +532,7 @@
 }
 
 .modalHeader h3 {
-  color: white;
+  color: var(--color-text);
   margin: 0;
   font-size: 1.5rem;
 }
@@ -558,12 +574,12 @@
 }
 
 .certificateInfo p {
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--color-text-secondary);
   margin-bottom: 0.5rem;
 }
 
 .certificateInfo strong {
-  color: white;
+  color: var(--color-text);
 }
 
 /* Responsive Design */
@@ -571,48 +587,48 @@
   .experienceSection {
     padding: 80px 0;
   }
-  
+
   .sectionTitle {
     font-size: 2.8rem;
   }
-  
+
   .centralTimeline {
     display: none;
   }
-  
+
   .timelineConnector {
     display: none;
   }
-  
+
   .experienceCard.left,
   .experienceCard.right {
     margin: 0 auto;
   }
-  
+
   .cardContent {
     padding: 2rem 1.5rem;
   }
-  
+
   .cardHeader {
     flex-direction: column;
     align-items: flex-start;
     gap: 1rem;
   }
-  
+
   .actionButtons {
     flex-direction: column;
     align-items: stretch;
   }
-  
+
   .mentorInfo {
     margin-left: 0;
     justify-content: center;
   }
-  
+
   .experienceSummary {
     gap: 2rem;
   }
-  
+
   .summaryNumber {
     font-size: 2.5rem;
   }
@@ -622,33 +638,33 @@
   .sectionTitle {
     font-size: 2.2rem;
   }
-  
+
   .cardContent {
     padding: 1.5rem;
   }
-  
+
   .company {
     font-size: 1.4rem;
   }
-  
+
   .timelineInfo {
     flex-direction: column;
     gap: 0.5rem;
   }
-  
+
   .experienceSummary {
     flex-direction: column;
     gap: 1.5rem;
   }
-  
+
   .modalContent {
     margin: 1rem;
   }
-  
+
   .modalHeader {
     padding: 1.5rem 1.5rem 1rem;
   }
-  
+
   .certificateImage {
     padding: 1.5rem;
   }

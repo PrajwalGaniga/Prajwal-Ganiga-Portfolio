@@ -1,124 +1,92 @@
-// src/components/CustomCursor.jsx
-import React, { useState, useEffect } from 'react';
+// src/components/CustomCursor.jsx — Physics-based, zero re-render cursor
+import { useEffect, useRef } from 'react';
+import { motion, useMotionValue, useSpring } from 'framer-motion';
 import styles from './CustomCursor.module.css';
 
 function CustomCursor() {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [hidden, setHidden] = useState(false);
-  const [isPointer, setIsPointer] = useState(false);
-  const [isClicking, setIsClicking] = useState(false);
-  const [trail, setTrail] = useState([]);
+  const dotRef = useRef(null);
+  const isHovered = useRef(false);
+  const isClicking = useRef(false);
+  const ringRef = useRef(null);
+
+  // Raw mouse position for dot (no spring — snaps perfectly)
+  const rawX = useMotionValue(0);
+  const rawY = useMotionValue(0);
+
+  // Spring-interpolated position for ring (lags behind)
+  const springConfig = { stiffness: 200, damping: 28, mass: 0.6 };
+  const ringX = useSpring(rawX, springConfig);
+  const ringY = useSpring(rawY, springConfig);
 
   useEffect(() => {
-    const handleMouseMove = (e) => {
-      setPosition({ x: e.clientX, y: e.clientY });
-      
-      // Add to trail for particles effect
-      setTrail(prev => [...prev.slice(-4), { x: e.clientX, y: e.clientY, id: Date.now() }]);
+    // Skip on touch devices
+    if (window.matchMedia('(pointer: coarse)').matches) return;
+
+    const onMouseMove = (e) => {
+      rawX.set(e.clientX);
+      rawY.set(e.clientY);
     };
 
-    const handleMouseLeave = () => {
-      setHidden(true);
-    };
-
-    const handleMouseEnter = () => {
-      setHidden(false);
-    };
-
-    const handleMouseDown = () => {
-      setIsClicking(true);
-      setTimeout(() => setIsClicking(false), 150);
-    };
-
-    const handleMouseUp = () => {
-      setIsClicking(false);
-    };
-
-    const handleMouseOver = (e) => {
-      const target = e.target;
-      if (target.tagName === 'A' || 
-          target.tagName === 'BUTTON' || 
-          target.closest('a, button') ||
-          target.hasAttribute('data-cursor-pointer')) {
-        setIsPointer(true);
-      } else {
-        setIsPointer(false);
+    const onMouseDown = () => {
+      isClicking.current = true;
+      if (ringRef.current) {
+        ringRef.current.classList.add(styles.ringClicking);
+        ringRef.current.classList.remove(styles.ringHovered);
       }
     };
 
-    // Clean up trail particles
-    const trailCleanup = setInterval(() => {
-      setTrail(prev => prev.filter(point => Date.now() - point.id < 200));
-    }, 100);
+    const onMouseUp = () => {
+      isClicking.current = false;
+      if (ringRef.current) {
+        ringRef.current.classList.remove(styles.ringClicking);
+        if (isHovered.current) {
+          ringRef.current.classList.add(styles.ringHovered);
+        }
+      }
+    };
 
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseover', handleMouseOver);
-    document.addEventListener('mousedown', handleMouseDown);
-    document.addEventListener('mouseup', handleMouseUp);
-    document.body.addEventListener('mouseleave', handleMouseLeave);
-    document.body.addEventListener('mouseenter', handleMouseEnter);
+    const onMouseOver = (e) => {
+      const target = e.target?.closest('a, button, [data-cursor]');
+      if (target) {
+        isHovered.current = true;
+        if (ringRef.current && !isClicking.current) {
+          ringRef.current.classList.add(styles.ringHovered);
+        }
+        if (dotRef.current) dotRef.current.classList.add(styles.dotHovered);
+      } else {
+        isHovered.current = false;
+        if (ringRef.current) ringRef.current.classList.remove(styles.ringHovered);
+        if (dotRef.current) dotRef.current.classList.remove(styles.dotHovered);
+      }
+    };
+
+    window.addEventListener('mousemove', onMouseMove);
+    window.addEventListener('mousedown', onMouseDown);
+    window.addEventListener('mouseup', onMouseUp);
+    window.addEventListener('mouseover', onMouseOver);
 
     return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseover', handleMouseOver);
-      document.removeEventListener('mousedown', handleMouseDown);
-      document.removeEventListener('mouseup', handleMouseUp);
-      document.body.removeEventListener('mouseleave', handleMouseLeave);
-      document.body.removeEventListener('mouseenter', handleMouseEnter);
-      clearInterval(trailCleanup);
+      window.removeEventListener('mousemove', onMouseMove);
+      window.removeEventListener('mousedown', onMouseDown);
+      window.removeEventListener('mouseup', onMouseUp);
+      window.removeEventListener('mouseover', onMouseOver);
     };
-  }, []);
-
-  const cursorClasses = `${styles.cursor} 
-    ${hidden ? styles.hidden : ''} 
-    ${isPointer ? styles.pointer : ''} 
-    ${isClicking ? styles.clicking : ''}`;
-
-  const dotClasses = `${styles.dot} ${hidden ? styles.hidden : ''}`;
-  const auraClasses = `${styles.aura} ${isPointer ? styles.pointerAura : ''}`;
+  }, [rawX, rawY]);
 
   return (
     <>
-      {/* Trail Particles */}
-      {trail.map((point, index) => (
-        <div
-          key={point.id}
-          className={styles.trailParticle}
-          style={{
-            left: `${point.x}px`,
-            top: `${point.y}px`,
-            opacity: 1 - (index / trail.length),
-            transform: `scale(${0.3 + (index * 0.1)})`
-          }}
-        />
-      ))}
-      
-      {/* Outer Aura */}
-      <div 
-        className={auraClasses}
-        style={{ left: `${position.x}px`, top: `${position.y}px` }}
+      {/* Center dot — exact cursor position, no lag */}
+      <motion.div
+        ref={dotRef}
+        className={styles.dot}
+        style={{ x: rawX, y: rawY, translateX: '-50%', translateY: '-50%' }}
       />
-      
-      {/* Main Cursor */}
-      <div 
-        className={cursorClasses}
-        style={{ left: `${position.x}px`, top: `${position.y}px` }}
-      >
-        <div className={styles.cursorInner}>
-          <div className={styles.cursorSparkle}></div>
-        </div>
-      </div>
-      
-      {/* Center Dot */}
-      <div 
-        className={dotClasses}
-        style={{ left: `${position.x}px`, top: `${position.y}px` }}
-      />
-      
-      {/* Border Glow */}
-      <div 
-        className={styles.borderGlow}
-        style={{ left: `${position.x}px`, top: `${position.y}px` }}
+
+      {/* Outer ring — lags behind via spring physics */}
+      <motion.div
+        ref={ringRef}
+        className={styles.ring}
+        style={{ x: ringX, y: ringY, translateX: '-50%', translateY: '-50%' }}
       />
     </>
   );

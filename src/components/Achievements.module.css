@@ -3,7 +3,7 @@
 .achievementsSection {
   position: relative;
   padding: 120px 0;
-  background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+  background: var(--color-bg);
   overflow: hidden;
   min-height: 100vh;
 }
@@ -21,7 +21,7 @@
   left: 8%;
   width: 300px;
   height: 300px;
-  background: radial-gradient(circle, rgba(245, 158, 11, 0.1) 0%, transparent 70%);
+  background: radial-gradient(circle, var(--color-accent-glow) 0%, transparent 70%);
   border-radius: 50%;
   filter: blur(40px);
   animation: float 8s ease-in-out infinite;
@@ -33,7 +33,7 @@
   right: 8%;
   width: 350px;
   height: 350px;
-  background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 70%);
+  background: radial-gradient(circle, var(--color-accent-glow) 0%, transparent 70%);
   border-radius: 50%;
   filter: blur(40px);
   animation: float 10s ease-in-out infinite reverse;
@@ -52,8 +52,15 @@
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0px) scale(1); }
-  50% { transform: translateY(-20px) scale(1.05); }
+
+  0%,
+  100% {
+    transform: translateY(0px) scale(1);
+  }
+
+  50% {
+    transform: translateY(-20px) scale(1.05);
+  }
 }
 
 /* Container */
@@ -82,30 +89,28 @@
   margin-bottom: 2rem;
   font-size: 1rem;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--color-text);
 }
 
 .sectionTitle {
   font-size: 4rem;
   font-weight: 800;
-  color: white;
+  color: var(--color-text);
   line-height: 1.1;
   margin-bottom: 1.5rem;
   letter-spacing: -0.02em;
 }
 
 .gradientText {
-  background: linear-gradient(135deg, #f59e0b, #10b981, #3b82f6);
+  background: linear-gradient(135deg, var(--color-text), var(--color-text-secondary));
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  background-size: 200% 200%;
-  animation: gradientShift 3s ease infinite;
 }
 
 .sectionSubtitle {
   font-size: 1.3rem;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--color-text-secondary);
   max-width: 600px;
   margin: 0 auto 2rem;
   line-height: 1.6;
@@ -114,14 +119,21 @@
 .titleDivider {
   width: 120px;
   height: 4px;
-  background: linear-gradient(90deg, #f59e0b, #10b981);
+  background: linear-gradient(90deg, var(--color-text), var(--color-text-tertiary));
   margin: 0 auto;
   border-radius: 2px;
 }
 
 @keyframes gradientShift {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 /* Gallery Section */
@@ -133,13 +145,13 @@
 .galleryTitle {
   font-size: 2.5rem;
   font-weight: 700;
-  color: white;
+  color: var(--color-text);
   margin-bottom: 1rem;
 }
 
 .gallerySubtitle {
   font-size: 1.1rem;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--color-text-secondary);
   margin-bottom: 3rem;
 }
 
@@ -169,11 +181,11 @@
 }
 
 .galleryItem.academic:hover {
-  box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2);
+  box-shadow: var(--shadow-md);
 }
 
 .galleryItem.technical:hover {
-  box-shadow: 0 20px 40px rgba(16, 185, 129, 0.2);
+  box-shadow: var(--shadow-md);
 }
 
 .imageWrapper {
@@ -211,7 +223,7 @@
 
 .overlayContent {
   text-align: center;
-  color: white;
+  color: var(--color-text);
 }
 
 .overlayContent i {
@@ -231,7 +243,7 @@
 }
 
 .imageInfo h4 {
-  color: white;
+  color: var(--color-text);
   font-size: 1.1rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
@@ -242,13 +254,13 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--color-text-secondary);
   font-size: 0.9rem;
   font-weight: 500;
 }
 
 .imageCategory i {
-  color: #f59e0b;
+  color: var(--color-text);
 }
 
 /* Modal Styles */
@@ -281,7 +293,7 @@
   position: absolute;
   top: 1rem;
   right: 1rem;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.8);
   border: none;
   color: white;
   width: 40px;
@@ -313,7 +325,7 @@
 }
 
 .modalInfo h3 {
-  color: white;
+  color: var(--color-text);
   font-size: 1.5rem;
   font-weight: 600;
   margin-bottom: 1rem;
@@ -324,12 +336,12 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--color-text-secondary);
   font-size: 1rem;
 }
 
 .modalCategory i {
-  color: #f59e0b;
+  color: var(--color-text);
 }
 
 /* Achievements Grid */
@@ -371,15 +383,15 @@
 }
 
 .achievementCard.academic {
-  border-color: rgba(59, 130, 246, 0.3);
+  border-color: var(--color-border);
 }
 
 .achievementCard.technical {
-  border-color: rgba(16, 185, 129, 0.3);
+  border-color: var(--color-border);
 }
 
 .achievementCard.sports {
-  border-color: rgba(245, 158, 11, 0.3);
+  border-color: var(--color-border);
 }
 
 .cardGradient {
@@ -393,15 +405,15 @@
 }
 
 .achievementCard.academic .cardGradient {
-  background: linear-gradient(90deg, #3b82f6, #06b6d4);
+  background: linear-gradient(90deg, var(--color-text), var(--color-text-secondary));
 }
 
 .achievementCard.technical .cardGradient {
-  background: linear-gradient(90deg, #10b981, #059669);
+  background: linear-gradient(90deg, var(--color-text), var(--color-text-secondary));
 }
 
 .achievementCard.sports .cardGradient {
-  background: linear-gradient(90deg, #f59e0b, #d97706);
+  background: linear-gradient(90deg, var(--color-text), var(--color-text-secondary));
 }
 
 .cardGlow {
@@ -451,7 +463,7 @@
 
 .iconContainer i {
   font-size: 1.8rem;
-  color: #f59e0b;
+  color: var(--color-text);
 }
 
 .titleSection {
@@ -461,7 +473,7 @@
 .titleSection h3 {
   font-size: 1.5rem;
   font-weight: 700;
-  color: white;
+  color: var(--color-text);
   margin-bottom: 0.75rem;
   line-height: 1.2;
 }
@@ -473,13 +485,13 @@
 }
 
 .highlightTag {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--glass-bg);
   padding: 4px 10px;
   border-radius: 10px;
   font-size: 0.8rem;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
 }
 
 /* Achievement Stats */
@@ -503,13 +515,13 @@
 .statNumber {
   font-size: 1.5rem;
   font-weight: 800;
-  color: white;
+  color: var(--color-text);
   margin-bottom: 0.25rem;
 }
 
 .statLabel {
   font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--color-text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -529,13 +541,13 @@
   padding: 0.75rem;
   background: rgba(255, 255, 255, 0.03);
   border-radius: 8px;
-  border-left: 3px solid #10b981;
+  border-left: 3px solid var(--color-text);
 }
 
 .pointIcon {
   width: 20px;
   height: 20px;
-  background: rgba(16, 185, 129, 0.2);
+  background: var(--glass-bg);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -546,22 +558,22 @@
 
 .pointIcon i {
   font-size: 0.7rem;
-  color: #10b981;
+  color: var(--color-text);
 }
 
 .pointItem span {
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--color-text-secondary);
   line-height: 1.5;
   font-size: 0.95rem;
 }
 
 /* Expand Button */
 .expandBtn {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: var(--glass-bg);
+  border: 1px solid var(--color-border);
   border-radius: 12px;
   padding: 10px 20px;
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--color-text);
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -596,17 +608,13 @@
 .summaryNumber {
   font-size: 3rem;
   font-weight: 800;
-  color: white;
+  color: var(--color-text);
   margin-bottom: 0.5rem;
-  background: linear-gradient(135deg, #f59e0b, #10b981);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
 }
 
 .summaryLabel {
   font-size: 1rem;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--color-text-secondary);
   text-transform: uppercase;
   letter-spacing: 1px;
 }
@@ -616,47 +624,47 @@
   .achievementsSection {
     padding: 80px 0;
   }
-  
+
   .sectionTitle {
     font-size: 2.8rem;
   }
-  
+
   .galleryGrid {
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 1.5rem;
   }
-  
+
   .imageWrapper {
     height: 200px;
   }
-  
+
   .achievementsGrid {
     grid-template-columns: 1fr;
   }
-  
+
   .cardContent {
     padding: 2rem 1.5rem;
   }
-  
+
   .cardHeader {
     flex-direction: column;
     text-align: center;
     gap: 1rem;
   }
-  
+
   .achievementStats {
     flex-direction: column;
     gap: 1rem;
   }
-  
+
   .achievementsSummary {
     gap: 2rem;
   }
-  
+
   .summaryNumber {
     font-size: 2.5rem;
   }
-  
+
   .galleryTitle {
     font-size: 2rem;
   }
@@ -666,24 +674,24 @@
   .sectionTitle {
     font-size: 2.2rem;
   }
-  
+
   .galleryGrid {
     grid-template-columns: 1fr;
   }
-  
+
   .imageWrapper {
     height: 180px;
   }
-  
+
   .cardContent {
     padding: 1.5rem;
   }
-  
+
   .achievementsSummary {
     flex-direction: column;
     gap: 1.5rem;
   }
-  
+
   .modalContent {
     max-width: 95%;
     max-height: 95%;
@@ -695,7 +703,7 @@
   .achievementsGrid {
     grid-template-columns: repeat(3, 1fr);
   }
-  
+
   .galleryGrid {
     grid-template-columns: repeat(3, 1fr);
   }

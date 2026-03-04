@@ -3,7 +3,7 @@
 .educationSection {
   position: relative;
   padding: 120px 0;
-  background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+  background: var(--color-bg);
   overflow: hidden;
   min-height: 100vh;
   display: flex;
@@ -23,7 +23,7 @@
   left: 10%;
   width: 400px;
   height: 400px;
-  background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
+  background: radial-gradient(circle, var(--color-accent-glow) 0%, transparent 70%);
   border-radius: 50%;
   filter: blur(40px);
   animation: float 8s ease-in-out infinite;
@@ -35,7 +35,7 @@
   right: 10%;
   width: 300px;
   height: 300px;
-  background: radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 70%);
+  background: radial-gradient(circle, var(--color-accent-glow) 0%, transparent 70%);
   border-radius: 50%;
   filter: blur(40px);
   animation: float 10s ease-in-out infinite reverse;
@@ -44,7 +44,7 @@
 .gridPattern {
   position: absolute;
   inset: 0;
-  background-image: 
+  background-image:
     linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
   background-size: 50px 50px;
@@ -52,8 +52,15 @@
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0px) scale(1); }
-  50% { transform: translateY(-20px) scale(1.05); }
+
+  0%,
+  100% {
+    transform: translateY(0px) scale(1);
+  }
+
+  50% {
+    transform: translateY(-20px) scale(1.05);
+  }
 }
 
 /* Container */
@@ -82,30 +89,28 @@
   margin-bottom: 2rem;
   font-size: 1rem;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--color-text);
 }
 
 .sectionTitle {
   font-size: 4rem;
   font-weight: 800;
-  color: white;
+  color: var(--color-text);
   line-height: 1.1;
   margin-bottom: 1.5rem;
   letter-spacing: -0.02em;
 }
 
 .gradientText {
-  background: linear-gradient(135deg, #3b82f6, #8b5cf6, #ec4899);
+  background: linear-gradient(135deg, var(--color-text), var(--color-text-secondary));
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  background-size: 200% 200%;
-  animation: gradientShift 3s ease infinite;
 }
 
 .sectionSubtitle {
   font-size: 1.3rem;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--color-text-secondary);
   max-width: 600px;
   margin: 0 auto 2rem;
   line-height: 1.6;
@@ -114,14 +119,21 @@
 .titleDivider {
   width: 120px;
   height: 4px;
-  background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+  background: linear-gradient(90deg, var(--color-text), var(--color-text-tertiary));
   margin: 0 auto;
   border-radius: 2px;
 }
 
 @keyframes gradientShift {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 /* Timeline Container */
@@ -144,7 +156,7 @@
 .progressFill {
   width: 100%;
   height: 100%;
-  background: linear-gradient(180deg, #3b82f6, #8b5cf6);
+  background: var(--color-text);
   transform-origin: top;
   border-radius: 2px;
 }
@@ -192,10 +204,8 @@
 
 .educationCard.active {
   transform: scale(1.02);
-  border-color: rgba(59, 130, 246, 0.3);
-  box-shadow: 
-    0 20px 40px rgba(0, 0, 0, 0.3),
-    0 0 80px rgba(59, 130, 246, 0.1);
+  border-color: var(--color-border-active);
+  box-shadow: var(--shadow-md);
 }
 
 .cardGradient {
@@ -247,24 +257,24 @@
 .institution {
   font-size: 1.5rem;
   font-weight: 700;
-  color: white;
+  color: var(--color-text);
   margin-bottom: 0.5rem;
   line-height: 1.2;
 }
 
 .degree {
   font-size: 1.1rem;
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--color-text-secondary);
   margin: 0;
 }
 
 .currentBadge {
-  background: linear-gradient(135deg, #10b981, #059669);
+  background: var(--color-text);
   padding: 6px 12px;
   border-radius: 20px;
   font-size: 0.8rem;
   font-weight: 600;
-  color: white;
+  color: var(--color-bg);
   flex-shrink: 0;
 }
 
@@ -280,20 +290,22 @@
   flex-wrap: wrap;
 }
 
-.period, .duration {
+.period,
+.duration {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--color-text-secondary);
 }
 
-.calendarIcon, .clockIcon {
+.calendarIcon,
+.clockIcon {
   font-size: 1rem;
 }
 
 .description {
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--color-text-secondary);
   line-height: 1.6;
   margin-bottom: 1.5rem;
 }
@@ -305,12 +317,12 @@
 }
 
 .achievementTag {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--glass-bg);
   padding: 6px 12px;
   border-radius: 12px;
   font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.8);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
 }
 
 /* Card Footer */
@@ -320,7 +332,7 @@
 
 .progressIndicator {
   height: 2px;
-  background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+  background: var(--color-text);
   border-radius: 1px;
   margin-bottom: 1rem;
 }
@@ -329,7 +341,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: #3b82f6;
+  color: var(--color-text);
   font-weight: 600;
   font-size: 0.9rem;
   transition: gap 0.3s ease;
@@ -361,7 +373,7 @@
 .detailHeader h3 {
   font-size: 1.8rem;
   font-weight: 700;
-  color: white;
+  color: var(--color-text);
   margin: 0;
 }
 
@@ -379,24 +391,24 @@
 .statValue {
   font-size: 1.5rem;
   font-weight: 700;
-  color: white;
+  color: var(--color-text);
   margin-bottom: 0.5rem;
 }
 
 .statLabel {
   font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--color-text-secondary);
 }
 
 .detailContent p {
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--color-text-secondary);
   line-height: 1.7;
   font-size: 1.1rem;
   margin-bottom: 2rem;
 }
 
 .skillsGained h4 {
-  color: white;
+  color: var(--color-text);
   font-size: 1.2rem;
   margin-bottom: 1rem;
 }
@@ -408,9 +420,9 @@
 }
 
 .skillTag {
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.2));
-  border: 1px solid rgba(59, 130, 246, 0.3);
-  color: rgba(255, 255, 255, 0.9);
+  background: var(--glass-bg);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
   padding: 8px 16px;
   border-radius: 12px;
   font-size: 0.9rem;
@@ -424,17 +436,17 @@
     grid-template-columns: 1fr;
     gap: 2.5rem;
   }
-  
+
   .educationCard:nth-child(odd) {
     margin-right: auto;
     margin-left: 0;
   }
-  
+
   .educationCard:nth-child(even) {
     margin-left: auto;
     margin-right: 0;
   }
-  
+
   .progressLine {
     left: 50%;
   }
@@ -444,7 +456,7 @@
   .sectionTitle {
     font-size: 4.5rem;
   }
-  
+
   .cardsContainer {
     gap: 3rem;
   }
@@ -454,42 +466,42 @@
   .educationSection {
     padding: 80px 0;
   }
-  
+
   .sectionTitle {
     font-size: 2.8rem;
   }
-  
+
   .sectionSubtitle {
     font-size: 1.1rem;
   }
-  
+
   .progressLine {
     display: none;
   }
-  
+
   .cardContent {
     padding: 2rem 1.5rem;
   }
-  
+
   .cardHeader {
     flex-direction: column;
     text-align: center;
     gap: 1rem;
   }
-  
+
   .timelineInfo {
     justify-content: center;
   }
-  
+
   .detailHeader {
     flex-direction: column;
     text-align: center;
   }
-  
+
   .detailStats {
     justify-content: center;
   }
-  
+
   .detailView {
     padding: 2rem 1.5rem;
   }
@@ -500,19 +512,19 @@
   .sectionTitle {
     font-size: 2.2rem;
   }
-  
+
   .educationCard {
     margin: 0 10px;
   }
-  
+
   .cardContent {
     padding: 1.5rem;
   }
-  
+
   .institution {
     font-size: 1.3rem;
   }
-  
+
   .detailStats {
     flex-direction: column;
     gap: 1rem;
